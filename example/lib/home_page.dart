@@ -12,6 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _counter = 0;
+  final PageController _pageController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +20,31 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Progress(
+      body: Column(children: [
+        Progress(
           currentStep: _counter,
+          controller: _pageController,
+          onStepChanged: (index){
+            print('on step changed: $index');
+          },
         ),
-      ),
+        Expanded(
+          child: PageView(
+            controller: _pageController,
+            children: [
+              Container(
+                color: Colors.amber,
+              ),
+              Container(
+                color: Colors.blueGrey,
+              ),
+              Container(
+                color: Colors.redAccent,
+              ),
+            ],
+          ),
+        ),
+      ]),
       floatingActionButton: Align(
         alignment: Alignment.bottomCenter,
         child: Row(

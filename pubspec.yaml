@@ -1,8 +1,9 @@
 name: step_progress
 description: A progress widget for showing proccess completed step by step.
 version: 0.0.1
-author:
-homepage:
+author: Taleb Rafiepour <taleb.r75@gmail.com>
+homepage: https://github.com/TalebRafiepour/step-progress.git
+issue_tracker: https://github.com/TalebRafiepour/step-progress/issues
 
 environment:
   sdk: ">=2.12.1 <3.0.0"
@@ -18,3 +19,4 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  uses-material-design: true

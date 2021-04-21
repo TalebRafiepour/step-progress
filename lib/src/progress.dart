@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'step_progress_painter.dart';
 
+typedef OnStepChanged = void Function(int currentIndex);
+
 class Progress extends StatefulWidget {
   final int currentStep;
   final int totalStep;
@@ -14,6 +16,8 @@ class Progress extends StatefulWidget {
   final double height;
   final EdgeInsets margin, padding;
   final bool? ltr;
+  final PageController? controller;
+  final OnStepChanged? onStepChanged;
 
   const Progress(
       {Key? key,
@@ -28,7 +32,9 @@ class Progress extends StatefulWidget {
       this.height = kToolbarHeight,
       this.margin = EdgeInsets.zero,
       this.padding = EdgeInsets.zero,
-      this.ltr})
+      this.ltr,
+      this.controller,
+      this.onStepChanged})
       : assert(totalStep >= 2, 'totalSteps must be 2 at least.'),
         assert(currentStep >= 0 && currentStep < totalStep,
             'currentStep must be between 0 and ${totalStep - 1}'),
@@ -41,6 +47,7 @@ class Progress extends StatefulWidget {
 class _ProgressState extends State<Progress>
     with SingleTickerProviderStateMixin {
   int _currentStep = 0;
+  int _totalStep = 2;
   late AnimationController _animationController;
   late Animation<double> _progressAnimation;
   late Animation<double> _stepAnimation;
@@ -59,6 +66,18 @@ class _ProgressState extends State<Progress>
         CurvedAnimation(
             parent: _animationController,
             curve: Interval(0.25, 1.0, curve: Curves.easeOut)));
+    widget.controller?.addListener(() {
+      var page = widget.controller!.page!.round();
+      if (page != _currentStep && page >= 0 && page < widget.totalStep) {
+        _currentStep = page;
+        _animateProgress();
+      }
+    });
+    _animationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        widget.onStepChanged?.call(_currentStep);
+      }
+    });
     super.initState();
   }
 
