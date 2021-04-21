@@ -12,6 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _counter = 0;
+  int _totalStep = 4;
   final PageController _pageController = PageController();
 
   @override
@@ -24,7 +25,12 @@ class _HomePageState extends State<HomePage> {
         Progress(
           currentStep: _counter,
           controller: _pageController,
-          onStepChanged: (index){
+          totalStep: _totalStep,
+          strokeColor: Color(0xff04A7B8),
+          valueColor: Colors.white,
+          backgroundColor: Color(0xff04A7B5),
+          tickColor: Color(0xff04A7B5),
+          onStepChanged: (index) {
             print('on step changed: $index');
           },
         ),
@@ -33,13 +39,16 @@ class _HomePageState extends State<HomePage> {
             controller: _pageController,
             children: [
               Container(
-                color: Colors.amber,
+                color: Colors.white,
               ),
               Container(
-                color: Colors.blueGrey,
+                color: Colors.grey[100],
               ),
               Container(
-                color: Colors.redAccent,
+                color: Colors.grey[300],
+              ),
+              Container(
+                color: Colors.grey[500],
               ),
             ],
           ),
@@ -52,24 +61,26 @@ class _HomePageState extends State<HomePage> {
           children: [
             FloatingActionButton(
               onPressed: () {
-                setState(() {
-                  _counter++;
-                });
+                if(_counter > 0)
+                  setState(() {
+                    _counter--;
+                  });
               },
-              tooltip: 'Next',
-              child: Text("Next"),
+              tooltip: 'Back',
+              child: Text("Back"),
             ),
             SizedBox(
               width: 30,
             ),
             FloatingActionButton(
               onPressed: () {
-                setState(() {
-                  _counter--;
-                });
+                if(_counter < _totalStep-1)
+                  setState(() {
+                    _counter++;
+                  });
               },
-              tooltip: 'Back',
-              child: Text("Back"),
+              tooltip: 'Next',
+              child: Text("Next"),
             ),
           ],
         ),
