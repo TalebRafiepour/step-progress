@@ -23,7 +23,7 @@ class StepProgressPainter extends CustomPainter {
       this.currentStep = 1,
       this.progressPercent = 0.0,
       this.stepScale = 1.0,
-      this.strokeColor = Colors.blue,
+      this.strokeColor = Colors.purple,
       this.valueColor = Colors.blueGrey,
       this.defaultColor = const Color(0xFFBBDEFB),
       this.tickColor = Colors.white,
