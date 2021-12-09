@@ -4,9 +4,34 @@ import 'step_progress_painter.dart';
 
 typedef OnStepChanged = void Function(int currentIndex);
 
-class Progress extends StatefulWidget {
-  final int currentStep;
+class StepProgressController extends ChangeNotifier {
+  final int initialStep;
   final int totalStep;
+
+  StepProgressController({this.initialStep = 0, this.totalStep = 2})
+      : assert(totalStep >= 2, 'totalSteps must be 2 at least.'),
+        assert(initialStep >= 0 && initialStep < totalStep,
+            'initialStep must be between 0 and ${totalStep - 1}');
+
+  late int currentStep = initialStep;
+
+  void nextStep() {
+    if (currentStep < totalStep) {
+      currentStep++;
+      notifyListeners();
+    }
+  }
+
+  void prevStep() {
+    if (currentStep > 0) {
+      currentStep--;
+      notifyListeners();
+    }
+  }
+}
+
+class Progress extends StatefulWidget {
+  final StepProgressController stepProgressController;
   final Color backgroundColor;
   final Color strokeColor;
   final Color tickColor;
@@ -16,13 +41,11 @@ class Progress extends StatefulWidget {
   final double height;
   final EdgeInsets margin, padding;
   final bool? ltr;
-  final PageController? controller;
   final OnStepChanged? onStepChanged;
 
   const Progress(
       {Key? key,
-      this.currentStep = 0,
-      this.totalStep = 2,
+      required this.stepProgressController,
       this.backgroundColor = Colors.transparent,
       this.strokeColor = Colors.blue,
       this.tickColor = Colors.white,
@@ -33,12 +56,8 @@ class Progress extends StatefulWidget {
       this.margin = EdgeInsets.zero,
       this.padding = EdgeInsets.zero,
       this.ltr,
-      this.controller,
       this.onStepChanged})
-      : assert(totalStep >= 2, 'totalSteps must be 2 at least.'),
-        assert(currentStep >= 0 && currentStep < totalStep,
-            'currentStep must be between 0 and ${totalStep - 1}'),
-        super(key: key);
+      : super(key: key);
 
   @override
   _ProgressState createState() => _ProgressState();
@@ -46,8 +65,6 @@ class Progress extends StatefulWidget {
 
 class _ProgressState extends State<Progress>
     with SingleTickerProviderStateMixin {
-  int _currentStep = 0;
-  int _totalStep = 2;
   late AnimationController _animationController;
   late Animation<double> _progressAnimation;
   late Animation<double> _stepAnimation;
@@ -55,7 +72,6 @@ class _ProgressState extends State<Progress>
 
   @override
   void initState() {
-    _currentStep = widget.currentStep;
     _animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 300));
     _progressTween = Tween<double>(begin: 0.0, end: _getEndProgress());
@@ -66,26 +82,15 @@ class _ProgressState extends State<Progress>
         CurvedAnimation(
             parent: _animationController,
             curve: Interval(0.25, 1.0, curve: Curves.easeOut)));
-    widget.controller?.addListener(() {
-      var page = widget.controller!.page!.round();
-      if (page != _currentStep && page >= 0 && page < widget.totalStep) {
-        _currentStep = page;
-        _animateProgress();
-      }
+    widget.stepProgressController.addListener(() {
+      _animateProgress();
     });
     _animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        widget.onStepChanged?.call(_currentStep);
+        widget.onStepChanged?.call(widget.stepProgressController.currentStep);
       }
     });
     super.initState();
-  }
-
-  @override
-  void didUpdateWidget(covariant Progress oldWidget) {
-    this._currentStep = widget.currentStep;
-    _animateProgress();
-    super.didUpdateWidget(oldWidget);
   }
 
   void _animateProgress() {
@@ -97,7 +102,8 @@ class _ProgressState extends State<Progress>
   }
 
   double _getEndProgress() {
-    double percent = _currentStep / (widget.totalStep - 1);
+    double percent = widget.stepProgressController.currentStep /
+        (widget.stepProgressController.totalStep - 1);
     if (percent > 1)
       return 1;
     else if (percent < 0)
@@ -122,8 +128,8 @@ class _ProgressState extends State<Progress>
             painter: StepProgressPainter(
                 progressPercent: _progressAnimation.value,
                 stepScale: _stepAnimation.value,
-                totalStep: widget.totalStep,
-                currentStep: _currentStep,
+                totalStep: widget.stepProgressController.totalStep,
+                currentStep: widget.stepProgressController.currentStep,
                 strokeColor: widget.strokeColor,
                 valueColor: widget.valueColor,
                 defaultColor: widget.defaultColor,

@@ -1,34 +1,32 @@
 <img src="https://github.com/TalebRafiepour/showcases/blob/main/step-progress/step-progress.gif" alt="StepProgress" style="max-width:100%;">
 
+#Example One
+
 ```dart
 import 'package:flutter/material.dart';
 import 'package:step_progress/step_progress.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
+class ExampleOne extends StatefulWidget {
+  ExampleOne({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _ExampleOneState createState() => _ExampleOneState();
 }
 
-class _HomePageState extends State<HomePage> {
-  int _counter = 0;
-  int _totalStep = 4;
+class _ExampleOneState extends State<ExampleOne> {
   final PageController _pageController = PageController();
+  final StepProgressController _stepProgressController =
+      StepProgressController(initialStep: 0, totalStep: 4);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('Example One'),
       ),
       body: Column(children: [
         Progress(
-          currentStep: _counter,
-          controller: _pageController,
-          totalStep: _totalStep,
+          stepProgressController: _stepProgressController,
           strokeColor: Color(0xff04A7B8),
           valueColor: Colors.white,
           backgroundColor: Color(0xff04A7B5),
@@ -64,10 +62,10 @@ class _HomePageState extends State<HomePage> {
           children: [
             FloatingActionButton(
               onPressed: () {
-                if(_counter > 0)
-                  setState(() {
-                    _counter--;
-                  });
+                _pageController.previousPage(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeInCubic);
+                _stepProgressController.prevStep();
               },
               tooltip: 'Back',
               child: Text("Back"),
@@ -77,15 +75,75 @@ class _HomePageState extends State<HomePage> {
             ),
             FloatingActionButton(
               onPressed: () {
-                if(_counter < _totalStep-1)
-                  setState(() {
-                    _counter++;
-                  });
+                _pageController.nextPage(
+                    duration: Duration(milliseconds: 300),
+                    curve: Curves.easeInCubic);
+                _stepProgressController.nextStep();
               },
               tooltip: 'Next',
               child: Text("Next"),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+```
+
+#Example Two
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:step_progress/step_progress.dart';
+
+class ExampleTwo extends StatefulWidget {
+  ExampleTwo({Key? key}) : super(key: key);
+
+  @override
+  _ExampleTwoState createState() => _ExampleTwoState();
+}
+
+class _ExampleTwoState extends State<ExampleTwo> {
+  final StepProgressController _stepProgressController =
+  StepProgressController(totalStep: 10);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Example Two'),
+        bottom: PreferredSize(
+          preferredSize: Size(double.infinity, 50),
+          child: Progress(
+            stepProgressController: _stepProgressController,
+          ),
+        ),
+      ),
+      body: Container(
+        child: Center(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _stepProgressController.prevStep();
+                    });
+                  },
+                  child: Text("Prev")),
+              SizedBox(
+                width: 30,
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _stepProgressController.nextStep();
+                    });
+                  },
+                  child: Text("Next")),
+            ],
+          ),
         ),
       ),
     );
