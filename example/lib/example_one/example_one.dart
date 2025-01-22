@@ -68,12 +68,14 @@ class _ExampleOneState extends State<ExampleOne> {
                 _stepProgressController.prevStep();
               },
               tooltip: 'Back',
+              heroTag: 'Back',
               child: const Text('Back'),
             ),
             const SizedBox(
               width: 30,
             ),
             FloatingActionButton(
+              heroTag: 'Next',
               onPressed: () {
                 _pageController.nextPage(
                   duration: const Duration(milliseconds: 300),

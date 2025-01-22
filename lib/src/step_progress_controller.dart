@@ -16,7 +16,7 @@ class StepProgressController extends ChangeNotifier {
   late int currentStep = initialStep;
 
   void nextStep() {
-    if (currentStep < totalStep) {
+    if (currentStep + 1 < totalStep) {
       currentStep++;
       notifyListeners();
     }
