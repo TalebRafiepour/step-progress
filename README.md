@@ -1,6 +1,10 @@
-<img src="https://github.com/TalebRafiepour/showcases/blob/main/step-progress/step-progress.gif" alt="StepProgress" style="max-width:100%;">
+# StepProgress
+StepProgress is a lightweight package designed to display step progress indicators for completing multi-step tasks in a user interface. It provides customizable widgets to visually represent the progress of a task, making it easier for users to understand their current position and the steps remaining.
 
-#Example One
+## Showcase
+![step_progress_demo](https://github.com/TalebRafiepour/showcase/blob/main/step_progress/step_progress.gif?raw=true)
+
+## Example One
 
 ```dart
 import 'package:flutter/material.dart';
@@ -91,7 +95,7 @@ class _ExampleOneState extends State<ExampleOne> {
 }
 ```
 
-#Example Two
+## Example Two
 
 ```dart
 import 'package:flutter/material.dart';

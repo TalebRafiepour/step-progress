@@ -1,5 +1,5 @@
 name: step_progress
-description: A Flutter widget for displaying step-by-step progress.
+description: A lightweight package for displaying customizable step progress indicators in a user interface.
 version: 0.0.2
 homepage: https://github.com/TalebRafiepour/step-progress
 issue_tracker: https://github.com/TalebRafiepour/step-progress/issues
