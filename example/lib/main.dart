@@ -1,13 +1,14 @@
+import 'package:example/example_one/example_one.dart';
+import 'package:example/example_two/example_two.dart';
 import 'package:flutter/material.dart';
 
-import 'example_one/example_one.dart';
-import 'example_two/example_two.dart';
-
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,13 +16,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,18 +32,28 @@ class HomePage extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => ExampleOne()));
-                },
-                child: Text('Example One')),
-            SizedBox(height: 20),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const ExampleOne(),
+                  ),
+                );
+              },
+              child: const Text('Example One'),
+            ),
+            const SizedBox(height: 20),
             ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => ExampleTwo()));
-                },
-                child: Text('Example Two')),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const ExampleTwo(),
+                  ),
+                );
+              },
+              child: const Text('Example Two'),
+            ),
           ],
         ),
       ),

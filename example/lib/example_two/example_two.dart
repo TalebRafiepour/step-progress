@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:step_progress/step_progress.dart';
 
 class ExampleTwo extends StatefulWidget {
-  ExampleTwo({Key? key}) : super(key: key);
+  const ExampleTwo({super.key});
 
   @override
   _ExampleTwoState createState() => _ExampleTwoState();
@@ -16,38 +16,34 @@ class _ExampleTwoState extends State<ExampleTwo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Example Two'),
+        title: const Text('Example Two'),
         bottom: PreferredSize(
-          preferredSize: Size(double.infinity, 50),
+          preferredSize: const Size(double.infinity, 50),
           child: Progress(
             stepProgressController: _stepProgressController,
           ),
         ),
       ),
-      body: Container(
-        child: Center(
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _stepProgressController.prevStep();
-                    });
-                  },
-                  child: Text("Prev")),
-              SizedBox(
-                width: 30,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _stepProgressController.nextStep();
-                    });
-                  },
-                  child: Text("Next")),
-            ],
-          ),
+      body: Center(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                setState(_stepProgressController.prevStep);
+              },
+              child: const Text('Prev'),
+            ),
+            const SizedBox(
+              width: 30,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setState(_stepProgressController.nextStep);
+              },
+              child: const Text('Next'),
+            ),
+          ],
         ),
       ),
     );

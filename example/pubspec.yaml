@@ -1,18 +1,16 @@
 name: example
-description: A new Flutter project.
-
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+description: A demo project for showcasing the capabilities of the StepProgress package.
+publish_to: none
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: ^3.6.1
 
 dependencies:
+  cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
-
-  cupertino_icons: ^1.0.2
   step_progress:
     path: ../
 

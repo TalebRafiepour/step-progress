@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
-import 'step_progress_painter.dart';
+import 'package:step_progress/src/step_progress_painter.dart';
 
 typedef OnStepChanged = void Function(int currentIndex);
 
 class StepProgressController extends ChangeNotifier {
-  final int initialStep;
-  final int totalStep;
-
   StepProgressController({this.initialStep = 0, this.totalStep = 2})
       : assert(totalStep >= 2, 'totalSteps must be 2 at least.'),
-        assert(initialStep >= 0 && initialStep < totalStep,
-            'initialStep must be between 0 and ${totalStep - 1}');
+        assert(
+          initialStep >= 0 && initialStep < totalStep,
+          'initialStep must be between 0 and ${totalStep - 1}',
+        );
+
+  final int initialStep;
+  final int totalStep;
 
   late int currentStep = initialStep;
 
@@ -31,6 +33,22 @@ class StepProgressController extends ChangeNotifier {
 }
 
 class Progress extends StatefulWidget {
+  const Progress({
+    required this.stepProgressController,
+    super.key,
+    this.backgroundColor = Colors.transparent,
+    this.strokeColor = Colors.blue,
+    this.tickColor = Colors.white,
+    this.valueColor = Colors.blueGrey,
+    this.defaultColor = const Color(0xFFBBDEFB),
+    this.width = double.infinity,
+    this.height = kToolbarHeight,
+    this.margin = EdgeInsets.zero,
+    this.padding = EdgeInsets.zero,
+    this.ltr,
+    this.onStepChanged,
+  });
+
   final StepProgressController stepProgressController;
   final Color backgroundColor;
   final Color strokeColor;
@@ -39,25 +57,10 @@ class Progress extends StatefulWidget {
   final Color defaultColor;
   final double width;
   final double height;
-  final EdgeInsets margin, padding;
+  final EdgeInsets margin;
+  final EdgeInsets padding;
   final bool? ltr;
   final OnStepChanged? onStepChanged;
-
-  const Progress(
-      {Key? key,
-      required this.stepProgressController,
-      this.backgroundColor = Colors.transparent,
-      this.strokeColor = Colors.blue,
-      this.tickColor = Colors.white,
-      this.valueColor = Colors.blueGrey,
-      this.defaultColor = const Color(0xFFBBDEFB),
-      this.width = double.infinity,
-      this.height = kToolbarHeight,
-      this.margin = EdgeInsets.zero,
-      this.padding = EdgeInsets.zero,
-      this.ltr,
-      this.onStepChanged})
-      : super(key: key);
 
   @override
   _ProgressState createState() => _ProgressState();
@@ -73,18 +76,23 @@ class _ProgressState extends State<Progress>
   @override
   void initState() {
     _animationController = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 300));
-    _progressTween = Tween<double>(begin: 0.0, end: _getEndProgress());
-    _progressAnimation = _progressTween.animate(CurvedAnimation(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+    _progressTween = Tween<double>(begin: 0, end: _getEndProgress());
+    _progressAnimation = _progressTween.animate(
+      CurvedAnimation(
         parent: _animationController,
-        curve: Interval(0.0, 0.3, curve: Curves.easeIn)));
-    _stepAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(
-            parent: _animationController,
-            curve: Interval(0.25, 1.0, curve: Curves.easeOut)));
-    widget.stepProgressController.addListener(() {
-      _animateProgress();
-    });
+        curve: const Interval(0, 0.3, curve: Curves.easeIn),
+      ),
+    );
+    _stepAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: const Interval(0.25, 1, curve: Curves.easeOut),
+      ),
+    );
+    widget.stepProgressController.addListener(_animateProgress);
     _animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         widget.onStepChanged?.call(widget.stepProgressController.currentStep);
@@ -94,7 +102,7 @@ class _ProgressState extends State<Progress>
   }
 
   void _animateProgress() {
-    double newPercent = _getEndProgress();
+    final double newPercent = _getEndProgress();
     _progressTween.begin = _progressTween.end;
     _animationController.reset();
     _progressTween.end = newPercent;
@@ -102,14 +110,15 @@ class _ProgressState extends State<Progress>
   }
 
   double _getEndProgress() {
-    double percent = widget.stepProgressController.currentStep /
+    final double percent = widget.stepProgressController.currentStep /
         (widget.stepProgressController.totalStep - 1);
-    if (percent > 1)
+    if (percent > 1) {
       return 1;
-    else if (percent < 0)
+    } else if (percent < 0) {
       return 0;
-    else
+    } else {
       return percent;
+    }
   }
 
   @override
@@ -126,16 +135,17 @@ class _ProgressState extends State<Progress>
         builder: (_, __) {
           return CustomPaint(
             painter: StepProgressPainter(
-                progressPercent: _progressAnimation.value,
-                stepScale: _stepAnimation.value,
-                totalStep: widget.stepProgressController.totalStep,
-                currentStep: widget.stepProgressController.currentStep,
-                strokeColor: widget.strokeColor,
-                valueColor: widget.valueColor,
-                defaultColor: widget.defaultColor,
-                tickColor: widget.tickColor,
-                ltr: widget.ltr ??
-                    Directionality.of(context) == TextDirection.ltr),
+              progressPercent: _progressAnimation.value,
+              stepScale: _stepAnimation.value,
+              totalStep: widget.stepProgressController.totalStep,
+              currentStep: widget.stepProgressController.currentStep,
+              strokeColor: widget.strokeColor,
+              valueColor: widget.valueColor,
+              defaultColor: widget.defaultColor,
+              tickColor: widget.tickColor,
+              ltr:
+                  widget.ltr ?? Directionality.of(context) == TextDirection.ltr,
+            ),
           );
         },
       ),

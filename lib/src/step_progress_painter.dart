@@ -1,11 +1,29 @@
 import 'package:flutter/material.dart';
 
 class StepProgressPainter extends CustomPainter {
+  StepProgressPainter({
+    this.totalStep = 2,
+    this.currentStep = 1,
+    this.progressPercent = 0.0,
+    this.stepScale = 1.0,
+    this.strokeColor = Colors.purple,
+    this.valueColor = Colors.blueGrey,
+    this.defaultColor = const Color(0xFFBBDEFB),
+    this.tickColor = Colors.white,
+    this.strokeWidth = 2,
+    this.lineHeight = 4,
+    this.ltr = true,
+  }) : assert(
+          currentStep < totalStep,
+          'currentStep must be lower than totalStep.',
+        );
+
   final double strokeWidth;
   final double lineHeight;
   final double progressPercent;
   final double stepScale;
-  final int totalStep, currentStep;
+  final int totalStep;
+  final int currentStep;
   final Color strokeColor;
   final Color valueColor;
   final Color defaultColor;
@@ -18,24 +36,8 @@ class StepProgressPainter extends CustomPainter {
   late double _stepOuterRippleRadius;
   late double _tickRadius;
 
-  StepProgressPainter(
-      {this.totalStep = 2,
-      this.currentStep = 1,
-      this.progressPercent = 0.0,
-      this.stepScale = 1.0,
-      this.strokeColor = Colors.purple,
-      this.valueColor = Colors.blueGrey,
-      this.defaultColor = const Color(0xFFBBDEFB),
-      this.tickColor = Colors.white,
-      this.strokeWidth = 2,
-      this.lineHeight = 4,
-      this.ltr = true})
-      : assert(currentStep < totalStep,
-            'currentStep must be lower than totalStep.');
-
   @override
   void paint(Canvas canvas, Size size) {
-    print('progress: $progressPercent');
     _stepRadius = (size.height / 4) - strokeWidth / 2;
     _stepInnerRippleRadius = _stepRadius * 1.5;
     _stepOuterRippleRadius = _stepRadius * 2;
@@ -51,9 +53,9 @@ class StepProgressPainter extends CustomPainter {
     _drawFillProgress(canvas, size);
 
     for (int i = 0; i < totalStep; i++) {
-      double dx = fullProgressRect.left +
+      final double dx = fullProgressRect.left +
           (i * (fullProgressRect.width / (totalStep - 1)));
-      Offset center = Offset(dx, fullProgressRect.center.dy);
+      final Offset center = Offset(dx, fullProgressRect.center.dy);
       _drawEmptyCircle(canvas, center);
     }
 
@@ -61,20 +63,27 @@ class StepProgressPainter extends CustomPainter {
 
     ///draw first step check
     if (ltr) {
-      Offset center = Offset(fullProgressRect.left, fullProgressRect.center.dy);
+      final Offset center = Offset(
+        fullProgressRect.left,
+        fullProgressRect.center.dy,
+      );
       _drawCircleWithTick(canvas, center, _stepRadius, _tickRadius);
       for (int i = 1; i < currentStep; i++) {
-        Offset center = Offset(fullProgressRect.left + (i * stepMargin),
-            fullProgressRect.center.dy);
+        final Offset center = Offset(
+          fullProgressRect.left + (i * stepMargin),
+          fullProgressRect.center.dy,
+        );
         _drawCircleWithTick(canvas, center, _stepRadius, _tickRadius);
       }
     } else {
-      Offset center =
+      final Offset center =
           Offset(fullProgressRect.right, fullProgressRect.center.dy);
       _drawCircleWithTick(canvas, center, _stepRadius, _tickRadius);
       for (int i = 1; i < currentStep; i++) {
-        Offset center = Offset(fullProgressRect.right - (i * stepMargin),
-            fullProgressRect.center.dy);
+        final Offset center = Offset(
+          fullProgressRect.right - (i * stepMargin),
+          fullProgressRect.center.dy,
+        );
         _drawCircleWithTick(canvas, center, _stepRadius, _tickRadius);
       }
     }
@@ -107,19 +116,20 @@ class StepProgressPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
       ..style = PaintingStyle.fill;
-    var fullProgressRect = _getProgressRect(size);
+    final fullProgressRect = _getProgressRect(size);
     canvas.drawRRect(
-        RRect.fromLTRBR(
-            ltr ? fullProgressRect.left : fullProgressRect.right,
-            fullProgressRect.top,
-            ltr
-                ? (fullProgressRect.left +
-                    fullProgressRect.width * progressPercent)
-                : (fullProgressRect.right -
-                    fullProgressRect.width * progressPercent),
-            fullProgressRect.bottom,
-            fullProgressRect.brRadius),
-        paint);
+      RRect.fromLTRBR(
+        ltr ? fullProgressRect.left : fullProgressRect.right,
+        fullProgressRect.top,
+        ltr
+            ? (fullProgressRect.left + fullProgressRect.width * progressPercent)
+            : (fullProgressRect.right -
+                fullProgressRect.width * progressPercent),
+        fullProgressRect.bottom,
+        fullProgressRect.brRadius,
+      ),
+      paint,
+    );
   }
 
   void _drawEmptyCircle(Canvas canvas, Offset center) {
@@ -136,7 +146,11 @@ class StepProgressPainter extends CustomPainter {
   }
 
   void _drawCircleWithTick(
-      Canvas canvas, Offset center, double stepRadius, double tickRadius) {
+    Canvas canvas,
+    Offset center,
+    double stepRadius,
+    double tickRadius,
+  ) {
     final fillPaint = Paint()
       ..color = valueColor
       ..style = PaintingStyle.fill;
@@ -149,17 +163,19 @@ class StepProgressPainter extends CustomPainter {
       ..strokeJoin = StrokeJoin.round
       ..style = PaintingStyle.stroke;
 
-    Path check = _getTickPath(center, tickRadius);
+    final Path check = _getTickPath(center, tickRadius);
     canvas.drawPath(check, tickPaint);
   }
 
   RRect _getProgressRect(Size size) {
     return RRect.fromRectAndRadius(
-        Rect.fromCenter(
-            center: Offset(size.width / 2, size.height / 2),
-            width: size.width - (2 * _stepOuterRippleRadius) - 2 * strokeWidth,
-            height: lineHeight),
-        Radius.circular(100));
+      Rect.fromCenter(
+        center: Offset(size.width / 2, size.height / 2),
+        width: size.width - (2 * _stepOuterRippleRadius) - 2 * strokeWidth,
+        height: lineHeight,
+      ),
+      const Radius.circular(100),
+    );
   }
 
   void _drawFinalTickCircle(Canvas canvas, Size size) {
@@ -169,43 +185,55 @@ class StepProgressPainter extends CustomPainter {
     Offset center;
     if (ltr) {
       center = Offset(
-          fullProgressRect.left +
-              ((currentStep) * (fullProgressRect.width / (totalStep - 1))),
-          fullProgressRect.center.dy);
+        fullProgressRect.left +
+            (currentStep * (fullProgressRect.width / (totalStep - 1))),
+        fullProgressRect.center.dy,
+      );
     } else {
       center = Offset(
-          fullProgressRect.right -
-              ((currentStep) * (fullProgressRect.width / (totalStep - 1))),
-          fullProgressRect.center.dy);
+        fullProgressRect.right -
+            (currentStep * (fullProgressRect.width / (totalStep - 1))),
+        fullProgressRect.center.dy,
+      );
     }
 
     ///draw ripple effect
     final innerRipplePaint = Paint()
       ..style = PaintingStyle.fill
-      ..color = valueColor.withOpacity(0.5);
+      ..color = valueColor.withValues(alpha: 0.5);
     canvas.drawCircle(
-        center, _stepInnerRippleRadius * stepScale, innerRipplePaint);
+      center,
+      _stepInnerRippleRadius * stepScale,
+      innerRipplePaint,
+    );
 
     final outerRipplePaint = Paint()
       ..style = PaintingStyle.stroke
-      ..color = valueColor.withOpacity(0.5)
+      ..color = valueColor.withValues(alpha: 0.5)
       ..strokeWidth = 2 * strokeWidth;
 
     canvas.drawCircle(
-        center, _stepOuterRippleRadius * stepScale, outerRipplePaint);
+      center,
+      _stepOuterRippleRadius * stepScale,
+      outerRipplePaint,
+    );
 
     ///draw step with tick mark
     _drawCircleWithTick(
-        canvas, center, _stepRadius * stepScale, _tickRadius * stepScale);
+      canvas,
+      center,
+      _stepRadius * stepScale,
+      _tickRadius * stepScale,
+    );
   }
 
   ///create path for a tick mark from a given point and radius
   Path _getTickPath(Offset center, double tickRadius) {
-    Path check = Path();
-    check..fillType = PathFillType.nonZero;
-    check.moveTo(center.dx - tickRadius, center.dy);
-    check.lineTo(center.dx, center.dy + tickRadius);
-    check.lineTo(center.dx + tickRadius, center.dy - tickRadius);
+    final Path check = Path()
+      ..fillType = PathFillType.nonZero
+      ..moveTo(center.dx - tickRadius, center.dy)
+      ..lineTo(center.dx, center.dy + tickRadius)
+      ..lineTo(center.dx + tickRadius, center.dy - tickRadius);
     return check;
   }
 
