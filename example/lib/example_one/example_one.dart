@@ -21,8 +21,8 @@ class _ExampleOneState extends State<ExampleOne> {
       ),
       body: Column(
         children: [
-          Progress(
-            stepProgressController: _stepProgressController,
+          StepProgress(
+            controller: _stepProgressController,
             strokeColor: const Color(0xff04A7B8),
             valueColor: Colors.white,
             backgroundColor: const Color(0xff04A7B5),

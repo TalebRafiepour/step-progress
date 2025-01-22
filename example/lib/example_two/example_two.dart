@@ -19,8 +19,8 @@ class _ExampleTwoState extends State<ExampleTwo> {
         title: const Text('Example Two'),
         bottom: PreferredSize(
           preferredSize: const Size(double.infinity, 50),
-          child: Progress(
-            stepProgressController: _stepProgressController,
+          child: StepProgress(
+            controller: _stepProgressController,
           ),
         ),
       ),

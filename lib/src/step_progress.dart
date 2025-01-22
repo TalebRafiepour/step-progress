@@ -1,72 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:step_progress/src/step_progress_controller.dart';
 
 import 'package:step_progress/src/step_progress_painter.dart';
+import 'package:step_progress/src/step_progress_style.dart';
 
 typedef OnStepChanged = void Function(int currentIndex);
 
-class StepProgressController extends ChangeNotifier {
-  StepProgressController({this.initialStep = 0, this.totalStep = 2})
-      : assert(totalStep >= 2, 'totalSteps must be 2 at least.'),
-        assert(
-          initialStep >= 0 && initialStep < totalStep,
-          'initialStep must be between 0 and ${totalStep - 1}',
-        );
-
-  final int initialStep;
-  final int totalStep;
-
-  late int currentStep = initialStep;
-
-  void nextStep() {
-    if (currentStep < totalStep) {
-      currentStep++;
-      notifyListeners();
-    }
-  }
-
-  void prevStep() {
-    if (currentStep > 0) {
-      currentStep--;
-      notifyListeners();
-    }
-  }
-}
-
-class Progress extends StatefulWidget {
-  const Progress({
-    required this.stepProgressController,
+class StepProgress extends StatefulWidget {
+  const StepProgress({
+    required this.controller,
     super.key,
-    this.backgroundColor = Colors.transparent,
-    this.strokeColor = Colors.blue,
-    this.tickColor = Colors.white,
-    this.valueColor = Colors.blueGrey,
-    this.defaultColor = const Color(0xFFBBDEFB),
+    this.style = const StepProgressStyle(),
     this.width = double.infinity,
     this.height = kToolbarHeight,
     this.margin = EdgeInsets.zero,
     this.padding = EdgeInsets.zero,
-    this.ltr,
     this.onStepChanged,
   });
 
-  final StepProgressController stepProgressController;
-  final Color backgroundColor;
-  final Color strokeColor;
-  final Color tickColor;
-  final Color valueColor;
-  final Color defaultColor;
+  final StepProgressController controller;
+  final StepProgressStyle style;
   final double width;
   final double height;
   final EdgeInsets margin;
   final EdgeInsets padding;
-  final bool? ltr;
   final OnStepChanged? onStepChanged;
 
   @override
-  _ProgressState createState() => _ProgressState();
+  _StepProgressState createState() => _StepProgressState();
 }
 
-class _ProgressState extends State<Progress>
+class _StepProgressState extends State<StepProgress>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _progressAnimation;
@@ -92,10 +56,10 @@ class _ProgressState extends State<Progress>
         curve: const Interval(0.25, 1, curve: Curves.easeOut),
       ),
     );
-    widget.stepProgressController.addListener(_animateProgress);
+    widget.controller.addListener(_animateProgress);
     _animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        widget.onStepChanged?.call(widget.stepProgressController.currentStep);
+        widget.onStepChanged?.call(widget.controller.currentStep);
       }
     });
     super.initState();
@@ -110,8 +74,8 @@ class _ProgressState extends State<Progress>
   }
 
   double _getEndProgress() {
-    final double percent = widget.stepProgressController.currentStep /
-        (widget.stepProgressController.totalStep - 1);
+    final double percent =
+        widget.controller.currentStep / (widget.controller.totalStep - 1);
     if (percent > 1) {
       return 1;
     } else if (percent < 0) {
@@ -126,7 +90,7 @@ class _ProgressState extends State<Progress>
     return Container(
       width: widget.width,
       height: widget.height,
-      color: widget.backgroundColor,
+      color: widget.style.backgroundColor,
       margin: widget.margin,
       padding: widget.padding,
       //padding: EdgeInsets.all(5),
@@ -137,14 +101,14 @@ class _ProgressState extends State<Progress>
             painter: StepProgressPainter(
               progressPercent: _progressAnimation.value,
               stepScale: _stepAnimation.value,
-              totalStep: widget.stepProgressController.totalStep,
-              currentStep: widget.stepProgressController.currentStep,
-              strokeColor: widget.strokeColor,
-              valueColor: widget.valueColor,
-              defaultColor: widget.defaultColor,
-              tickColor: widget.tickColor,
-              ltr:
-                  widget.ltr ?? Directionality.of(context) == TextDirection.ltr,
+              totalStep: widget.controller.totalStep,
+              currentStep: widget.controller.currentStep,
+              strokeColor: widget.style.strokeColor,
+              valueColor: widget.style.valueColor,
+              defaultColor: widget.style.defaultColor,
+              tickColor: widget.style.tickColor,
+              ltr: widget.style.ltr ??
+                  Directionality.of(context) == TextDirection.ltr,
             ),
           );
         },
