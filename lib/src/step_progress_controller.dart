@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 
-/// A controller class that extends [ChangeNotifier] to manage the state and 
+/// A controller class that extends [ChangeNotifier] to manage the state and
 /// notify listeners about changes in the step progress.
-/// 
-/// This class can be used to control the progress of steps in a step progress 
+///
+/// This class can be used to control the progress of steps in a step progress
 /// indicator, allowing for updates and state management.
 class StepProgressController extends ChangeNotifier {
   StepProgressController({
@@ -25,8 +25,8 @@ class StepProgressController extends ChangeNotifier {
   late int currentStep = initialStep;
 
   /// Advances to the next step if the current step is not the last one.
-  /// 
-  /// Increments the `currentStep` by one and notifies listeners if the 
+  ///
+  /// Increments the `currentStep` by one and notifies listeners if the
   /// incremented step is still less than the total number of steps.
   void nextStep() {
     if (currentStep + 1 < totalStep) {

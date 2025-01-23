@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// A class that defines the style for a step progress indicator.
-/// 
+///
 /// This class can be used to customize the appearance of a step progress
 /// indicator, including properties such as colors, sizes, and shapes.
 class StepProgressStyle {
@@ -29,11 +29,11 @@ class StepProgressStyle {
   /// The default color used in the step progress indicator.
   final Color defaultColor;
 
-  /// A boolean flag indicating if the progress direction is 
+  /// A boolean flag indicating if the progress direction is
   /// left-to-right (true) or right-to-left (false).
   final bool? ltr;
 
-  /// Creates a copy of this [StepProgressStyle] but with the given fields 
+  /// Creates a copy of this [StepProgressStyle] but with the given fields
   /// replaced with the new values.
   ///
   /// If a field is not provided, the value from the current instance is used.
@@ -44,7 +44,7 @@ class StepProgressStyle {
   /// - [tickColor]: The color of the tick.
   /// - [valueColor]: The color of the value.
   /// - [defaultColor]: The default color.
-  /// - [ltr]: The direction of the progress (left-to-right if true, 
+  /// - [ltr]: The direction of the progress (left-to-right if true,
   /// right-to-left if false).
   ///
   /// Returns:

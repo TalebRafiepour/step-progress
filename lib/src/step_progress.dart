@@ -9,7 +9,6 @@ import 'package:step_progress/src/step_progress_style.dart';
 /// The [currentIndex] parameter indicates the index of the current step.
 typedef OnStepChanged = void Function(int currentIndex);
 
-
 /// A widget that displays a step progress indicator.
 ///
 /// The [StepProgress] widget is a customizable progress indicator that
@@ -87,13 +86,13 @@ class _StepProgressState extends State<StepProgress>
     with SingleTickerProviderStateMixin {
   // Animation controller to manage the animations
   late AnimationController _animationController;
-  
+
   // Animation for the progress indicator
   late Animation<double> _progressAnimation;
-  
+
   // Animation for the step transitions
   late Animation<double> _stepAnimation;
-  
+
   // Tween to define the range of values for the progress animation
   late Tween<double> _progressTween;
 
@@ -126,9 +125,9 @@ class _StepProgressState extends State<StepProgress>
   }
 
   /// Animates the progress of the step progress indicator.
-  /// 
-  /// This method calculates the new progress percentage using the 
-  /// `_getEndProgress` method, updates the tween's begin and end values, 
+  ///
+  /// This method calculates the new progress percentage using the
+  /// `_getEndProgress` method, updates the tween's begin and end values,
   /// resets the animation controller, and then starts the animation.
   void _animateProgress() {
     final double newPercent = _getEndProgress();
@@ -138,10 +137,10 @@ class _StepProgressState extends State<StepProgress>
     _animationController.forward();
   }
 
-  /// Calculates the end progress percentage based on the current step 
+  /// Calculates the end progress percentage based on the current step
   /// and total steps.
   ///
-  /// The progress percentage is calculated as the ratio of the current step 
+  /// The progress percentage is calculated as the ratio of the current step
   /// to the total steps minus one.
   /// If the calculated percentage is greater than 1, it returns 1.
   /// If the calculated percentage is less than 0, it returns 0.
