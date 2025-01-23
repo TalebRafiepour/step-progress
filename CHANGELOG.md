@@ -1,6 +1,11 @@
+## 1.0.2
+* Updated the `.gitignore` file to include additional files and directories.
+* Made minor updates to the `LICENSE` file for clarity.
+
+
 ## 1.0.1
 
-* Formatted code
+* Formatted code.
 
 ## 1.0.0
 
