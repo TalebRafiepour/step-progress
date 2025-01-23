@@ -30,7 +30,7 @@ class _ExampleTwoState extends State<ExampleTwo> {
           children: [
             ElevatedButton(
               onPressed: () {
-                setState(_stepProgressController.prevStep);
+                setState(_stepProgressController.previousStep);
               },
               child: const Text('Prev'),
             ),

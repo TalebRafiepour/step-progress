@@ -65,7 +65,7 @@ class _ExampleOneState extends State<ExampleOne> {
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.easeInCubic,
                 );
-                _stepProgressController.prevStep();
+                _stepProgressController.previousStep();
               },
               tooltip: 'Back',
               heroTag: 'Back',
