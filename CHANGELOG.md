@@ -1,3 +1,9 @@
+## 1.0.4
+
+* Change `LICENSE` from `MIT` to `BSD-3-Clause`.
+* Upgrade Dart version to `^3.6.1`.
+* Update `README.md` file.
+
 ## 1.0.3
 
 * Downgraded Dart version to `^3.5.4`.

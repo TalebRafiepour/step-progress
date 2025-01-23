@@ -45,7 +45,6 @@ StepProgress(
             },
           ),
 ```
-
 ## License
 
-StepProgress is released under the `MIT` License.
+NestedChoiceList is released under the `BSD-3-Clause` License.
