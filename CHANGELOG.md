@@ -1,3 +1,7 @@
+## 1.0.1
+
+* Formatted code
+
 ## 1.0.0
 
 * Fixed bug preventing progression to the next step when on the final step.
