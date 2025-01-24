@@ -50,12 +50,16 @@ class StepProgress extends StatefulWidget {
     required this.controller,
     super.key,
     this.style = const StepProgressStyle(),
+    this.stepAnimationDuration = const Duration(milliseconds: 300),
     this.width = double.infinity,
     this.height = kToolbarHeight,
     this.margin = EdgeInsets.zero,
     this.padding = EdgeInsets.zero,
     this.onStepChanged,
   });
+
+  /// The duration of the step animation.
+  final Duration stepAnimationDuration;
 
   /// The controller that manages the state and behavior of the step progress.
   final StepProgressController controller;
@@ -100,7 +104,7 @@ class _StepProgressState extends State<StepProgress>
   void initState() {
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 300),
+      duration: widget.stepAnimationDuration,
     );
     _progressTween = Tween<double>(begin: 0, end: _getEndProgress());
     _progressAnimation = _progressTween.animate(
