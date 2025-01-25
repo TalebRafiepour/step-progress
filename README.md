@@ -51,6 +51,11 @@ StepProgress(
             },
           ),
 ```
+## Support the Library
+
+You can support the library by liking it on pub, staring in on Github and reporting any bugs you  
+encounter.
+
 ## License
 
 NestedChoiceList is released under the `BSD-3-Clause` License.
