@@ -51,9 +51,9 @@ StepProgress(
             },
           ),
 ```
-## Support the Library
+## Support the Package
 
-We appreciate your support for the StepProgress library! You can help us by:
+We appreciate your support for the StepProgress package! You can help us by:
 
 - Liking the package on [pub.dev](https://pub.dev/packages/step_progress).
 - Starring the repository on [GitHub](https://github.com/TalebRafiepour/step_progress).
