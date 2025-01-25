@@ -1,3 +1,7 @@
+## 1.0.6
+
+* Updated the `README.md` file.
+
 ## 1.0.5
 
 * Introduced the `stepAnimationDuration` property in the constructor.

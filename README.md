@@ -53,8 +53,13 @@ StepProgress(
 ```
 ## Support the Library
 
-You can support the library by liking it on pub, staring in on Github and reporting any bugs you  
-encounter.
+We appreciate your support for the StepProgress library! You can help us by:
+
+- Liking the package on [pub.dev](https://pub.dev/packages/step_progress).
+- Starring the repository on [GitHub](https://github.com/TalebRafiepour/step_progress).
+- Reporting any issues or bugs you encounter [here](https://github.com/TalebRafiepour/step_progress/issues).
+
+Your contributions and feedback are invaluable to us!
 
 ## License
 
