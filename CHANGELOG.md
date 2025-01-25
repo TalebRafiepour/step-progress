@@ -1,3 +1,8 @@
+## 1.0.5
+
+* Introduced the `stepAnimationDuration` property in the constructor.
+* Updated the `README.md` file.
+
 ## 1.0.4
 
 * Change `LICENSE` from `MIT` to `BSD-3-Clause`.
