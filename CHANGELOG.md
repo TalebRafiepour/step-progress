@@ -1,3 +1,7 @@
+## 1.0.8
+
+* Updated the `README.md` file.
+
 ## 1.0.7
 
 * Updated the `README.md` file.

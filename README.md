@@ -63,4 +63,12 @@ Your contributions and feedback are invaluable to us!
 
 ## License
 
-NestedChoiceList is released under the `BSD-3-Clause` License.
+`StepProgress` is released under the `BSD-3-Clause` License.
+
+## Contact Me 📨
+
+Feel free to reach out to me through the following platforms:
+
+<a href="https://github.com/TalebRafiepour"><img src= "https://img.icons8.com/ios-glyphs/344/github.png" width = "40px"/></a> <a href="https://www.linkedin.com/in/taleb-rafiepour/"><img src= "https://img.icons8.com/color/344/linkedin.png" width = "40px"/></a> <a href="mailto:taleb.r75@gmail.com"><img src= "https://img.icons8.com/color/344/gmail-new.png" width = "40px"/></a>
+
+I look forward to connecting with you!
