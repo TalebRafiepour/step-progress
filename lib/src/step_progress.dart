@@ -21,10 +21,6 @@ typedef OnStepChanged = void Function(int currentIndex);
 /// The [style] parameter allows you to customize the appearance of the
 /// progress indicator. It defaults to [StepProgressStyle].
 ///
-/// The [width] and [height] parameters specify the dimensions of the
-/// progress indicator. By default, the width is set to [double.infinity]
-/// and the height is set to [kToolbarHeight].
-///
 /// The [margin] and [padding] parameters allow you to add space around
 /// and inside the progress indicator, respectively. Both default to
 /// [EdgeInsets.zero].
@@ -49,14 +45,21 @@ class StepProgress extends StatefulWidget {
   const StepProgress({
     required this.controller,
     super.key,
+    this.circleRadius = kToolbarHeight,
     this.style = const StepProgressStyle(),
     this.stepAnimationDuration = const Duration(milliseconds: 300),
-    this.width = double.infinity,
-    this.height = kToolbarHeight,
     this.margin = EdgeInsets.zero,
-    this.padding = EdgeInsets.zero,
+    this.padding = const EdgeInsets.all(4),
     this.onStepChanged,
+    this.titleStyle = const TextStyle(fontSize: 14),
+    this.titles,
   });
+
+  final TextStyle titleStyle;
+
+  final List<String>? titles;
+
+  final double circleRadius;
 
   /// The duration of the step animation.
   final Duration stepAnimationDuration;
@@ -66,12 +69,6 @@ class StepProgress extends StatefulWidget {
 
   /// The style configuration for the step progress.
   final StepProgressStyle style;
-
-  /// The width of the step progress widget.
-  final double width;
-
-  /// The height of the step progress widget.
-  final double height;
 
   /// The margin around the step progress widget.
   final EdgeInsets margin;
@@ -102,6 +99,11 @@ class _StepProgressState extends State<StepProgress>
 
   @override
   void initState() {
+    assert(
+      widget.titles == null ||
+          widget.titles!.length == widget.controller.totalStep,
+      'titles must be equals to total steps',
+    );
     _animationController = AnimationController(
       vsync: this,
       duration: widget.stepAnimationDuration,
@@ -167,31 +169,51 @@ class _StepProgressState extends State<StepProgress>
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: widget.width,
-      height: widget.height,
       color: widget.style.backgroundColor,
       margin: widget.margin,
       padding: widget.padding,
-      child: AnimatedBuilder(
-        animation: _animationController,
-        builder: (_, child) {
-          return CustomPaint(
-            painter: StepProgressPainter(
-              progressPercent: _progressAnimation.value,
-              stepScale: _stepAnimation.value,
-              totalStep: widget.controller.totalStep,
-              currentStep: widget.controller.currentStep,
-              strokeColor: widget.style.strokeColor,
-              valueColor: widget.style.valueColor,
-              defaultColor: widget.style.defaultColor,
-              tickColor: widget.style.tickColor,
-              ltr: widget.style.ltr ??
-                  Directionality.of(context) == TextDirection.ltr,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (widget.titles != null)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: List.generate(
+                widget.titles!.length,
+                (index) {
+                  return Text(
+                    widget.titles![index],
+                    textAlign: TextAlign.center,
+                    style: widget.titleStyle,
+                  );
+                },
+              ),
             ),
-            child: child,
-          );
-        },
-        child: const SizedBox.shrink(),
+          AnimatedBuilder(
+            animation: _animationController,
+            builder: (_, child) {
+              return CustomPaint(
+                painter: StepProgressPainter(
+                  progressPercent: _progressAnimation.value,
+                  stepScale: _stepAnimation.value,
+                  totalStep: widget.controller.totalStep,
+                  currentStep: widget.controller.currentStep,
+                  strokeColor: widget.style.strokeColor,
+                  valueColor: widget.style.valueColor,
+                  defaultColor: widget.style.defaultColor,
+                  tickColor: widget.style.tickColor,
+                  ltr: widget.style.ltr ??
+                      Directionality.of(context) == TextDirection.ltr,
+                ),
+                child: child,
+              );
+            },
+            child: SizedBox(
+              width: double.infinity,
+              height: widget.circleRadius,
+            ),
+          ),
+        ],
       ),
     );
   }

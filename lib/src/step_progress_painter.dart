@@ -33,10 +33,7 @@ class StepProgressPainter extends CustomPainter {
     this.strokeWidth = 2,
     this.lineHeight = 4,
     this.ltr = true,
-  }) : assert(
-          currentStep < totalStep,
-          'currentStep must be lower than totalStep.',
-        );
+  });
 
   /// The width of the stroke used to draw the step progress.
   final double strokeWidth;
