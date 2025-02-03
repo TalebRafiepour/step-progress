@@ -9,7 +9,7 @@ class StepNodeCore extends StatelessWidget {
     this.backgroundColor = Colors.white,
     this.icon = const Icon(
       Icons.check,
-      size: 12,
+      size: 18,
       color: Color.fromARGB(129, 3, 156, 150),
     ),
     super.key,

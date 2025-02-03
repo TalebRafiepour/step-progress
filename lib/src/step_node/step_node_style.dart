@@ -9,7 +9,9 @@ class StepNodeStyle {
     this.shape = StepNodeShape.circle,
     this.labelStyle = const TextStyle(fontSize: 14),
     this.labelAlignment = Alignment.topCenter,
-    this.decoration = const BoxDecoration(),
+    this.decoration = const BoxDecoration(
+      color:  Color.fromARGB(50, 255, 255, 255),
+    ),
     this.icon = const Icon(
       Icons.check,
       size: 12,

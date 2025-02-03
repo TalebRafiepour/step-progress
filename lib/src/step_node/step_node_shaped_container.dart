@@ -13,30 +13,6 @@ class StepNodeShapedContainer extends StatelessWidget {
     super.key,
   });
 
-  // const StepNodeShapedContainer.square({
-  //   required this.child,
-  //   super.key,
-  // }) : stepNodeShape = StepNodeShape.square;
-
-  // const StepNodeShapedContainer.rectangle({
-  //   required this.child,
-  //   super.key,
-  // }) : stepNodeShape = StepNodeShape.rectangle;
-
-  // const StepNodeShapedContainer.triangle({
-  //   required this.child,
-  //   super.key,
-  // }) : stepNodeShape = StepNodeShape.triangle;
-
-  // const StepNodeShapedContainer.circle({
-  //   required this.child,
-  //   super.key,
-  // }) : stepNodeShape = StepNodeShape.circle;
-
-  // const StepNodeShapedContainer.polygon({
-  //   required this.child,
-  //   super.key,
-  // }) : stepNodeShape = StepNodeShape.polygon;
 
   final Widget? child;
   final StepNodeShape stepNodeShape;
@@ -53,7 +29,7 @@ class StepNodeShapedContainer extends StatelessWidget {
       margin: margin,
       width: width,
       height: height,
-      decoration: decoration,
+      decoration: decoration?.copyWith(shape: BoxShape.circle),
       child: child,
     );
   }

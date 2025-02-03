@@ -8,14 +8,16 @@ class StepNode extends StatelessWidget {
     required this.width,
     required this.height,
     required this.style,
+    this.active = false,
+    this.label,
     super.key,
   });
 
   final double width;
   final double height;
+  final String? label;
+  final bool active;
   final StepNodeStyle style;
-
-  // just assume that we use circle mode
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class StepNode extends StatelessWidget {
       width: width,
       height: width,
       stepNodeShape: style.shape,
+      decoration: style.decoration,
       child: StepNodeCore(
         iconColor: style.iconColor,
         backgroundColor: style.activeBackgroundColor,
