@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:step_progress/src/step_node/step_node_core.dart';
 import 'package:step_progress/src/step_node/step_node_shaped_container.dart';
 import 'package:step_progress/src/step_node/step_node_style.dart';
 
@@ -22,7 +23,12 @@ class StepNode extends StatelessWidget {
       width: width,
       height: width,
       stepNodeShape: style.shape,
-      decoration: style.decoration,
+      child: StepNodeCore(
+        iconColor: style.iconColor,
+        backgroundColor: style.activeBackgroundColor,
+        stepNodeShape: style.shape,
+        icon: style.icon,
+      ),
     );
   }
 }
