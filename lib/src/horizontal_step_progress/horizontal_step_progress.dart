@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:step_progress/src/step_line/step_line.dart';
 import 'package:step_progress/src/step_node/step_node_style.dart';
 
 class HorizontalStepProgress extends StatelessWidget {
@@ -19,7 +20,7 @@ class HorizontalStepProgress extends StatelessWidget {
       children: List.generate(
         totalStep,
         (index) {
-          return Container();
+          return const StepLine();
         },
       ),
     );

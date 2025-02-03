@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:step_progress/src/horizontal_step_progress/horizontal_step_progress.dart';
 import 'package:step_progress/src/step_node/step_node.dart';
 import 'package:step_progress/src/step_progress_controller.dart';
 
@@ -174,41 +175,39 @@ class _StepProgressState extends State<StepProgress>
       color: widget.style.backgroundColor,
       margin: widget.margin,
       padding: widget.padding,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          StepNode(
-            width: 100,
-            height: 100,
-            label: 'step 1',
-            style: StepNodeStyle(),
-          ),
-          // AnimatedBuilder(
-          //   animation: _animationController,
-          //   builder: (_, child) {
-          //     return CustomPaint(
-          //       painter: StepProgressPainter(
-          //         progressPercent: _progressAnimation.value,
-          //         stepScale: _stepAnimation.value,
-          //         totalStep: widget.controller.totalStep,
-          //         currentStep: widget.controller.currentStep,
-          //         strokeColor: widget.style.strokeColor,
-          //         valueColor: widget.style.valueColor,
-          //         defaultColor: widget.style.defaultColor,
-          //         tickColor: widget.style.tickColor,
-          //         ltr: widget.style.ltr ??
-          //             Directionality.of(context) == TextDirection.ltr,
-          //       ),
-          //       child: child,
-          //     );
-          //   },
-          //   child: SizedBox(
-          //     width: double.infinity,
-          //     height: widget.circleRadius,
-          //   ),
-          // ),
-        ],
+      child: SizedBox(
+        height: 60,
+        width: double.infinity,
+        child: HorizontalStepProgress(
+          totalStep: 4,
+          currentStep: 2,
+          stepNodeStyle: StepNodeStyle(),
+        ),
       ),
+      // AnimatedBuilder(
+      //   animation: _animationController,
+      //   builder: (_, child) {
+      //     return CustomPaint(
+      //       painter: StepProgressPainter(
+      //         progressPercent: _progressAnimation.value,
+      //         stepScale: _stepAnimation.value,
+      //         totalStep: widget.controller.totalStep,
+      //         currentStep: widget.controller.currentStep,
+      //         strokeColor: widget.style.strokeColor,
+      //         valueColor: widget.style.valueColor,
+      //         defaultColor: widget.style.defaultColor,
+      //         tickColor: widget.style.tickColor,
+      //         ltr: widget.style.ltr ??
+      //             Directionality.of(context) == TextDirection.ltr,
+      //       ),
+      //       child: child,
+      //     );
+      //   },
+      //   child: SizedBox(
+      //     width: double.infinity,
+      //     height: widget.circleRadius,
+      //   ),
+      // ),
     );
   }
 }
