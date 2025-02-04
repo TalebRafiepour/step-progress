@@ -26,15 +26,27 @@ class StepNode extends StatelessWidget {
       height: width,
       stepNodeShape: style.shape,
       decoration: style.decoration,
-      child: StepNodeCore(
-        iconColor: style.iconColor,
-        deaultForegroundColor: style.deaultForegroundColor,
-        activeForegroundColor: style.activeForegroundColor,
-        stepNodeShape: style.shape,
-        isActive: isActive,
-        icon: style.icon,
-        width: width,
-        height: height,
+      child: Stack(
+        children: [
+          StepNodeCore(
+            isVisible: !isActive,
+            animationDuration: style.animationDuration,
+            foregroundColor: style.deaultForegroundColor,
+            stepNodeShape: style.shape,
+            icon: style.icon,
+            width: width,
+            height: height,
+          ),
+          StepNodeCore(
+            isVisible: isActive,
+            animationDuration: style.animationDuration,
+            foregroundColor: style.activeForegroundColor,
+            stepNodeShape: style.shape,
+            icon: style.activeIcon ?? style.icon,
+            width: width,
+            height: height,
+          ),
+        ],
       ),
     );
   }

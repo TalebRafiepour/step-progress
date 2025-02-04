@@ -6,13 +6,19 @@ class StepNodeStyle {
   StepNodeStyle({
     this.deaultForegroundColor = const Color.fromARGB(50, 255, 255, 255),
     this.activeForegroundColor = Colors.white,
+    this.animationDuration = const Duration(milliseconds: 150),
     this.shape = StepNodeShape.circle,
     this.decoration = const BoxDecoration(
       color: Color.fromARGB(50, 255, 255, 255),
     ),
     this.icon = const Icon(
       Icons.check,
-      size: 12,
+      size: 24,
+      color: Color.fromARGB(129, 101, 134, 133),
+    ),
+    this.activeIcon = const Icon(
+      Icons.check,
+      size: 24,
       color: Color.fromARGB(129, 3, 156, 150),
     ),
     this.iconColor = const Color.fromARGB(253, 6, 138, 129),
@@ -26,6 +32,8 @@ class StepNodeStyle {
   final StepNodeShape shape;
   final BoxDecoration decoration;
   final Widget icon;
+  final Widget? activeIcon;
   final bool enableRippleEffect;
   final RippleEffectStyle rippleEffectStyle;
+  final Duration animationDuration;
 }
