@@ -28,8 +28,10 @@ class StepNode extends StatelessWidget {
       decoration: style.decoration,
       child: StepNodeCore(
         iconColor: style.iconColor,
-        backgroundColor: style.activeBackgroundColor,
+        deaultForegroundColor: style.deaultForegroundColor,
+        activeForegroundColor: style.activeForegroundColor,
         stepNodeShape: style.shape,
+        isActive: isActive,
         icon: style.icon,
         width: width,
         height: height,

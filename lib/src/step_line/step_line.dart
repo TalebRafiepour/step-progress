@@ -5,13 +5,13 @@ class StepLine extends StatelessWidget {
   const StepLine({
     this.direction = Axis.horizontal,
     this.style = const StepLineStyle(),
-    this.active = false,
+    this.isActive = false,
     super.key,
   });
 
   final Axis direction;
 
-  final bool active;
+  final bool isActive;
   final StepLineStyle style;
 
   @override
@@ -24,7 +24,7 @@ class StepLine extends StatelessWidget {
             height: _height(constraint),
             color: style.foregroundColor,
             margin: style.margin,
-            child: active
+            child: isActive
                 ? AnimatedContainer(
                     width: _width(constraint),
                     height: _height(constraint),

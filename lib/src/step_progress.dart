@@ -88,6 +88,7 @@ class StepProgress extends StatefulWidget {
 
 class _StepProgressState extends State<StepProgress>
     with SingleTickerProviderStateMixin {
+  late int _currentStep = widget.controller.currentStep;
   // Animation controller to manage the animations
   late AnimationController _animationController;
 
@@ -124,7 +125,11 @@ class _StepProgressState extends State<StepProgress>
         curve: const Interval(0.25, 1, curve: Curves.easeOut),
       ),
     );
-    widget.controller.addListener(_animateProgress);
+    widget.controller.addListener(() {
+      setState(() {
+        _currentStep = widget.controller.currentStep;
+      });
+    });
     _animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         widget.onStepChanged?.call(widget.controller.currentStep);
@@ -177,8 +182,8 @@ class _StepProgressState extends State<StepProgress>
       padding: widget.padding,
       width: double.infinity,
       child: HorizontalStepProgress(
-        totalStep: 4,
-        currentStep: 2,
+        totalStep: widget.controller.totalStep,
+        currentStep: _currentStep,
         labels: widget.labels,
         stepSize: widget.stepSize,
         stepNodeStyle: StepNodeStyle(),

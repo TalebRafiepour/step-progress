@@ -72,7 +72,9 @@ class HorizontalStepProgress extends StatelessWidget {
                     isActive: index <= currentStep,
                     style: stepNodeStyle,
                   ),
-                  const StepLine(),
+                  StepLine(
+                    isActive: index < currentStep,
+                  ),
                 ],
               ),
             );
