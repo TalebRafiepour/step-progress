@@ -24,21 +24,26 @@ class StepLine extends StatelessWidget {
             height: _height(constraint),
             color: style.foregroundColor,
             margin: style.margin,
-            child: isActive
-                ? AnimatedContainer(
-                    width: _width(constraint),
-                    height: _height(constraint),
-                    color: style.activeColor,
-                    curve: style.curve,
-                    margin: style.margin,
-                    duration: style.animationDuration,
-                  )
-                : null,
+            alignment: AlignmentDirectional.centerStart,
+            child: AnimatedContainer(
+              width: _isHorizontal
+                  ? (isActive ? _width(constraint) : 0)
+                  : _width(constraint),
+              height: _isHorizontal
+                  ? _height(constraint)
+                  : (isActive ? _height(constraint) : 0),
+              color: style.activeColor,
+              curve: Curves.fastLinearToSlowEaseIn,
+              margin: style.margin,
+              duration: style.animationDuration,
+            ),
           );
         },
       ),
     );
   }
+
+  bool get _isHorizontal => direction == Axis.horizontal;
 
   double _width(BoxConstraints constraint) {
     return direction == Axis.horizontal
