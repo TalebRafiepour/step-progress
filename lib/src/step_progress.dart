@@ -48,7 +48,7 @@ class StepProgress extends StatefulWidget {
   const StepProgress({
     required this.controller,
     super.key,
-    this.circleRadius = kToolbarHeight,
+    this.stepSize = kToolbarHeight,
     this.style = const StepProgressStyle(),
     this.stepAnimationDuration = const Duration(milliseconds: 300),
     this.margin = EdgeInsets.zero,
@@ -62,7 +62,7 @@ class StepProgress extends StatefulWidget {
 
   final List<String>? titles;
 
-  final double circleRadius;
+  final double stepSize;
 
   /// The duration of the step animation.
   final Duration stepAnimationDuration;
@@ -175,14 +175,12 @@ class _StepProgressState extends State<StepProgress>
       color: widget.style.backgroundColor,
       margin: widget.margin,
       padding: widget.padding,
-      child: SizedBox(
-        height: 60,
-        width: double.infinity,
-        child: HorizontalStepProgress(
-          totalStep: 4,
-          currentStep: 2,
-          stepNodeStyle: StepNodeStyle(),
-        ),
+      width: double.infinity,
+      child: HorizontalStepProgress(
+        totalStep: 4,
+        currentStep: 2,
+        stepSize: widget.stepSize,
+        stepNodeStyle: StepNodeStyle(),
       ),
       // AnimatedBuilder(
       //   animation: _animationController,

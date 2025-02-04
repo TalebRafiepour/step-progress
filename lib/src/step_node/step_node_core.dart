@@ -12,6 +12,8 @@ class StepNodeCore extends StatelessWidget {
       size: 18,
       color: Color.fromARGB(129, 3, 156, 150),
     ),
+    this.width,
+    this.height,
     super.key,
   });
 
@@ -19,10 +21,14 @@ class StepNodeCore extends StatelessWidget {
   final Color iconColor;
   final Color backgroundColor;
   final StepNodeShape stepNodeShape;
+  final double? width;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
     return StepNodeShapedContainer(
+      width: width,
+      height: height,
       stepNodeShape: stepNodeShape,
       child: icon,
     );

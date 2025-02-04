@@ -5,6 +5,7 @@ class StepLine extends StatelessWidget {
   const StepLine({
     this.direction = Axis.horizontal,
     this.style = const StepLineStyle(),
+    this.margin = EdgeInsetsDirectional.zero,
     this.lineThickness = 6,
     this.active = false,
     super.key,
@@ -14,6 +15,7 @@ class StepLine extends StatelessWidget {
   final double lineThickness;
   final bool active;
   final StepLineStyle style;
+  final EdgeInsetsDirectional margin;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class StepLine extends StatelessWidget {
             width: _width(constraint),
             height: _height(constraint),
             color: style.foregroundColor,
+            margin: margin,
             child: active
                 ? AnimatedContainer(
                     width: _width(constraint),
@@ -32,7 +35,7 @@ class StepLine extends StatelessWidget {
                     curve: style.curve,
                     duration: style.animationDuration,
                   )
-                : const SizedBox.shrink(),
+                : null,
           );
         },
       ),
