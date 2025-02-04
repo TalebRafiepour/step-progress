@@ -1,5 +1,6 @@
 library step_progress;
 
+export 'src/step_label/step_label_style.dart';
 export 'src/step_line/step_line_style.dart';
 export 'src/step_node/step_node_shape.dart';
 export 'src/step_node/step_node_style.dart';
