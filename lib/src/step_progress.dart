@@ -55,12 +55,12 @@ class StepProgress extends StatefulWidget {
     this.padding = const EdgeInsets.all(4),
     this.onStepChanged,
     this.titleStyle = const TextStyle(fontSize: 14),
-    this.titles,
+    this.labels,
   });
 
   final TextStyle titleStyle;
 
-  final List<String>? titles;
+  final List<String>? labels;
 
   final double stepSize;
 
@@ -103,9 +103,9 @@ class _StepProgressState extends State<StepProgress>
   @override
   void initState() {
     assert(
-      widget.titles == null ||
-          widget.titles!.length == widget.controller.totalStep,
-      'titles must be equals to total steps',
+      widget.labels == null ||
+          widget.labels!.length == widget.controller.totalStep,
+      'labels must be equals to total steps',
     );
     _animationController = AnimationController(
       vsync: this,
@@ -179,6 +179,7 @@ class _StepProgressState extends State<StepProgress>
       child: HorizontalStepProgress(
         totalStep: 4,
         currentStep: 2,
+        labels: widget.labels,
         stepSize: widget.stepSize,
         stepNodeStyle: StepNodeStyle(),
       ),

@@ -23,7 +23,6 @@ class StepNodeShapedContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('width: $width, height: $height');
     return Container(
       padding: padding,
       margin: margin,
