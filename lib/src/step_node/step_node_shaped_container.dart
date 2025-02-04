@@ -28,6 +28,7 @@ class StepNodeShapedContainer extends StatelessWidget {
       margin: margin,
       width: width,
       height: height,
+      alignment: Alignment.center,
       decoration: decoration?.copyWith(shape: BoxShape.circle),
       child: child,
     );

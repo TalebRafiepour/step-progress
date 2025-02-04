@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:step_progress/src/step_label/step_label.dart';
 import 'package:step_progress/src/step_line/step_line.dart';
 import 'package:step_progress/src/step_node/step_node.dart';
-import 'package:step_progress/src/step_node/step_node_style.dart';
+import 'package:step_progress/src/step_node/step_node_ripple.dart';
+import 'package:step_progress/step_progress.dart';
 
 class HorizontalStepProgress extends StatelessWidget {
   const HorizontalStepProgress({
@@ -10,6 +11,7 @@ class HorizontalStepProgress extends StatelessWidget {
     required this.currentStep,
     required this.stepNodeStyle,
     required this.stepSize,
+    this.enableRippleEffect = true,
     this.labels,
     super.key,
   }) : assert(
@@ -22,6 +24,7 @@ class HorizontalStepProgress extends StatelessWidget {
   final double stepSize;
   final StepNodeStyle stepNodeStyle;
   final List<String>? labels;
+  final bool enableRippleEffect;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,10 @@ class HorizontalStepProgress extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (labels != null) _buildLabels(),
-        _buildSteps(),
+        if (enableRippleEffect)
+          _buildStepsWithRippleEffect()
+        else
+          _buildSteps(stepSize),
       ],
     );
   }
@@ -50,15 +56,46 @@ class HorizontalStepProgress extends StatelessWidget {
     );
   }
 
-  Widget _buildSteps() {
+  Widget _buildStepsWithRippleEffect() {
+    final calculatedStepSize = stepSize / 2;
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        _buildRippleEffects(),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: calculatedStepSize / 2),
+          child: _buildSteps(calculatedStepSize),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRippleEffects() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: List.generate(
+        totalStep,
+        (index) {
+          return StepNodeRipple(
+            isVisible: index <= currentStep,
+            stepNodeShape: StepNodeShape.circle,
+            width: stepSize,
+            height: stepSize,
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildSteps(double calculatedStepSize) {
     return Row(
       children: List.generate(
         totalStep,
         (index) {
           if (index == totalStep - 1) {
             return StepNode(
-              width: stepSize,
-              height: stepSize,
+              width: calculatedStepSize,
+              height: calculatedStepSize,
               isActive: index <= currentStep,
               style: stepNodeStyle,
             );
@@ -67,8 +104,8 @@ class HorizontalStepProgress extends StatelessWidget {
               child: Row(
                 children: [
                   StepNode(
-                    width: stepSize,
-                    height: stepSize,
+                    width: calculatedStepSize,
+                    height: calculatedStepSize,
                     isActive: index <= currentStep,
                     style: stepNodeStyle,
                   ),
