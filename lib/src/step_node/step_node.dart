@@ -8,7 +8,7 @@ class StepNode extends StatelessWidget {
     required this.width,
     required this.height,
     required this.style,
-    this.active = false,
+    this.isActive = false,
     this.label,
     super.key,
   });
@@ -16,7 +16,7 @@ class StepNode extends StatelessWidget {
   final double width;
   final double height;
   final String? label;
-  final bool active;
+  final bool isActive;
   final StepNodeStyle style;
 
   @override

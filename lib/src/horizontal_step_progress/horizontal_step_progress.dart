@@ -42,7 +42,7 @@ class HorizontalStepProgress extends StatelessWidget {
         (index) {
           return StepLabel(
             label: labels![index],
-            //style: stepNodeStyle.labelStyle,
+            isActive: index <= currentStep,
             maxWidth: stepSize,
           );
         },
@@ -59,6 +59,7 @@ class HorizontalStepProgress extends StatelessWidget {
             return StepNode(
               width: stepSize,
               height: stepSize,
+              isActive: index <= currentStep,
               style: stepNodeStyle,
             );
           } else {
@@ -68,6 +69,7 @@ class HorizontalStepProgress extends StatelessWidget {
                   StepNode(
                     width: stepSize,
                     height: stepSize,
+                    isActive: index <= currentStep,
                     style: stepNodeStyle,
                   ),
                   const StepLine(),
