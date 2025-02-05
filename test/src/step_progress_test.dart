@@ -5,12 +5,13 @@ import 'package:step_progress/src/step_progress_controller.dart';
 
 void main() {
   testWidgets('Initial state of StepProgress', (tester) async {
-    final controller = StepProgressController(totalStep: 5);
+    final controller = StepProgressController(totalSteps: 5);
 
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
           body: StepProgress(
+            totalSteps: 5,
             controller: controller,
           ),
         ),
@@ -23,12 +24,13 @@ void main() {
   });
 
   testWidgets('Progress animation when step changes', (tester) async {
-    final controller = StepProgressController(totalStep: 5);
+    final controller = StepProgressController(totalSteps: 5);
 
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
           body: StepProgress(
+            totalSteps: 5,
             controller: controller,
           ),
         ),
@@ -43,13 +45,14 @@ void main() {
   });
 
   testWidgets('onStepChanged callback is triggered', (tester) async {
-    final controller = StepProgressController(totalStep: 5);
+    final controller = StepProgressController(totalSteps: 5);
     int? changedStep;
 
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
           body: StepProgress(
+            totalSteps: 5,
             controller: controller,
             onStepChanged: (step) {
               changedStep = step;

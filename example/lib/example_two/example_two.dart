@@ -10,7 +10,7 @@ class ExampleTwo extends StatefulWidget {
 
 class _ExampleTwoState extends State<ExampleTwo> {
   final StepProgressController _stepProgressController =
-      StepProgressController(totalStep: 5);
+      StepProgressController(totalSteps: 5);
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +20,7 @@ class _ExampleTwoState extends State<ExampleTwo> {
         bottom: PreferredSize(
           preferredSize: const Size(double.infinity, 50),
           child: StepProgress(
+            totalSteps: 5,
             controller: _stepProgressController,
           ),
         ),

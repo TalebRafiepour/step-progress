@@ -11,7 +11,7 @@ class ExampleOne extends StatefulWidget {
 class _ExampleOneState extends State<ExampleOne> {
   final PageController _pageController = PageController();
   final StepProgressController _stepProgressController =
-      StepProgressController(totalStep: 4);
+      StepProgressController(totalSteps: 4);
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +22,7 @@ class _ExampleOneState extends State<ExampleOne> {
       body: Column(
         children: [
           StepProgress(
+            totalSteps: 4,
             controller: _stepProgressController,
             labels: const [
               'step 1',

@@ -7,19 +7,19 @@ import 'package:flutter/foundation.dart';
 /// indicator, allowing for updates and state management.
 class StepProgressController extends ChangeNotifier {
   StepProgressController({
+    required this.totalSteps,
     this.initialStep = 0,
-    this.totalStep = 2,
-  })  : assert(totalStep >= 2, 'totalSteps must be 2 at least.'),
+  })  : assert(totalSteps > 0, 'totalSteps must be greater than 0'),
         assert(
-          initialStep >= 0 && initialStep < totalStep,
-          'initialStep must be between 0 and ${totalStep - 1}',
+          initialStep >= 0 && initialStep < totalSteps,
+          'initialStep must be between 0 and lower than $totalSteps',
         );
 
   /// The initial step to start from.
   final int initialStep;
 
   /// The total number of steps.
-  final int totalStep;
+  final int totalSteps;
 
   /// The current step, initialized to the initial step.
   late int currentStep = initialStep;
@@ -29,7 +29,7 @@ class StepProgressController extends ChangeNotifier {
   /// Increments the `currentStep` by one and notifies listeners if the
   /// incremented step is still less than the total number of steps.
   void nextStep() {
-    if (currentStep + 1 < totalStep) {
+    if (currentStep + 1 < totalSteps) {
       currentStep++;
       notifyListeners();
     }
