@@ -36,10 +36,10 @@ class StepNodeRipple extends StatelessWidget {
           width: width,
           height: height,
           decoration: BoxDecoration(
-            color: Colors.transparent,
+            color: style.foregroundColor,
             border: Border.all(
-              color: style.color,
-              width: style.strokeWidth,
+              color: style.borderColor,
+              width: style.borderWidth,
             ),
           ),
           child: count == 1

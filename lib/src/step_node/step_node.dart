@@ -31,7 +31,7 @@ class StepNode extends StatelessWidget {
           StepNodeCore(
             isVisible: !isActive,
             animationDuration: style.animationDuration,
-            foregroundColor: style.deaultForegroundColor,
+            foregroundColor: style.defaultForegroundColor,
             stepNodeShape: style.shape,
             icon: style.icon,
             width: width,

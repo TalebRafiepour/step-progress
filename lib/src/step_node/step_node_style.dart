@@ -4,7 +4,7 @@ import 'package:step_progress/src/step_node/step_node_shape.dart';
 
 class StepNodeStyle {
   const StepNodeStyle({
-    this.deaultForegroundColor = const Color.fromARGB(50, 255, 255, 255),
+    this.defaultForegroundColor = const Color.fromARGB(99, 249, 233, 233),
     this.activeForegroundColor = Colors.white,
     this.animationDuration = const Duration(milliseconds: 150),
     this.shape = StepNodeShape.circle,
@@ -26,7 +26,7 @@ class StepNodeStyle {
     this.rippleEffectStyle = const RippleEffectStyle(),
   });
 
-  final Color deaultForegroundColor;
+  final Color defaultForegroundColor;
   final Color activeForegroundColor;
   final Color iconColor;
   final StepNodeShape shape;
