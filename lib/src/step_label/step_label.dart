@@ -22,18 +22,25 @@ class StepLabel extends StatelessWidget {
       padding: style.padding,
       margin: style.margin,
       alignment: style.alignment,
-      child: Text(
-        label,
-        textAlign: TextAlign.center,
-        overflow: style.overflow,
-        maxLines: style.maxLines,
-        style: style.textStyle?.copyWith(
-              color: isActive ? style.activeColor : null,
-            ) ??
-            Theme.of(context).textTheme.labelSmall?.copyWith(
-                  color: isActive ? style.activeColor : null,
-                ),
+      child: AnimatedDefaultTextStyle(
+        // read duration from style then theme
+        duration: const Duration(milliseconds: 150),
+        style: _style(context).copyWith(
+          color: isActive ? style.activeColor : null,
+        ),
+        child: Text(
+          label,
+          textAlign: TextAlign.center,
+          overflow: style.overflow,
+          maxLines: style.maxLines,
+        ),
       ),
     );
+  }
+
+  TextStyle _style(BuildContext context) {
+    return style.textStyle ??
+        Theme.of(context).textTheme.labelSmall ??
+        const TextStyle();
   }
 }

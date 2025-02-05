@@ -9,6 +9,7 @@ class StepLabelStyle {
     this.overflow = TextOverflow.ellipsis,
     this.padding = EdgeInsets.zero,
     this.margin = const EdgeInsets.only(bottom: 2),
+    this.animationDuration = const Duration(milliseconds: 150),
   });
 
   final Alignment alignment;
@@ -18,4 +19,5 @@ class StepLabelStyle {
   final TextOverflow overflow;
   final EdgeInsets padding;
   final EdgeInsets margin;
+  final Duration animationDuration;
 }
