@@ -9,9 +9,7 @@ class HorizontalStepProgress extends StatelessWidget {
   const HorizontalStepProgress({
     required this.totalStep,
     required this.currentStep,
-    required this.stepNodeStyle,
     required this.stepSize,
-    this.enableRippleEffect = true,
     this.labels,
     super.key,
   }) : assert(
@@ -22,25 +20,29 @@ class HorizontalStepProgress extends StatelessWidget {
   final int totalStep;
   final int currentStep;
   final double stepSize;
-  final StepNodeStyle stepNodeStyle;
   final List<String>? labels;
-  final bool enableRippleEffect;
 
   @override
   Widget build(BuildContext context) {
+    final themeData = StepProgressTheme.of(context)!.data;
+    final enableRippleEffect = themeData.enableRippleEffect;
+    final stepLabelStyle = themeData.labelStyle;
+    final stepNodeStyle = themeData.stepNodeStyle;
+    final stepLineStyle = themeData.stepLineStyle;
+    //
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (labels != null) _buildLabels(),
+        if (labels != null) _buildLabels(stepLabelStyle),
         if (enableRippleEffect)
-          _buildStepsWithRippleEffect()
+          _buildStepsWithRippleEffect(stepNodeStyle, stepLineStyle)
         else
-          _buildSteps(stepSize),
+          _buildSteps(stepSize, stepNodeStyle, stepLineStyle),
       ],
     );
   }
 
-  Widget _buildLabels() {
+  Widget _buildLabels(StepLabelStyle style) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: List.generate(
@@ -50,13 +52,17 @@ class HorizontalStepProgress extends StatelessWidget {
             label: labels![index],
             isActive: index <= currentStep,
             maxWidth: stepSize,
+            style: style,
           );
         },
       ),
     );
   }
 
-  Widget _buildStepsWithRippleEffect() {
+  Widget _buildStepsWithRippleEffect(
+    StepNodeStyle stepNodeStyle,
+    StepLineStyle stepLineStyle,
+  ) {
     final calculatedStepSize = stepSize / 2;
     return Stack(
       alignment: Alignment.center,
@@ -64,7 +70,7 @@ class HorizontalStepProgress extends StatelessWidget {
         _buildRippleEffects(),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: calculatedStepSize / 2),
-          child: _buildSteps(calculatedStepSize),
+          child: _buildSteps(calculatedStepSize, stepNodeStyle, stepLineStyle),
         ),
       ],
     );
@@ -87,7 +93,11 @@ class HorizontalStepProgress extends StatelessWidget {
     );
   }
 
-  Widget _buildSteps(double calculatedStepSize) {
+  Widget _buildSteps(
+    double calculatedStepSize,
+    StepNodeStyle stepNodeStyle,
+    StepLineStyle stepLineStyle,
+  ) {
     return Row(
       children: List.generate(
         totalStep,

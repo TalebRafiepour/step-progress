@@ -14,13 +14,10 @@ class StepProgress extends StatefulWidget {
     this.currentStep = 0,
     super.key,
     this.stepSize = kToolbarHeight,
-    this.style = const StepProgressStyle(),
-    this.stepAnimationDuration = const Duration(milliseconds: 300),
+    this.theme = const StepProgressThemeData(),
     this.margin = EdgeInsets.zero,
     this.padding = const EdgeInsets.all(4),
     this.onStepChanged,
-    this.titleStyle = const TextStyle(fontSize: 14),
-    this.enableRippleEffect = true,
     this.labels,
   })  : assert(
           totalSteps > 0,
@@ -32,8 +29,6 @@ class StepProgress extends StatefulWidget {
           ' and lower than totalSteps',
         );
 
-  final TextStyle titleStyle;
-
   final List<String>? labels;
 
   final double stepSize;
@@ -41,16 +36,10 @@ class StepProgress extends StatefulWidget {
   final int totalSteps;
   final int currentStep;
 
-  final bool enableRippleEffect;
-
-  /// The duration of the step animation.
-  final Duration stepAnimationDuration;
+  final StepProgressThemeData theme;
 
   /// The controller that manages the state and behavior of the step progress.
   final StepProgressController? controller;
-
-  /// The style configuration for the step progress.
-  final StepProgressStyle style;
 
   /// The margin around the step progress widget.
   final EdgeInsets margin;
@@ -118,19 +107,19 @@ class _StepProgressState extends State<StepProgress>
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('current step: $_currentStep');
-    return Container(
-      color: widget.style.backgroundColor,
-      margin: widget.margin,
-      padding: widget.padding,
-      width: double.infinity,
-      child: HorizontalStepProgress(
-        totalStep: widget.totalSteps,
-        enableRippleEffect: widget.enableRippleEffect,
-        currentStep: _currentStep,
-        labels: widget.labels,
-        stepSize: widget.stepSize,
-        stepNodeStyle: StepNodeStyle(),
+    return StepProgressTheme(
+      data: widget.theme,
+      child: Container(
+        color: Colors.transparent,
+        margin: widget.margin,
+        padding: widget.padding,
+        width: double.infinity,
+        child: HorizontalStepProgress(
+          totalStep: widget.totalSteps,
+          currentStep: _currentStep,
+          labels: widget.labels,
+          stepSize: widget.stepSize,
+        ),
       ),
     );
   }

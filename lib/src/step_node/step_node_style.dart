@@ -3,7 +3,7 @@ import 'package:step_progress/src/step_node/ripple_effect_style.dart';
 import 'package:step_progress/src/step_node/step_node_shape.dart';
 
 class StepNodeStyle {
-  StepNodeStyle({
+  const StepNodeStyle({
     this.deaultForegroundColor = const Color.fromARGB(50, 255, 255, 255),
     this.activeForegroundColor = Colors.white,
     this.animationDuration = const Duration(milliseconds: 150),

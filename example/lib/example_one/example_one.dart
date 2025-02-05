@@ -30,12 +30,12 @@ class _ExampleOneState extends State<ExampleOne> {
               'step 3',
               'step 4',
             ],
-            style: const StepProgressStyle(
-              strokeColor: Color(0xff04A7B8),
-              valueColor: Colors.white,
-              backgroundColor: Color(0xff04A7B5),
-              tickColor: Color(0xff04A7B5),
-            ),
+            // style: const StepProgressStyle(
+            //   strokeColor: Color(0xff04A7B8),
+            //   valueColor: Colors.white,
+            //   backgroundColor: Color(0xff04A7B5),
+            //   tickColor: Color(0xff04A7B5),
+            // ),
             onStepChanged: (index) {
               debugPrint('on step changed: $index');
             },
