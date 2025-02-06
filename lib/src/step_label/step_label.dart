@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:step_progress/src/step_label/step_label_style.dart';
+import 'package:step_progress/src/step_progress_theme.dart';
 
 class StepLabel extends StatelessWidget {
   const StepLabel({
@@ -17,6 +18,7 @@ class StepLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = StepProgressTheme.of(context)?.data;
     return Container(
       padding: style.padding,
       margin: style.margin,
@@ -25,14 +27,17 @@ class StepLabel extends StatelessWidget {
         maxWidth: maxWidth ?? double.infinity,
       ),
       child: AnimatedDefaultTextStyle(
-        // read duration from style then theme
-        duration: const Duration(milliseconds: 150),
+        duration: style.animationDuration ??
+            theme?.stepAnimationDuration ??
+            const Duration(milliseconds: 150),
         style: _style(context).copyWith(
-          color: isActive ? style.activeColor : null,
+          color: isActive
+              ? style.activeColor ?? theme?.activeForegroundColor
+              : style.defualtColor ?? theme?.defaultForegroundColor,
         ),
         child: Text(
           label,
-          textAlign: TextAlign.center,
+          textAlign: style.textAlign,
           overflow: style.overflow,
           maxLines: style.maxLines,
         ),
