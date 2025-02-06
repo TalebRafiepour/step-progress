@@ -21,31 +21,41 @@ class StepLine extends StatelessWidget {
     return Expanded(
       child: LayoutBuilder(
         builder: (_, constraint) {
-          return Container(
-            width: _width(constraint),
-            height: _height(constraint),
-            color: style.foregroundColor ??
-                theme?.defaultForegroundColor ??
-                Colors.grey.shade400,
-            margin: style.margin,
-            alignment: AlignmentDirectional.centerStart,
-            child: AnimatedContainer(
-              width: _isHorizontal
-                  ? (isActive ? _width(constraint) : 0)
-                  : _width(constraint),
-              height: _isHorizontal
-                  ? _height(constraint)
-                  : (isActive ? _height(constraint) : 0),
-              color: style.activeColor ??
-                  theme?.activeForegroundColor ??
-                  Colors.white,
-              curve: Curves.fastLinearToSlowEaseIn,
-              margin: style.margin,
-              duration: style.animationDuration ??
-                  theme?.stepAnimationDuration ??
-                  const Duration(
-                    milliseconds: 150,
-                  ),
+          return Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: _isHorizontal ? theme?.stepLineSpacing ?? 0 : 0,
+              vertical: !_isHorizontal ? theme?.stepLineSpacing ?? 0 : 0,
+            ),
+            child: Container(
+              width: _width(constraint),
+              height: _height(constraint),
+              decoration: BoxDecoration(
+                color: style.foregroundColor ??
+                    theme?.defaultForegroundColor ??
+                    Colors.grey.shade400,
+                borderRadius: style.borderRadius,
+              ),
+              alignment: AlignmentDirectional.centerStart,
+              child: AnimatedContainer(
+                width: _isHorizontal
+                    ? (isActive ? _width(constraint) : 0)
+                    : _width(constraint),
+                height: _isHorizontal
+                    ? _height(constraint)
+                    : (isActive ? _height(constraint) : 0),
+                decoration: BoxDecoration(
+                  color: style.activeColor ??
+                      theme?.activeForegroundColor ??
+                      Colors.white,
+                  borderRadius: style.borderRadius,
+                ),
+                curve: Curves.fastLinearToSlowEaseIn,
+                duration: style.animationDuration ??
+                    theme?.stepAnimationDuration ??
+                    const Duration(
+                      milliseconds: 150,
+                    ),
+              ),
             ),
           );
         },

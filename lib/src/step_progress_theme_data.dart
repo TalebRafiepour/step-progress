@@ -11,6 +11,7 @@ class StepProgressThemeData {
     this.enableRippleEffect = true,
     this.shape = StepNodeShape.circle,
     this.stepAnimationDuration = const Duration(milliseconds: 150),
+    this.stepLineSpacing = 0,
     this.labelStyle = const StepLabelStyle(),
     this.stepNodeStyle = const StepNodeStyle(),
     this.stepLineStyle = const StepLineStyle(),
@@ -24,6 +25,7 @@ class StepProgressThemeData {
   final Duration stepAnimationDuration;
   final bool enableRippleEffect;
   final StepNodeShape shape;
+  final double stepLineSpacing;
 
   final StepLabelStyle labelStyle;
   final StepNodeStyle stepNodeStyle;
