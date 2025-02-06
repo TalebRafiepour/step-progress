@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:step_progress/src/step_node/step_node_core.dart';
 import 'package:step_progress/src/step_node/step_node_shaped_container.dart';
 import 'package:step_progress/src/step_node/step_node_style.dart';
+import 'package:step_progress/src/step_progress_theme.dart';
 
 class StepNode extends StatelessWidget {
   const StepNode({
@@ -21,6 +22,8 @@ class StepNode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = StepProgressTheme.of(context)?.data;
+    //
     return StepNodeShapedContainer(
       width: width,
       height: width,
@@ -30,8 +33,14 @@ class StepNode extends StatelessWidget {
         children: [
           StepNodeCore(
             isVisible: !isActive,
-            animationDuration: style.animationDuration,
-            foregroundColor: style.defaultForegroundColor,
+            animationDuration: style.animationDuration ??
+                theme?.stepAnimationDuration ??
+                const Duration(
+                  milliseconds: 150,
+                ),
+            foregroundColor: style.defaultForegroundColor ??
+                theme?.defaultForegroundColor ??
+                Colors.grey.shade400,
             stepNodeShape: style.shape,
             icon: style.icon,
             width: width,
@@ -39,8 +48,14 @@ class StepNode extends StatelessWidget {
           ),
           StepNodeCore(
             isVisible: isActive,
-            animationDuration: style.animationDuration,
-            foregroundColor: style.activeForegroundColor,
+            animationDuration: style.animationDuration ??
+                theme?.stepAnimationDuration ??
+                const Duration(
+                  milliseconds: 150,
+                ),
+            foregroundColor: style.activeForegroundColor ??
+                theme?.activeForegroundColor ??
+                Colors.white,
             stepNodeShape: style.shape,
             icon: style.activeIcon ?? style.icon,
             width: width,
