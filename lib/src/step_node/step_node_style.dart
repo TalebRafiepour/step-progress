@@ -13,12 +13,12 @@ class StepNodeStyle {
     ),
     this.icon = const Icon(
       Icons.check,
-      size: 24,
+      size: 18,
       color: Color.fromARGB(129, 101, 134, 133),
     ),
     this.activeIcon = const Icon(
       Icons.check,
-      size: 24,
+      size: 18,
       color: Color.fromARGB(129, 3, 156, 150),
     ),
     this.iconColor = const Color.fromARGB(253, 6, 138, 129),

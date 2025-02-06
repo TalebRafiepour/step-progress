@@ -9,7 +9,7 @@ class StepNodeRipple extends StatelessWidget {
     required this.width,
     required this.height,
     this.style = const RippleEffectStyle(),
-    this.count = 5,
+    this.count = 6,
     this.isVisible = true,
     this.animationDuration = const Duration(milliseconds: 150),
     super.key,

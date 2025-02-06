@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:step_progress/src/horizontal_step_progress/horizontal_step_progress.dart';
+import 'package:step_progress/src/step_progress_widgets/horizontal_step_progress.dart';
+import 'package:step_progress/src/step_progress_widgets/vertical_step_progress.dart';
 import 'package:step_progress/step_progress.dart';
 
 /// A typedef for a callback function that is called when the step changes.
@@ -13,10 +14,11 @@ class StepProgress extends StatefulWidget {
     this.controller,
     this.currentStep = 0,
     super.key,
-    this.stepSize = kToolbarHeight,
+    this.stepSize = 48,
     this.theme = const StepProgressThemeData(),
     this.margin = EdgeInsets.zero,
     this.padding = const EdgeInsets.all(4),
+    this.axis = Axis.horizontal,
     this.onStepChanged,
     this.labels,
   })  : assert(
@@ -34,9 +36,12 @@ class StepProgress extends StatefulWidget {
   final double stepSize;
 
   final int totalSteps;
+
   final int currentStep;
 
   final StepProgressThemeData theme;
+
+  final Axis axis;
 
   /// The controller that manages the state and behavior of the step progress.
   final StepProgressController? controller;
@@ -109,16 +114,33 @@ class _StepProgressState extends State<StepProgress>
   Widget build(BuildContext context) {
     return StepProgressTheme(
       data: widget.theme,
-      child: Container(
-        color: Colors.transparent,
-        margin: widget.margin,
-        padding: widget.padding,
-        width: double.infinity,
-        child: HorizontalStepProgress(
-          totalStep: widget.totalSteps,
-          currentStep: _currentStep,
-          labels: widget.labels,
-          stepSize: widget.stepSize,
+      child: Flexible(
+        child: Align(
+          alignment: AlignmentDirectional.topStart,
+          child: Container(
+            color: Colors.transparent,
+            margin: widget.margin,
+            padding: widget.padding,
+            constraints: BoxConstraints(
+              minHeight: widget.stepSize,
+              maxWidth: double.maxFinite,
+              maxHeight: double.maxFinite,
+              minWidth: widget.stepSize,
+            ),
+            child: widget.axis == Axis.horizontal
+                ? HorizontalStepProgress(
+                    totalStep: widget.totalSteps,
+                    currentStep: _currentStep,
+                    labels: widget.labels,
+                    stepSize: widget.stepSize,
+                  )
+                : VerticalStepProgress(
+                    totalStep: widget.totalSteps,
+                    currentStep: _currentStep,
+                    labels: widget.labels,
+                    stepSize: widget.stepSize,
+                  ),
+          ),
         ),
       ),
     );

@@ -3,13 +3,13 @@ import 'package:step_progress/src/step_line/step_line_style.dart';
 
 class StepLine extends StatelessWidget {
   const StepLine({
-    this.direction = Axis.horizontal,
+    this.axis = Axis.horizontal,
     this.style = const StepLineStyle(),
     this.isActive = false,
     super.key,
   });
 
-  final Axis direction;
+  final Axis axis;
 
   final bool isActive;
   final StepLineStyle style;
@@ -43,16 +43,16 @@ class StepLine extends StatelessWidget {
     );
   }
 
-  bool get _isHorizontal => direction == Axis.horizontal;
+  bool get _isHorizontal => axis == Axis.horizontal;
 
   double _width(BoxConstraints constraint) {
-    return direction == Axis.horizontal
+    return axis == Axis.horizontal
         ? constraint.constrainWidth()
         : style.lineThickness;
   }
 
   double _height(BoxConstraints constraint) {
-    return direction == Axis.vertical
+    return axis == Axis.vertical
         ? constraint.constrainHeight()
         : style.lineThickness;
   }

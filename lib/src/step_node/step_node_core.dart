@@ -8,7 +8,7 @@ class StepNodeCore extends StatelessWidget {
     this.foregroundColor = const Color.fromARGB(50, 255, 255, 255),
     this.icon = const Icon(
       Icons.check,
-      size: 24,
+      size: 18,
       color: Color.fromARGB(129, 149, 195, 194),
     ),
     this.animationDuration = const Duration(milliseconds: 150),

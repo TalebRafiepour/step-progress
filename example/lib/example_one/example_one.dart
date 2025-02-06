@@ -16,6 +16,7 @@ class _ExampleOneState extends State<ExampleOne> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.green,
       appBar: AppBar(
         title: const Text('Example One'),
       ),
@@ -24,6 +25,7 @@ class _ExampleOneState extends State<ExampleOne> {
           StepProgress(
             totalSteps: 4,
             controller: _stepProgressController,
+            axis: Axis.vertical,
             labels: const [
               'step 1',
               'step 2',

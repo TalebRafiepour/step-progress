@@ -18,10 +18,12 @@ class StepLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: maxWidth,
       padding: style.padding,
       margin: style.margin,
       alignment: style.alignment,
+      constraints: BoxConstraints(
+        maxWidth: maxWidth ?? double.infinity,
+      ),
       child: AnimatedDefaultTextStyle(
         // read duration from style then theme
         duration: const Duration(milliseconds: 150),
