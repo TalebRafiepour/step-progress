@@ -5,11 +5,11 @@ import 'package:step_progress/src/step_node/step_node_shaped_container.dart';
 class StepNodeCore extends StatelessWidget {
   const StepNodeCore({
     required this.stepNodeShape,
-    this.foregroundColor = const Color.fromARGB(50, 255, 255, 255),
+    this.foregroundColor,
     this.icon = const Icon(
       Icons.check,
       size: 18,
-      color: Color.fromARGB(129, 149, 195, 194),
+      color: Colors.white,
     ),
     this.animationDuration = const Duration(milliseconds: 150),
     this.isVisible = true,
@@ -19,7 +19,7 @@ class StepNodeCore extends StatelessWidget {
   });
 
   final Widget? icon;
-  final Color foregroundColor;
+  final Color? foregroundColor;
   final StepNodeShape stepNodeShape;
   final double? width;
   final double? height;

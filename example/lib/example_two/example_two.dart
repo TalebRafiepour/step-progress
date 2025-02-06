@@ -17,7 +17,6 @@ class _ExampleTwoState extends State<ExampleTwo> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Example Two'),
-        backgroundColor: Colors.purpleAccent,
         bottom: PreferredSize(
           preferredSize: const Size(double.infinity, 60),
           child: StepProgress(

@@ -45,9 +45,7 @@ class StepNodeRipple extends StatelessWidget {
           width: width,
           height: height,
           decoration: BoxDecoration(
-            color: style.foregroundColor ??
-                theme?.defaultForegroundColor ??
-                Colors.transparent,
+            color: style.foregroundColor ?? Colors.transparent,
             border: Border.all(
               color: style.borderColor ??
                   theme?.activeForegroundColor ??

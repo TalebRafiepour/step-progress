@@ -4,8 +4,8 @@ import 'package:step_progress/step_progress.dart';
 
 class StepProgressThemeData {
   const StepProgressThemeData({
-    this.defaultForegroundColor = const Color.fromARGB(99, 249, 233, 233),
-    this.activeForegroundColor = Colors.white,
+    this.defaultForegroundColor = const Color.fromARGB(255, 191,196,195),
+    this.activeForegroundColor = const Color.fromARGB(255,0,167,160),
     this.borderColor = Colors.white,
     this.borderWidth = 0,
     this.enableRippleEffect = true,

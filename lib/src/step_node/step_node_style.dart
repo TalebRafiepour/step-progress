@@ -10,15 +10,11 @@ class StepNodeStyle {
     this.decoration = const BoxDecoration(
       color: Color.fromARGB(50, 255, 255, 255),
     ),
-    this.icon = const Icon(
-      Icons.check,
-      size: 18,
-      color: Color.fromARGB(129, 101, 134, 133),
-    ),
+    this.icon,
     this.activeIcon = const Icon(
       Icons.check,
       size: 18,
-      color: Color.fromARGB(129, 3, 156, 150),
+      color: Colors.white,
     ),
     this.iconColor = const Color.fromARGB(253, 6, 138, 129),
     this.enableRippleEffect = true,
@@ -29,7 +25,7 @@ class StepNodeStyle {
   final Color iconColor;
   final StepNodeShape shape;
   final BoxDecoration decoration;
-  final Widget icon;
+  final Widget? icon;
   final Widget? activeIcon;
   final bool enableRippleEffect;
   final Duration? animationDuration;
