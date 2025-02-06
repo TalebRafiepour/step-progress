@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:step_progress/src/step_node/ripple_effect_style.dart';
 import 'package:step_progress/src/step_node/step_node_shape.dart';
 import 'package:step_progress/src/step_node/step_node_shaped_container.dart';
+import 'package:step_progress/src/step_progress_theme.dart';
 
 class StepNodeRipple extends StatelessWidget {
   const StepNodeRipple({
@@ -11,7 +12,6 @@ class StepNodeRipple extends StatelessWidget {
     this.style = const RippleEffectStyle(),
     this.count = 6,
     this.isVisible = true,
-    this.animationDuration = const Duration(milliseconds: 150),
     super.key,
   });
 
@@ -21,24 +21,37 @@ class StepNodeRipple extends StatelessWidget {
   final RippleEffectStyle style;
   final int count;
   final bool isVisible;
-  final Duration animationDuration;
 
   @override
   Widget build(BuildContext context) {
+    final theme = StepProgressTheme.of(context)?.data;
+
+    Duration animationDuration() {
+      return style.animationDuration ??
+          theme?.stepAnimationDuration ??
+          const Duration(
+            milliseconds: 150,
+          );
+    }
+
     return AnimatedOpacity(
-      duration: animationDuration,
+      duration: animationDuration(),
       opacity: isVisible ? 1 : 0,
       child: AnimatedScale(
-        duration: animationDuration,
+        duration: animationDuration(),
         scale: isVisible ? 1 : 0,
         child: StepNodeShapedContainer(
           stepNodeShape: stepNodeShape,
           width: width,
           height: height,
           decoration: BoxDecoration(
-            color: style.foregroundColor,
+            color: style.foregroundColor ??
+                theme?.defaultForegroundColor ??
+                Colors.transparent,
             border: Border.all(
-              color: style.borderColor,
+              color: style.borderColor ??
+                  theme?.activeForegroundColor ??
+                  Colors.white,
               width: style.borderWidth,
             ),
           ),
@@ -51,7 +64,6 @@ class StepNodeRipple extends StatelessWidget {
                   width: width - (width / count),
                   height: height - (height / count),
                   isVisible: isVisible,
-                  animationDuration: animationDuration,
                 ),
         ),
       ),

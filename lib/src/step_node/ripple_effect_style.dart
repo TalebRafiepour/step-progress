@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 class RippleEffectStyle {
   const RippleEffectStyle({
-    this.borderColor = const Color.fromARGB(50, 255, 255, 255),
-    this.foregroundColor = Colors.transparent,
+    this.borderColor,
+    this.foregroundColor,
     this.borderWidth = 2,
+    this.animationDuration,
   });
 
-  final Color borderColor;
-  final Color foregroundColor;
+  final Color? borderColor;
+  final Color? foregroundColor;
   final double borderWidth;
+  final Duration? animationDuration;
 }
