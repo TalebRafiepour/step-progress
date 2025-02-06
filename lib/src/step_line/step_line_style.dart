@@ -4,14 +4,14 @@ class StepLineStyle {
   const StepLineStyle({
     this.margin = EdgeInsetsDirectional.zero,
     this.lineThickness = 4,
-    this.foregroundColor = const Color.fromARGB(50, 255, 255, 255),
-    this.activeColor = Colors.white,
-    this.animationDuration = const Duration(milliseconds: 200),
+    this.foregroundColor,
+    this.activeColor,
+    this.animationDuration,
   });
 
-  final Color foregroundColor;
-  final Color activeColor;
-  final Duration animationDuration;
+  final Color? foregroundColor;
+  final Color? activeColor;
+  final Duration? animationDuration;
   final double lineThickness;
   final EdgeInsetsDirectional margin;
 }
