@@ -4,6 +4,22 @@ import 'package:step_progress/src/step_progress_widgets/step_generator.dart';
 import 'package:step_progress/src/step_progress_widgets/step_progress_widget.dart';
 import 'package:step_progress/step_progress.dart';
 
+/// A widget that displays a horizontal step progress indicator.
+///
+/// The [HorizontalStepProgress] widget is a customizable step progress
+/// indicator that displays steps horizontally. It extends the
+/// [StepProgressWidget] class.
+///
+/// The widget requires the following parameters:
+/// - [totalStep]: The total number of steps.
+/// - [currentStep]: The current step index.
+/// - [stepSize]: The size of each step.
+///
+/// Optional parameters include:
+/// - [titles]: A list of titles for each step.
+/// - [subTitles]: A list of subtitles for each step.
+/// - [onStepTapped]: A callback function that is called when a step is tapped.
+/// - [key]: An optional key for the widget.
 class HorizontalStepProgress extends StepProgressWidget {
   const HorizontalStepProgress({
     required super.totalStep,
@@ -16,6 +32,13 @@ class HorizontalStepProgress extends StepProgressWidget {
   });
 
   @override
+
+  /// Builds the step nodes for the horizontal step progress widget.
+  ///
+  /// This method constructs the visual representation of the step nodes
+  /// in the horizontal step progress indicator.
+  ///
+  /// Returns a [Widget] that represents the step nodes.
   Widget buildStepNodes() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -39,6 +62,11 @@ class HorizontalStepProgress extends StepProgressWidget {
     );
   }
 
+  /// Builds the step lines with the given style.
+  ///
+  /// The [style] parameter specifies the appearance of the step lines.
+  ///
+  /// Returns a [Widget] that represents the step lines.
   @override
   Widget buildStepLines(StepLineStyle style) {
     return Padding(
