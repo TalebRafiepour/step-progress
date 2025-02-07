@@ -28,4 +28,34 @@ class StepLabelStyle {
   final EdgeInsets padding;
   final EdgeInsets margin;
   final Duration? animationDuration;
+
+  StepLabelStyle copyWith({
+    CrossAxisAlignment? labelAxisAlignment,
+    TextStyle? titleStyle,
+    TextStyle? subTitleStyle,
+    Color? activeColor,
+    Color? defualtColor,
+    TextAlign? textAlign,
+    int? titleMaxLines,
+    int? subTitleMaxLines,
+    TextOverflow? overflow,
+    EdgeInsets? padding,
+    EdgeInsets? margin,
+    Duration? animationDuration,
+  }) {
+    return StepLabelStyle(
+      labelAxisAlignment: labelAxisAlignment ?? this.labelAxisAlignment,
+      titleStyle: titleStyle ?? this.titleStyle,
+      subTitleStyle: subTitleStyle ?? this.subTitleStyle,
+      activeColor: activeColor ?? this.activeColor,
+      defualtColor: defualtColor ?? this.defualtColor,
+      textAlign: textAlign ?? this.textAlign,
+      titleMaxLines: titleMaxLines ?? this.titleMaxLines,
+      subTitleMaxLines: subTitleMaxLines ?? this.subTitleMaxLines,
+      overflow: overflow ?? this.overflow,
+      padding: padding ?? this.padding,
+      margin: margin ?? this.margin,
+      animationDuration: animationDuration ?? this.animationDuration,
+    );
+  }
 }

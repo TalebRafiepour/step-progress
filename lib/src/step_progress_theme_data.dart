@@ -31,4 +31,37 @@ class StepProgressThemeData {
   final StepNodeStyle stepNodeStyle;
   final StepLineStyle stepLineStyle;
   final RippleEffectStyle rippleEffectStyle;
+
+  StepProgressThemeData copyWith({
+    Color? defaultForegroundColor,
+    Color? activeForegroundColor,
+    Color? borderColor,
+    double? borderWidth,
+    Duration? stepAnimationDuration,
+    bool? enableRippleEffect,
+    StepNodeShape? shape,
+    double? stepLineSpacing,
+    StepLabelStyle? labelStyle,
+    StepNodeStyle? stepNodeStyle,
+    StepLineStyle? stepLineStyle,
+    RippleEffectStyle? rippleEffectStyle,
+  }) {
+    return StepProgressThemeData(
+      defaultForegroundColor:
+          defaultForegroundColor ?? this.defaultForegroundColor,
+      activeForegroundColor:
+          activeForegroundColor ?? this.activeForegroundColor,
+      borderColor: borderColor ?? this.borderColor,
+      borderWidth: borderWidth ?? this.borderWidth,
+      stepAnimationDuration:
+          stepAnimationDuration ?? this.stepAnimationDuration,
+      enableRippleEffect: enableRippleEffect ?? this.enableRippleEffect,
+      shape: shape ?? this.shape,
+      stepLineSpacing: stepLineSpacing ?? this.stepLineSpacing,
+      labelStyle: labelStyle ?? this.labelStyle,
+      stepNodeStyle: stepNodeStyle ?? this.stepNodeStyle,
+      stepLineStyle: stepLineStyle ?? this.stepLineStyle,
+      rippleEffectStyle: rippleEffectStyle ?? this.rippleEffectStyle,
+    );
+  }
 }

@@ -105,7 +105,6 @@ class _StepProgressState extends State<StepProgress>
     if (widget.currentStep != _currentStep ||
         oldWidget.controller != widget.controller) {
       _currentStep = _getCurrentStep;
-      debugPrint('widget.currentStep: ${widget.currentStep}');
     }
     super.didUpdateWidget(oldWidget);
   }

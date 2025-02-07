@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:step_progress/src/step_line/step_line_style.dart';
 import 'package:step_progress/src/step_progress.dart';
+import 'package:step_progress/src/step_progress_theme.dart';
 
 abstract class StepProgressWidget extends StatelessWidget {
   const StepProgressWidget({
@@ -32,4 +34,19 @@ abstract class StepProgressWidget extends StatelessWidget {
   final List<String>? titles;
   final List<String>? subTitles;
   final OnStepTapped? onStepTapped;
+
+  Widget buildStepNodes();
+
+  Widget buildStepLines(StepLineStyle style);
+
+  @override
+  Widget build(BuildContext context) {
+    final stepLineStyle = StepProgressTheme.of(context)!.data.stepLineStyle;
+    return Stack(
+      children: [
+        buildStepLines(stepLineStyle),
+        buildStepNodes(),
+      ],
+    );
+  }
 }

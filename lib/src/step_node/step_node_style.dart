@@ -29,4 +29,30 @@ class StepNodeStyle {
   final Widget? activeIcon;
   final bool enableRippleEffect;
   final Duration? animationDuration;
+
+  StepNodeStyle copyWith({
+    Color? defaultForegroundColor,
+    Color? activeForegroundColor,
+    Color? iconColor,
+    StepNodeShape? shape,
+    BoxDecoration? decoration,
+    Widget? icon,
+    Widget? activeIcon,
+    bool? enableRippleEffect,
+    Duration? animationDuration,
+  }) {
+    return StepNodeStyle(
+      defaultForegroundColor:
+          defaultForegroundColor ?? this.defaultForegroundColor,
+      activeForegroundColor:
+          activeForegroundColor ?? this.activeForegroundColor,
+      iconColor: iconColor ?? this.iconColor,
+      shape: shape ?? this.shape,
+      decoration: decoration ?? this.decoration,
+      icon: icon ?? this.icon,
+      activeIcon: activeIcon ?? this.activeIcon,
+      enableRippleEffect: enableRippleEffect ?? this.enableRippleEffect,
+      animationDuration: animationDuration ?? this.animationDuration,
+    );
+  }
 }

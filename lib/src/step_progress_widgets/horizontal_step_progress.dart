@@ -16,18 +16,7 @@ class HorizontalStepProgress extends StepProgressWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    final stepLineStyle = StepProgressTheme.of(context)!.data.stepLineStyle;
-    return Stack(
-      alignment: AlignmentDirectional.bottomEnd,
-      children: [
-        _buildStepLines(stepLineStyle),
-        _buildStepNodes(),
-      ],
-    );
-  }
-
-  Widget _buildStepNodes() {
+  Widget buildStepNodes() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: List.generate(
@@ -50,7 +39,8 @@ class HorizontalStepProgress extends StepProgressWidget {
     );
   }
 
-  Widget _buildStepLines(StepLineStyle style) {
+  @override
+  Widget buildStepLines(StepLineStyle style) {
     return Padding(
       padding: EdgeInsets.symmetric(
         vertical: stepSize / 2 - style.lineThickness / 2,
