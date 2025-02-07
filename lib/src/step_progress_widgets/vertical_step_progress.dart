@@ -12,6 +12,7 @@ class VerticalStepProgress extends StepProgressWidget {
     required super.stepSize,
     super.titles,
     super.subTitles,
+    super.onStepTapped,
     super.key,
   });
 
@@ -32,13 +33,18 @@ class VerticalStepProgress extends StepProgressWidget {
       children: List.generate(
         totalStep,
         (index) {
-          return StepGenerator(
-            axis: Axis.vertical,
-            width: stepSize,
-            height: stepSize,
-            title: titles?[index],
-            subTitle: subTitles?[index],
-            isActive: index <= currentStep,
+          return GestureDetector(
+            onTap: () {
+              onStepTapped?.call(index);
+            },
+            child: StepGenerator(
+              axis: Axis.vertical,
+              width: stepSize,
+              height: stepSize,
+              title: titles?[index],
+              subTitle: subTitles?[index],
+              isActive: index <= currentStep,
+            ),
           );
         },
       ),

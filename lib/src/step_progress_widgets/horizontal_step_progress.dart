@@ -11,6 +11,7 @@ class HorizontalStepProgress extends StepProgressWidget {
     required super.stepSize,
     super.titles,
     super.subTitles,
+    super.onStepTapped,
     super.key,
   });
 
@@ -32,12 +33,17 @@ class HorizontalStepProgress extends StepProgressWidget {
       children: List.generate(
         totalStep,
         (index) {
-          return StepGenerator(
-            width: stepSize,
-            height: stepSize,
-            title: titles?[index],
-            subTitle: subTitles?[index],
-            isActive: index <= currentStep,
+          return GestureDetector(
+            onTap: () {
+              onStepTapped?.call(index);
+            },
+            child: StepGenerator(
+              width: stepSize,
+              height: stepSize,
+              title: titles?[index],
+              subTitle: subTitles?[index],
+              isActive: index <= currentStep,
+            ),
           );
         },
       ),

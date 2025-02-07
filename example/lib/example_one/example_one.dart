@@ -31,20 +31,11 @@ class _ExampleOneState extends State<ExampleOne> {
               'step 3',
               'step 4',
             ],
-            // subTitles: const [
-            //   'sub 1',
-            //   'sub 2',
-            //   'sub 3',
-            //   'sub 4',
-            // ],
-            // style: const StepProgressStyle(
-            //   strokeColor: Color(0xff04A7B8),
-            //   valueColor: Colors.white,
-            //   backgroundColor: Color(0xff04A7B5),
-            //   tickColor: Color(0xff04A7B5),
-            // ),
             onStepChanged: (index) {
               debugPrint('on step changed: $index');
+            },
+            onStepTapped: (index) {
+              debugPrint('on step tapped with index: $index');
             },
           ),
           Expanded(

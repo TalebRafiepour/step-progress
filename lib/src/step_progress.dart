@@ -8,6 +8,8 @@ import 'package:step_progress/step_progress.dart';
 /// The [currentIndex] parameter indicates the index of the current step.
 typedef OnStepChanged = void Function(int currentIndex);
 
+typedef OnStepTapped = void Function(int index);
+
 class StepProgress extends StatefulWidget {
   const StepProgress({
     required this.totalSteps,
@@ -19,9 +21,10 @@ class StepProgress extends StatefulWidget {
     this.margin = EdgeInsets.zero,
     this.padding = const EdgeInsets.all(4),
     this.axis = Axis.horizontal,
-    this.onStepChanged,
     this.titles,
     this.subTitles,
+    this.onStepTapped,
+    this.onStepChanged,
   })  : assert(
           totalSteps > 0,
           'totalSteps must be greater than 0',
@@ -60,6 +63,8 @@ class StepProgress extends StatefulWidget {
   final StepProgressThemeData theme;
 
   final Axis axis;
+
+  final OnStepTapped? onStepTapped;
 
   /// The controller that manages the state and behavior of the step progress.
   final StepProgressController? controller;
@@ -128,6 +133,7 @@ class _StepProgressState extends State<StepProgress>
     return StepProgressTheme(
       data: widget.theme,
       child: Flexible(
+        flex: 10,
         child: Align(
           alignment: AlignmentDirectional.topStart,
           child: Container(
@@ -147,6 +153,7 @@ class _StepProgressState extends State<StepProgress>
                     titles: widget.titles,
                     subTitles: widget.subTitles,
                     stepSize: widget.stepSize,
+                    onStepTapped: widget.onStepTapped,
                   )
                 : VerticalStepProgress(
                     totalStep: widget.totalSteps,
@@ -154,6 +161,7 @@ class _StepProgressState extends State<StepProgress>
                     titles: widget.titles,
                     subTitles: widget.subTitles,
                     stepSize: widget.stepSize,
+                    onStepTapped: widget.onStepTapped,
                   ),
           ),
         ),
