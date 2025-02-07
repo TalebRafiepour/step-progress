@@ -25,12 +25,18 @@ class _ExampleOneState extends State<ExampleOne> {
             totalSteps: 4,
             controller: _stepProgressController,
             axis: Axis.vertical,
-            labels: const [
+            titles: const [
               'step 1',
               'step 2',
               'step 3',
               'step 4',
             ],
+            // subTitles: const [
+            //   'sub 1',
+            //   'sub 2',
+            //   'sub 3',
+            //   'sub 4',
+            // ],
             // style: const StepProgressStyle(
             //   strokeColor: Color(0xff04A7B8),
             //   valueColor: Colors.white,

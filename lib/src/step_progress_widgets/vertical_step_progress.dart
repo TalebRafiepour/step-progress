@@ -10,7 +10,8 @@ class VerticalStepProgress extends StepProgressWidget {
     required super.totalStep,
     required super.currentStep,
     required super.stepSize,
-    super.labels,
+    super.titles,
+    super.subTitles,
     super.key,
   });
 
@@ -35,7 +36,8 @@ class VerticalStepProgress extends StepProgressWidget {
             axis: Axis.vertical,
             width: stepSize,
             height: stepSize,
-            label: labels?[index],
+            title: titles?[index],
+            subTitle: subTitles?[index],
             isActive: index <= currentStep,
           );
         },

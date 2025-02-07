@@ -9,7 +9,8 @@ class HorizontalStepProgress extends StepProgressWidget {
     required super.totalStep,
     required super.currentStep,
     required super.stepSize,
-    super.labels,
+    super.titles,
+    super.subTitles,
     super.key,
   });
 
@@ -34,7 +35,8 @@ class HorizontalStepProgress extends StepProgressWidget {
           return StepGenerator(
             width: stepSize,
             height: stepSize,
-            label: labels?[index],
+            title: titles?[index],
+            subTitle: subTitles?[index],
             isActive: index <= currentStep,
           );
         },

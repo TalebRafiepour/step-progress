@@ -20,7 +20,8 @@ class StepProgress extends StatefulWidget {
     this.padding = const EdgeInsets.all(4),
     this.axis = Axis.horizontal,
     this.onStepChanged,
-    this.labels,
+    this.titles,
+    this.subTitles,
   })  : assert(
           totalSteps > 0,
           'totalSteps must be greater than 0',
@@ -29,9 +30,26 @@ class StepProgress extends StatefulWidget {
           currentStep >= 0 && currentStep < totalSteps,
           'currentStep must be greater than or equal to 0'
           ' and lower than totalSteps',
+        ),
+        assert(
+          titles == null || titles.length == totalSteps,
+          'titles must be equals to total steps',
+        ),
+        assert(
+          subTitles == null || subTitles.length == totalSteps,
+          'subTitles must be equals to total steps',
+        ),
+        assert(
+          titles == null ||
+              subTitles == null ||
+              titles.length == subTitles.length,
+          'titles length must be equal to subTitles length if'
+          ' both are provided',
         );
 
-  final List<String>? labels;
+  final List<String>? titles;
+
+  final List<String>? subTitles;
 
   final double stepSize;
 
@@ -56,7 +74,13 @@ class StepProgress extends StatefulWidget {
   final OnStepChanged? onStepChanged;
 
   @override
-  _StepProgressState createState() => _StepProgressState();
+  _StepProgressState createState() {
+    assert(
+      controller == null || totalSteps == controller?.totalSteps,
+      'totalSteps in controller must be equal to provided totalSteps',
+    );
+    return _StepProgressState();
+  }
 }
 
 class _StepProgressState extends State<StepProgress>
@@ -65,17 +89,6 @@ class _StepProgressState extends State<StepProgress>
 
   @override
   void initState() {
-    assert(
-      widget.labels == null || widget.labels!.length == widget.totalSteps,
-      'labels must be equals to total steps',
-    );
-
-    assert(
-      widget.controller == null ||
-          widget.controller!.totalSteps == widget.totalSteps,
-      'totalSteps in controller must be equal to provided totolSteps',
-    );
-
     widget.controller?.addListener(() {
       _changeStep(widget.controller!.currentStep);
     });
@@ -131,13 +144,15 @@ class _StepProgressState extends State<StepProgress>
                 ? HorizontalStepProgress(
                     totalStep: widget.totalSteps,
                     currentStep: _currentStep,
-                    labels: widget.labels,
+                    titles: widget.titles,
+                    subTitles: widget.subTitles,
                     stepSize: widget.stepSize,
                   )
                 : VerticalStepProgress(
                     totalStep: widget.totalSteps,
                     currentStep: _currentStep,
-                    labels: widget.labels,
+                    titles: widget.titles,
+                    subTitles: widget.subTitles,
                     stepSize: widget.stepSize,
                   ),
           ),

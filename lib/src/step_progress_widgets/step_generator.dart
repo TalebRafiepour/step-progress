@@ -10,7 +10,8 @@ class StepGenerator extends StatelessWidget {
     required this.height,
     this.isActive = false,
     this.axis = Axis.horizontal,
-    this.label,
+    this.title,
+    this.subTitle,
     super.key,
   });
 
@@ -18,7 +19,8 @@ class StepGenerator extends StatelessWidget {
   final Axis axis;
   final double width;
   final double height;
-  final String? label;
+  final String? title;
+  final String? subTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +55,10 @@ class StepGenerator extends StatelessWidget {
                 ),
               ],
             ),
-            if (label != null)
+            if (title != null || subTitle != null)
               StepLabel(
-                label: label!,
+                title: title,
+                subTitle: subTitle,
                 isActive: isActive,
                 maxWidth: width,
                 style: stepLabelStyle,
@@ -73,9 +76,10 @@ class StepGenerator extends StatelessWidget {
             isActive: isActive,
             style: stepNodeStyle,
           ),
-          if (label != null)
+          if (title != null || subTitle != null)
             StepLabel(
-              label: label!,
+              title: title,
+              subTitle: subTitle,
               isActive: isActive,
               maxWidth: width,
               style: stepLabelStyle,
@@ -89,9 +93,10 @@ class StepGenerator extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (label != null)
+            if (title != null || subTitle != null)
               StepLabel(
-                label: label!,
+                title: title,
+                subTitle: subTitle,
                 isActive: isActive,
                 maxWidth: width,
                 style: stepLabelStyle,
@@ -121,9 +126,10 @@ class StepGenerator extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if (label != null)
+          if (title != null || subTitle != null)
             StepLabel(
-              label: label!,
+              title: title,
+              subTitle: subTitle,
               isActive: isActive,
               maxWidth: width,
               style: stepLabelStyle,

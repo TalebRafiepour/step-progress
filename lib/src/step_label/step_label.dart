@@ -4,14 +4,19 @@ import 'package:step_progress/src/step_progress_theme.dart';
 
 class StepLabel extends StatelessWidget {
   const StepLabel({
-    required this.label,
+    this.title,
+    this.subTitle,
     this.isActive = false,
     this.maxWidth,
     this.style = const StepLabelStyle(),
     super.key,
-  });
+  }) : assert(
+          title != null || subTitle != null,
+          'At least one of title or subTitle must be initialized',
+        );
 
-  final String label;
+  final String? title;
+  final String? subTitle;
   final double? maxWidth;
   final StepLabelStyle style;
   final bool isActive;
@@ -22,32 +27,62 @@ class StepLabel extends StatelessWidget {
     return Container(
       padding: style.padding,
       margin: style.margin,
-      alignment: style.alignment,
+      alignment: Alignment.center,
       constraints: BoxConstraints(
         maxWidth: maxWidth ?? double.infinity,
       ),
-      child: AnimatedDefaultTextStyle(
-        duration: style.animationDuration ??
-            theme?.stepAnimationDuration ??
-            const Duration(milliseconds: 150),
-        style: _style(context).copyWith(
-          color: isActive
-              ? style.activeColor ?? theme?.activeForegroundColor
-              : style.defualtColor ?? theme?.defaultForegroundColor,
-        ),
-        child: Text(
-          label,
-          textAlign: style.textAlign,
-          overflow: style.overflow,
-          maxLines: style.maxLines,
-        ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: style.labelAxisAlignment,
+        children: [
+          if (title != null)
+            AnimatedDefaultTextStyle(
+              duration: style.animationDuration ??
+                  theme?.stepAnimationDuration ??
+                  const Duration(milliseconds: 150),
+              style: _titleStyle(context).copyWith(
+                color: isActive
+                    ? style.activeColor ?? theme?.activeForegroundColor
+                    : style.defualtColor ?? theme?.defaultForegroundColor,
+              ),
+              child: Text(
+                title!,
+                textAlign: style.textAlign,
+                overflow: style.overflow,
+                maxLines: style.titleMaxLines,
+              ),
+            ),
+          if (subTitle != null)
+            AnimatedDefaultTextStyle(
+              duration: style.animationDuration ??
+                  theme?.stepAnimationDuration ??
+                  const Duration(milliseconds: 150),
+              style: _subTitleStyle(context).copyWith(
+                color: isActive
+                    ? style.activeColor ?? theme?.activeForegroundColor
+                    : style.defualtColor ?? theme?.defaultForegroundColor,
+              ),
+              child: Text(
+                subTitle!,
+                textAlign: style.textAlign,
+                overflow: style.overflow,
+                maxLines: style.subTitleMaxLines,
+              ),
+            ),
+        ],
       ),
     );
   }
 
-  TextStyle _style(BuildContext context) {
-    return style.textStyle ??
-        Theme.of(context).textTheme.labelSmall ??
+  TextStyle _titleStyle(BuildContext context) {
+    return style.titleStyle ??
+        Theme.of(context).textTheme.labelMedium ??
         const TextStyle();
+  }
+
+  TextStyle _subTitleStyle(BuildContext context) {
+    return style.subTitleStyle ??
+        Theme.of(context).textTheme.labelSmall ??
+        const TextStyle(fontSize: 10);
   }
 }

@@ -2,24 +2,28 @@ import 'package:flutter/material.dart';
 
 class StepLabelStyle {
   const StepLabelStyle({
-    this.alignment = Alignment.center,
+    this.labelAxisAlignment = CrossAxisAlignment.center,
     this.activeColor,
     this.defualtColor,
-    this.textStyle,
-    this.maxLines = 3,
+    this.titleStyle,
+    this.subTitleStyle,
+    this.titleMaxLines = 3,
+    this.subTitleMaxLines = 1,
     this.overflow = TextOverflow.ellipsis,
     this.padding = EdgeInsets.zero,
     this.textAlign = TextAlign.center,
-    this.margin = const EdgeInsets.only(bottom: 2),
+    this.margin = const EdgeInsets.all(2),
     this.animationDuration,
   });
 
-  final Alignment alignment;
-  final TextStyle? textStyle;
+  final CrossAxisAlignment labelAxisAlignment;
+  final TextStyle? titleStyle;
+  final TextStyle? subTitleStyle;
   final Color? activeColor;
   final Color? defualtColor;
   final TextAlign textAlign;
-  final int maxLines;
+  final int titleMaxLines;
+  final int subTitleMaxLines;
   final TextOverflow overflow;
   final EdgeInsets padding;
   final EdgeInsets margin;
