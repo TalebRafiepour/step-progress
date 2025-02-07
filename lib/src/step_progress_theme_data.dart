@@ -15,7 +15,7 @@ import 'package:step_progress/step_progress.dart';
 /// * [borderWidth]: The width of the border around the step nodes.
 /// * [enableRippleEffect]: Whether to enable the ripple effect on step nodes.
 /// * [shape]: The shape of the step nodes (e.g., circle, square).
-/// * [stepAnimationDuration]: The duration of the animation for step 
+/// * [stepAnimationDuration]: The duration of the animation for step
 /// transitions.
 /// * [stepLineSpacing]: The spacing between step lines.
 /// * [labelStyle]: The style of the labels for the step nodes.
@@ -40,27 +40,37 @@ class StepProgressThemeData {
 
   /// The default color used for the foreground elements in the step progress.
   final Color defaultForegroundColor;
+
   /// The color of the foreground when the step is active.
   final Color activeForegroundColor;
+
   /// The color of the border.
   final Color borderColor;
+
   /// The width of the border around the step progress indicator.
   final double borderWidth;
+
   /// The duration of the step animation.
   final Duration stepAnimationDuration;
+
   /// Determines if the ripple effect is enabled.
   final bool enableRippleEffect;
+
   /// The shape of the step node in the step progress indicator.
   final StepNodeShape shape;
+
   /// The spacing between each step line in the progress indicator.
   final double stepLineSpacing;
 
   /// The style to be applied to the step labels.
   final StepLabelStyle labelStyle;
+
   /// The style configuration for the step node.
   final StepNodeStyle stepNodeStyle;
+
   /// Defines the style for the step line in the step progress indicator.
   final StepLineStyle stepLineStyle;
+
   /// The style of the ripple effect for the step progress.
   final RippleEffectStyle rippleEffectStyle;
 

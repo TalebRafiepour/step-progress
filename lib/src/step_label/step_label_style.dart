@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// A class that defines the style for a step label in a step progress widget.
-/// 
+///
 /// This class can be used to customize the appearance of the step labels,
 /// such as their text style, color, and other visual properties.
 class StepLabelStyle {
@@ -65,7 +65,7 @@ class StepLabelStyle {
   /// The duration of the animation when the style changes.
   final Duration? animationDuration;
 
-  /// Creates a copy of this [StepLabelStyle] but with the given fields 
+  /// Creates a copy of this [StepLabelStyle] but with the given fields
   /// replaced with the new values.
   StepLabelStyle copyWith({
     CrossAxisAlignment? labelAxisAlignment,

@@ -149,7 +149,7 @@ class _StepProgressState extends State<StepProgress>
   }
 
   /// Called whenever the widget configuration changes.
-  /// This method changes the current step when it's changed in the parent 
+  /// This method changes the current step when it's changed in the parent
   /// widget by setState.
   @override
   void didUpdateWidget(covariant StepProgress oldWidget) {
@@ -161,12 +161,12 @@ class _StepProgressState extends State<StepProgress>
   }
 
   /// Returns the current step of the progress.
-  /// 
+  ///
   /// If a [StepProgressController] is provided, it retrieves the current step
-  ///  from the controller. Otherwise, it uses the `currentStep` 
+  ///  from the controller. Otherwise, it uses the `currentStep`
   /// property of the widget.
-  /// 
-  /// This getter ensures that the current step is always accurately retrieved 
+  ///
+  /// This getter ensures that the current step is always accurately retrieved
   /// based on the presence of a controller.
   int get _getCurrentStep {
     return widget.controller != null
@@ -200,7 +200,7 @@ class _StepProgressState extends State<StepProgress>
   Widget build(BuildContext context) {
     return StepProgressTheme(
       data: widget.theme,
-      // To fill available space 
+      // To fill available space
       child: Flexible(
         flex: 10,
         child: Align(
