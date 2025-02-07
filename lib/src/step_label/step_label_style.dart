@@ -1,6 +1,19 @@
 import 'package:flutter/material.dart';
 
+/// A class that defines the style for a step label in a step progress widget.
+/// 
+/// This class can be used to customize the appearance of the step labels,
+/// such as their text style, color, and other visual properties.
 class StepLabelStyle {
+  /// Creates a [StepLabelStyle] with the given properties.
+  ///
+  /// The [labelAxisAlignment] defaults to [CrossAxisAlignment.center].
+  /// The [titleMaxLines] defaults to 3.
+  /// The [subTitleMaxLines] defaults to 1.
+  /// The [overflow] defaults to [TextOverflow.ellipsis].
+  /// The [padding] defaults to [EdgeInsets.zero].
+  /// The [textAlign] defaults to [TextAlign.center].
+  /// The [margin] defaults to [EdgeInsets.all(2)].
   const StepLabelStyle({
     this.labelAxisAlignment = CrossAxisAlignment.center,
     this.activeColor,
@@ -16,19 +29,44 @@ class StepLabelStyle {
     this.animationDuration,
   });
 
+  /// The alignment of the label along the cross axis.
   final CrossAxisAlignment labelAxisAlignment;
+
+  /// The style to use for the title text.
   final TextStyle? titleStyle;
+
+  /// The style to use for the subtitle text.
   final TextStyle? subTitleStyle;
+
+  /// The color to use when the step is active.
   final Color? activeColor;
+
+  /// The color to use when the step is not active.
   final Color? defualtColor;
+
+  /// How the text should be aligned horizontally.
   final TextAlign textAlign;
+
+  /// The maximum number of lines for the title text.
   final int titleMaxLines;
+
+  /// The maximum number of lines for the subtitle text.
   final int subTitleMaxLines;
+
+  /// How visual overflow should be handled.
   final TextOverflow overflow;
+
+  /// The amount of space to surround the label with.
   final EdgeInsets padding;
+
+  /// The amount of space to surround the label with.
   final EdgeInsets margin;
+
+  /// The duration of the animation when the style changes.
   final Duration? animationDuration;
 
+  /// Creates a copy of this [StepLabelStyle] but with the given fields 
+  /// replaced with the new values.
   StepLabelStyle copyWith({
     CrossAxisAlignment? labelAxisAlignment,
     TextStyle? titleStyle,
