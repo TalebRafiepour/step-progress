@@ -1,5 +1,5 @@
-import 'package:example/example_one/example_one.dart';
-import 'package:example/example_two/example_two.dart';
+import 'package:example/example_one.dart';
+import 'package:example/example_two.dart';
 import 'package:flutter/material.dart';
 
 void main() {
