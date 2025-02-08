@@ -7,7 +7,8 @@ import 'package:step_progress/src/step_progress_theme.dart';
 /// A widget that generates a step in a step progress indicator.
 ///
 /// The [StepGenerator] widget is used to create a step with customizable
-/// width, height, active state, axis, title, and subtitle.
+/// width, height, active state, axis, title, subtitle, and an optional tap
+/// callback.
 ///
 /// The [width] and [height] parameters are required to define the size of the
 /// step.
@@ -17,6 +18,8 @@ import 'package:step_progress/src/step_progress_theme.dart';
 /// horizontal or vertical, with a default value of [Axis.horizontal].
 /// The [title] and [subTitle] parameters are optional and can be used to
 /// display additional information about the step.
+/// The [onTap] parameter is an optional callback function that is triggered
+/// when the widget is tapped.
 ///
 /// Example usage:
 /// ```dart
@@ -27,6 +30,9 @@ import 'package:step_progress/src/step_progress_theme.dart';
 ///   axis: Axis.vertical,
 ///   title: 'Step 1',
 ///   subTitle: 'Introduction',
+///   onTap: () {
+///     print('Step tapped');
+///   },
 /// )
 /// ```
 class StepGenerator extends StatelessWidget {
@@ -37,6 +43,7 @@ class StepGenerator extends StatelessWidget {
     this.axis = Axis.horizontal,
     this.title,
     this.subTitle,
+    this.onTap,
     super.key,
   });
 
@@ -57,6 +64,9 @@ class StepGenerator extends StatelessWidget {
 
   /// The subtitle of the step.
   final String? subTitle;
+
+  /// A callback function triggered when the widget is tapped.
+  final VoidCallback? onTap;
 
   /// Builds a widget that represents a step in a step progress indicator.
   ///
@@ -88,118 +98,68 @@ class StepGenerator extends StatelessWidget {
     final stepNodeStyle = themeData.stepNodeStyle;
     final shape = themeData.shape;
     final rippleEffectStyle = themeData.rippleEffectStyle;
-    //
-    if (axis == Axis.vertical) {
-      if (enableRippleEffect) {
-        return Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                StepNodeRipple(
-                  stepNodeShape: shape,
-                  style: rippleEffectStyle,
-                  width: width,
-                  height: height,
-                  isVisible: isActive,
-                ),
-                StepNode(
-                  width: width / 1.5,
-                  height: height / 1.5,
-                  isActive: isActive,
-                  style: stepNodeStyle,
-                ),
-              ],
-            ),
-            if (title != null || subTitle != null)
-              StepLabel(
-                title: title,
-                subTitle: subTitle,
-                isActive: isActive,
-                maxWidth: width,
-                style: stepLabelStyle,
-              ),
-          ],
-        );
-      }
-      return Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
+
+    Widget buildStepNode() {
+      return Stack(
+        alignment: Alignment.center,
         children: [
-          StepNode(
-            width: width,
-            height: height,
-            isActive: isActive,
-            style: stepNodeStyle,
-          ),
-          if (title != null || subTitle != null)
-            StepLabel(
-              title: title,
-              subTitle: subTitle,
-              isActive: isActive,
-              maxWidth: width,
-              style: stepLabelStyle,
-            ),
-        ],
-      );
-    } else {
-      // horizontal
-      if (enableRippleEffect) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (title != null || subTitle != null)
-              StepLabel(
-                title: title,
-                subTitle: subTitle,
-                isActive: isActive,
-                maxWidth: width,
-                style: stepLabelStyle,
-              ),
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                StepNodeRipple(
-                  stepNodeShape: shape,
-                  style: rippleEffectStyle,
-                  width: width,
-                  height: height,
-                  isVisible: isActive,
-                ),
-                StepNode(
-                  width: width / 1.5,
-                  height: height / 1.5,
-                  isActive: isActive,
-                  style: stepNodeStyle,
-                ),
-              ],
-            ),
-          ],
-        );
-      }
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (title != null || subTitle != null)
-            StepLabel(
-              title: title,
-              subTitle: subTitle,
-              isActive: isActive,
-              maxWidth: width,
-              style: stepLabelStyle,
+          if (enableRippleEffect)
+            StepNodeRipple(
+              stepNodeShape: shape,
+              style: rippleEffectStyle,
+              width: width,
+              height: height,
+              isVisible: isActive,
             ),
           StepNode(
-            width: width,
-            height: height,
+            width: enableRippleEffect ? width / 1.5 : width,
+            height: enableRippleEffect ? height / 1.5 : height,
             isActive: isActive,
             style: stepNodeStyle,
           ),
         ],
       );
     }
+
+    Widget buildStepLabel() {
+      if (title != null || subTitle != null) {
+        return StepLabel(
+          title: title,
+          subTitle: subTitle,
+          isActive: isActive,
+          maxWidth: width,
+          style: stepLabelStyle,
+        );
+      }
+      return const SizedBox.shrink();
+    }
+
+    Widget buildVerticalStep() {
+      return Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          buildStepNode(),
+          buildStepLabel(),
+        ],
+      );
+    }
+
+    Widget buildHorizontalStep() {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          buildStepLabel(),
+          buildStepNode(),
+        ],
+      );
+    }
+
+    return GestureDetector(
+      onTap: onTap,
+      child:
+          axis == Axis.vertical ? buildVerticalStep() : buildHorizontalStep(),
+    );
   }
 }

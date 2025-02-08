@@ -3,6 +3,13 @@ import 'package:step_progress/src/step_progress_widgets/horizontal_step_progress
 import 'package:step_progress/src/step_progress_widgets/vertical_step_progress.dart';
 import 'package:step_progress/step_progress.dart';
 
+/// A typedef for a callback function that is triggered when a step line is
+/// tapped.
+///
+/// The callback function takes an integer [index] as a parameter, which
+/// represents the index of the tapped step line.
+typedef OnStepLineTapped = void Function(int index);
+
 /// A typedef for a callback function that is called when the step changes.
 ///
 /// The [currentIndex] parameter indicates the index of the current step.
@@ -12,7 +19,7 @@ typedef OnStepChanged = void Function(int currentIndex);
 ///
 /// The callback function takes an integer [index] as a parameter, which
 /// represents the index of the step that was tapped.
-typedef OnStepTapped = void Function(int index);
+typedef OnStepNodeTapped = void Function(int index);
 
 /// A widget that displays a step progress indicator.
 ///
@@ -52,8 +59,11 @@ typedef OnStepTapped = void Function(int index);
 ///
 /// The [height] parameter specifies the height of the step progress widget.
 ///
-/// The [onStepNodeTapped] parameter is a callback that is called when a step is
-/// tapped.
+/// The [onStepNodeTapped] parameter is a callback that is called when a step
+/// node is tapped.
+///
+/// The [onStepLineTapped] parameter is a callback that is called when a step
+/// line is tapped.
 ///
 /// The [onStepChanged] parameter is a callback that is called when the current
 /// step changes.
@@ -74,6 +84,7 @@ class StepProgress extends StatefulWidget {
     this.titles,
     this.subTitles,
     this.onStepNodeTapped,
+    this.onStepLineTapped,
     this.onStepChanged,
   })  : assert(
           totalSteps > 0,
@@ -131,7 +142,10 @@ class StepProgress extends StatefulWidget {
   final Axis axis;
 
   /// Callback function when a step is tapped
-  final OnStepTapped? onStepNodeTapped;
+  final OnStepNodeTapped? onStepNodeTapped;
+
+  /// Callback function that is triggered when a step line is tapped.
+  final OnStepLineTapped? onStepLineTapped;
 
   /// The controller that manages the state and behavior of the step progress.
   final StepProgressController? controller;
@@ -236,6 +250,7 @@ class _StepProgressState extends State<StepProgress>
                 subTitles: widget.subTitles,
                 stepSize: widget.stepSize,
                 onStepNodeTapped: widget.onStepNodeTapped,
+                onStepLineTapped: widget.onStepLineTapped,
                 visibilityOptions: widget.visibilityOptions,
               )
             : VerticalStepProgress(
@@ -245,6 +260,7 @@ class _StepProgressState extends State<StepProgress>
                 subTitles: widget.subTitles,
                 stepSize: widget.stepSize,
                 onStepNodeTapped: widget.onStepNodeTapped,
+                onStepLineTapped: widget.onStepLineTapped,
                 visibilityOptions: widget.visibilityOptions,
               ),
       ),

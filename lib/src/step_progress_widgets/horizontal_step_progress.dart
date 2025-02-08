@@ -21,6 +21,8 @@ import 'package:step_progress/step_progress.dart';
 /// - [subTitles]: A list of subtitles for each step.
 /// - [onStepNodeTapped]: A callback function that is called when a step is
 /// tapped.
+/// - [onStepLineTapped]: A callback function that is called when a line is
+/// tapped.
 /// - [key]: An optional key for the widget.
 class HorizontalStepProgress extends StepProgressWidget {
   const HorizontalStepProgress({
@@ -31,6 +33,7 @@ class HorizontalStepProgress extends StepProgressWidget {
     super.titles,
     super.subTitles,
     super.onStepNodeTapped,
+    super.onStepLineTapped,
     super.key,
   }) : super(axis: Axis.horizontal);
 
@@ -47,17 +50,17 @@ class HorizontalStepProgress extends StepProgressWidget {
       children: List.generate(
         totalStep,
         (index) {
-          return GestureDetector(
-            onTap: () {
-              onStepNodeTapped?.call(index);
-            },
-            child: StepGenerator(
-              width: stepSize,
-              height: stepSize,
-              title: titles?[index],
-              subTitle: subTitles?[index],
-              isActive: index <= currentStep,
-            ),
+          final title = titles?[index];
+          final subTitle = subTitles?[index];
+          final isActive = index <= currentStep;
+
+          return StepGenerator(
+            width: stepSize,
+            height: stepSize,
+            title: title,
+            subTitle: subTitle,
+            isActive: isActive,
+            onTap: () => onStepNodeTapped?.call(index),
           );
         },
       ),
@@ -83,6 +86,7 @@ class HorizontalStepProgress extends StepProgressWidget {
             return StepLine(
               isActive: index < currentStep,
               style: style,
+              onTap: () => onStepLineTapped?.call(index),
             );
           },
         ),

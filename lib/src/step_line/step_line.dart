@@ -19,6 +19,9 @@ import 'package:step_progress/src/step_progress_theme.dart';
 /// The [isActive] parameter indicates whether the step line is active. It
 /// defaults to `false`.
 ///
+/// The [onTap] parameter is a callback function that is executed when the step
+/// line is tapped. It is optional and defaults to `null`.
+///
 /// Example usage:
 ///
 /// ```dart
@@ -29,6 +32,9 @@ import 'package:step_progress/src/step_progress_theme.dart';
 ///     thickness: 2.0,
 ///   ),
 ///   isActive: true,
+///   onTap: () {
+///     print('Step line tapped');
+///   },
 /// )
 /// ```
 class StepLine extends StatelessWidget {
@@ -36,6 +42,7 @@ class StepLine extends StatelessWidget {
     this.axis = Axis.horizontal,
     this.style = const StepLineStyle(),
     this.isActive = false,
+    this.onTap,
     super.key,
   });
 
@@ -48,46 +55,62 @@ class StepLine extends StatelessWidget {
   /// The style of the step line.
   final StepLineStyle style;
 
+  /// Callback function to be executed when the step line is tapped.
+  final VoidCallback? onTap;
+
   @override
   Widget build(BuildContext context) {
     final theme = StepProgressTheme.of(context)?.data;
     return Expanded(
       child: LayoutBuilder(
         builder: (_, constraint) {
+          final padding = EdgeInsets.symmetric(
+            horizontal: _isHorizontal ? theme?.stepLineSpacing ?? 0 : 0,
+            vertical: !_isHorizontal ? theme?.stepLineSpacing ?? 0 : 0,
+          );
+
+          final containerDecoration = BoxDecoration(
+            color: style.foregroundColor ??
+                theme?.defaultForegroundColor ??
+                Colors.grey.shade400,
+            borderRadius: style.borderRadius,
+          );
+
+          final animatedContainerDecoration = BoxDecoration(
+            color: style.activeColor ??
+                theme?.activeForegroundColor ??
+                Colors.white,
+            borderRadius: style.borderRadius,
+          );
+
+          final double animatedContainerWidth = _isHorizontal
+              ? (isActive ? _width(constraint) : 0)
+              : _width(constraint);
+
+          final double animatedContainerHeight = _isHorizontal
+              ? _height(constraint)
+              : (isActive ? _height(constraint) : 0);
+
+          final animationDuration = style.animationDuration ??
+              theme?.stepAnimationDuration ??
+              const Duration(milliseconds: 150);
+
           return Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: _isHorizontal ? theme?.stepLineSpacing ?? 0 : 0,
-              vertical: !_isHorizontal ? theme?.stepLineSpacing ?? 0 : 0,
-            ),
-            child: Container(
-              width: _width(constraint),
-              height: _height(constraint),
-              decoration: BoxDecoration(
-                color: style.foregroundColor ??
-                    theme?.defaultForegroundColor ??
-                    Colors.grey.shade400,
-                borderRadius: style.borderRadius,
-              ),
-              alignment: AlignmentDirectional.centerStart,
-              child: AnimatedContainer(
-                width: _isHorizontal
-                    ? (isActive ? _width(constraint) : 0)
-                    : _width(constraint),
-                height: _isHorizontal
-                    ? _height(constraint)
-                    : (isActive ? _height(constraint) : 0),
-                decoration: BoxDecoration(
-                  color: style.activeColor ??
-                      theme?.activeForegroundColor ??
-                      Colors.white,
-                  borderRadius: style.borderRadius,
+            padding: padding,
+            child: GestureDetector(
+              onTap: onTap,
+              child: Container(
+                width: _width(constraint),
+                height: _height(constraint),
+                decoration: containerDecoration,
+                alignment: AlignmentDirectional.centerStart,
+                child: AnimatedContainer(
+                  width: animatedContainerWidth,
+                  height: animatedContainerHeight,
+                  decoration: animatedContainerDecoration,
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  duration: animationDuration,
                 ),
-                curve: Curves.fastLinearToSlowEaseIn,
-                duration: style.animationDuration ??
-                    theme?.stepAnimationDuration ??
-                    const Duration(
-                      milliseconds: 150,
-                    ),
               ),
             ),
           );

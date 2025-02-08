@@ -22,7 +22,8 @@ import 'package:step_progress/src/step_progress_widgets/step_progress_widget.dar
 ///
 /// Optional parameters include [titles] and [subTitles], which allow you to
 /// provide titles and subtitles for each step. The [onStepNodeTapped] callback
-/// can be used to handle tap events on individual steps.
+/// can be used to handle tap events on individual steps. The [onStepLineTapped]
+/// callback can be used to handle tap events on the step lines.
 ///
 /// Example usage:
 /// ```dart
@@ -34,8 +35,11 @@ import 'package:step_progress/src/step_progress_widgets/step_progress_widget.dar
 ///   titles: ['Step 1', 'Step 2', 'Step 3', 'Step 4', 'Step 5'],
 ///   subTitles: ['Description 1', 'Description 2', 'Description 3',
 ///    'Description 4', 'Description 5'],
-///   onStepTapped: (step) {
+///   onStepNodeTapped: (step) {
 ///     print('Tapped on step: $step');
+///   },
+///   onStepLineTapped: (step) {
+///     print('Tapped on step line: $step');
 ///   },
 /// );
 /// ```
@@ -48,6 +52,7 @@ class VerticalStepProgress extends StepProgressWidget {
     super.titles,
     super.subTitles,
     super.onStepNodeTapped,
+    super.onStepLineTapped,
     super.key,
   }) : super(axis: Axis.vertical);
 
@@ -67,18 +72,18 @@ class VerticalStepProgress extends StepProgressWidget {
       children: List.generate(
         totalStep,
         (index) {
-          return GestureDetector(
-            onTap: () {
-              onStepNodeTapped?.call(index);
-            },
-            child: StepGenerator(
-              axis: Axis.vertical,
-              width: stepSize,
-              height: stepSize,
-              title: titles?[index],
-              subTitle: subTitles?[index],
-              isActive: index <= currentStep,
-            ),
+          final title = titles?[index];
+          final subTitle = subTitles?[index];
+          final isActive = index <= currentStep;
+
+          return StepGenerator(
+            axis: Axis.vertical,
+            width: stepSize,
+            height: stepSize,
+            title: title,
+            subTitle: subTitle,
+            isActive: isActive,
+            onTap: () => onStepNodeTapped?.call(index),
           );
         },
       ),
@@ -112,6 +117,7 @@ class VerticalStepProgress extends StepProgressWidget {
               axis: Axis.vertical,
               isActive: index < currentStep,
               style: style,
+              onTap: () => onStepLineTapped?.call(index),
             );
           },
         ),

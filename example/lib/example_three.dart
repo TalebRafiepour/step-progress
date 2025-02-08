@@ -24,6 +24,9 @@ class ExampleThree extends StatelessWidget {
             onStepChanged: (currentIndex) {
               debugPrint('onStepChanged: $currentIndex');
             },
+            onStepLineTapped: (index) {
+              debugPrint('onStepLineTapped: $index');
+            },
             theme: const StepProgressThemeData(
               stepLineSpacing: 6,
               defaultForegroundColor: Color.fromARGB(255, 55, 55, 55),
