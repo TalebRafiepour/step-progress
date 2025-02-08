@@ -35,7 +35,7 @@ class _ExampleOneState extends State<ExampleOne> {
             onStepChanged: (index) {
               debugPrint('on step changed: $index');
             },
-            onStepTapped: (index) {
+            onStepNodeTapped: (index) {
               debugPrint('on step tapped with index: $index');
             },
           ),

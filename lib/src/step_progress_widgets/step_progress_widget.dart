@@ -22,8 +22,8 @@ import 'package:step_progress/src/step_progress_visibility_options.dart';
 /// - [axis]: The axis in which the step progress is laid out
 /// - [visibilityOptions] The Options to control the visibility of elements.
 /// - [subTitles]: An optional list of subtitles for each step.
-/// - [onStepTapped]: An optional callback function that is called when a step
-/// is tapped.
+/// - [onStepNodeTapped]: An optional callback function that is called when a
+/// step node is tapped.
 abstract class StepProgressWidget extends StatelessWidget {
   const StepProgressWidget({
     required this.totalStep,
@@ -33,7 +33,7 @@ abstract class StepProgressWidget extends StatelessWidget {
     required this.visibilityOptions,
     this.titles,
     this.subTitles,
-    this.onStepTapped,
+    this.onStepNodeTapped,
     super.key,
   })  : assert(
           titles == null || titles.length == totalStep,
@@ -67,7 +67,7 @@ abstract class StepProgressWidget extends StatelessWidget {
   final List<String>? subTitles;
 
   /// Callback function when a step is tapped.
-  final OnStepTapped? onStepTapped;
+  final OnStepTapped? onStepNodeTapped;
 
   /// The axis in which the step progress is laid out (horizontal or vertical).
   final Axis axis;

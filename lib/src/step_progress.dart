@@ -52,7 +52,7 @@ typedef OnStepTapped = void Function(int index);
 ///
 /// The [height] parameter specifies the height of the step progress widget.
 ///
-/// The [onStepTapped] parameter is a callback that is called when a step is
+/// The [onStepNodeTapped] parameter is a callback that is called when a step is
 /// tapped.
 ///
 /// The [onStepChanged] parameter is a callback that is called when the current
@@ -73,7 +73,7 @@ class StepProgress extends StatefulWidget {
     this.visibilityOptions = StepProgressVisibilityOptions.both,
     this.titles,
     this.subTitles,
-    this.onStepTapped,
+    this.onStepNodeTapped,
     this.onStepChanged,
   })  : assert(
           totalSteps > 0,
@@ -131,7 +131,7 @@ class StepProgress extends StatefulWidget {
   final Axis axis;
 
   /// Callback function when a step is tapped
-  final OnStepTapped? onStepTapped;
+  final OnStepTapped? onStepNodeTapped;
 
   /// The controller that manages the state and behavior of the step progress.
   final StepProgressController? controller;
@@ -235,7 +235,7 @@ class _StepProgressState extends State<StepProgress>
                 titles: widget.titles,
                 subTitles: widget.subTitles,
                 stepSize: widget.stepSize,
-                onStepTapped: widget.onStepTapped,
+                onStepNodeTapped: widget.onStepNodeTapped,
                 visibilityOptions: widget.visibilityOptions,
               )
             : VerticalStepProgress(
@@ -244,7 +244,7 @@ class _StepProgressState extends State<StepProgress>
                 titles: widget.titles,
                 subTitles: widget.subTitles,
                 stepSize: widget.stepSize,
-                onStepTapped: widget.onStepTapped,
+                onStepNodeTapped: widget.onStepNodeTapped,
                 visibilityOptions: widget.visibilityOptions,
               ),
       ),

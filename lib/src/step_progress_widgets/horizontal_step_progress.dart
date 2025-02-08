@@ -19,7 +19,8 @@ import 'package:step_progress/step_progress.dart';
 /// Optional parameters include:
 /// - [titles]: A list of titles for each step.
 /// - [subTitles]: A list of subtitles for each step.
-/// - [onStepTapped]: A callback function that is called when a step is tapped.
+/// - [onStepNodeTapped]: A callback function that is called when a step is
+/// tapped.
 /// - [key]: An optional key for the widget.
 class HorizontalStepProgress extends StepProgressWidget {
   const HorizontalStepProgress({
@@ -29,7 +30,7 @@ class HorizontalStepProgress extends StepProgressWidget {
     required super.visibilityOptions,
     super.titles,
     super.subTitles,
-    super.onStepTapped,
+    super.onStepNodeTapped,
     super.key,
   }) : super(axis: Axis.horizontal);
 
@@ -48,7 +49,7 @@ class HorizontalStepProgress extends StepProgressWidget {
         (index) {
           return GestureDetector(
             onTap: () {
-              onStepTapped?.call(index);
+              onStepNodeTapped?.call(index);
             },
             child: StepGenerator(
               width: stepSize,

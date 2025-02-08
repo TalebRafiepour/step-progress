@@ -21,7 +21,7 @@ import 'package:step_progress/src/step_progress_widgets/step_progress_widget.dar
 /// subtitles.
 ///
 /// Optional parameters include [titles] and [subTitles], which allow you to
-/// provide titles and subtitles for each step. The [onStepTapped] callback
+/// provide titles and subtitles for each step. The [onStepNodeTapped] callback
 /// can be used to handle tap events on individual steps.
 ///
 /// Example usage:
@@ -47,7 +47,7 @@ class VerticalStepProgress extends StepProgressWidget {
     required super.visibilityOptions,
     super.titles,
     super.subTitles,
-    super.onStepTapped,
+    super.onStepNodeTapped,
     super.key,
   }) : super(axis: Axis.vertical);
 
@@ -69,7 +69,7 @@ class VerticalStepProgress extends StepProgressWidget {
         (index) {
           return GestureDetector(
             onTap: () {
-              onStepTapped?.call(index);
+              onStepNodeTapped?.call(index);
             },
             child: StepGenerator(
               axis: Axis.vertical,
