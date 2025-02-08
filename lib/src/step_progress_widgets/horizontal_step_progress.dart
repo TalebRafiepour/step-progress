@@ -42,9 +42,14 @@ class HorizontalStepProgress extends StepProgressWidget {
   /// This method constructs the visual representation of the step nodes
   /// in the horizontal step progress indicator.
   ///
+  /// The [highlightCompletedSteps] parameter determines whether the completed
+  /// steps should be visually highlighted.
+  ///
   /// Returns a [Widget] that represents the step nodes.
   @override
-  Widget buildStepNodes() {
+  Widget buildStepNodes({
+    required bool highlightCompletedSteps,
+  }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: List.generate(
@@ -52,7 +57,9 @@ class HorizontalStepProgress extends StepProgressWidget {
         (index) {
           final title = titles?[index];
           final subTitle = subTitles?[index];
-          final isActive = index <= currentStep;
+          final isActive = highlightCompletedSteps
+              ? index <= currentStep
+              : index == currentStep;
 
           return StepGenerator(
             width: stepSize,
@@ -70,10 +77,15 @@ class HorizontalStepProgress extends StepProgressWidget {
   /// Builds the step lines with the given style.
   ///
   /// The [style] parameter specifies the appearance of the step lines.
+  /// The [highlightCompletedSteps] parameter determines whether completed steps
+  /// should be highlighted.
   ///
   /// Returns a [Widget] that represents the step lines.
   @override
-  Widget buildStepLines(StepLineStyle style) {
+  Widget buildStepLines({
+    required StepLineStyle style,
+    required bool highlightCompletedSteps,
+  }) {
     return Padding(
       padding: EdgeInsets.symmetric(
         vertical: stepSize / 2 - style.lineThickness / 2,
@@ -84,7 +96,9 @@ class HorizontalStepProgress extends StepProgressWidget {
           totalStep - 1,
           (index) {
             return StepLine(
-              isActive: index < currentStep,
+              isActive: highlightCompletedSteps
+                  ? index < currentStep
+                  : index == currentStep - 1,
               style: style,
               onTap: () => onStepLineTapped?.call(index),
             );

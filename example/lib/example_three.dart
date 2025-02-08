@@ -31,6 +31,7 @@ class ExampleThree extends StatelessWidget {
               stepLineSpacing: 6,
               defaultForegroundColor: Color.fromARGB(255, 55, 55, 55),
               activeForegroundColor: Color.fromARGB(255, 105, 105, 105),
+              highlightCompletedSteps: false,
               stepLineStyle: StepLineStyle(
                 lineThickness: 9,
                 borderRadius: BorderRadius.all(Radius.circular(2)),

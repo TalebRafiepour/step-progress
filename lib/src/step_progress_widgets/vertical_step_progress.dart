@@ -64,9 +64,14 @@ class VerticalStepProgress extends StepProgressWidget {
   /// Override this method to customize the appearance and behavior
   /// of the step nodes.
   ///
+  /// The [highlightCompletedSteps] parameter determines whether the
+  /// completed steps should be highlighted.
+  ///
   /// Returns a [Widget] that represents the step nodes.
   @override
-  Widget buildStepNodes() {
+  Widget buildStepNodes({
+    required bool highlightCompletedSteps,
+  }) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: List.generate(
@@ -74,7 +79,9 @@ class VerticalStepProgress extends StepProgressWidget {
         (index) {
           final title = titles?[index];
           final subTitle = subTitles?[index];
-          final isActive = index <= currentStep;
+          final isActive = highlightCompletedSteps
+              ? index <= currentStep
+              : index == currentStep;
 
           return StepGenerator(
             axis: Axis.vertical,
@@ -102,7 +109,10 @@ class VerticalStepProgress extends StepProgressWidget {
   /// Returns a [Widget] that displays the step lines according to the provided
   /// style.
   @override
-  Widget buildStepLines(StepLineStyle style) {
+  Widget buildStepLines({
+    required StepLineStyle style,
+    required bool highlightCompletedSteps,
+  }) {
     return Padding(
       padding: EdgeInsets.symmetric(
         vertical: stepSize / 2,
@@ -115,7 +125,9 @@ class VerticalStepProgress extends StepProgressWidget {
           (index) {
             return StepLine(
               axis: Axis.vertical,
-              isActive: index < currentStep,
+              isActive: highlightCompletedSteps
+                  ? index < currentStep
+                  : index == currentStep - 1,
               style: style,
               onTap: () => onStepLineTapped?.call(index),
             );

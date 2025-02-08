@@ -85,7 +85,10 @@ abstract class StepProgressWidget extends StatelessWidget {
   ///
   /// This method should be implemented to create the visual representation
   /// of the step nodes in the step progress widget.
-  Widget buildStepNodes();
+  ///
+  /// The [highlightCompletedSteps] parameter indicates whether the completed
+  /// steps should be visually highlighted.
+  Widget buildStepNodes({required bool highlightCompletedSteps});
 
   /// Builds the step lines widget with the given style.
   ///
@@ -93,7 +96,12 @@ abstract class StepProgressWidget extends StatelessWidget {
   /// of the lines connecting the step nodes in the step progress widget.
   ///
   /// [style] defines the appearance and style of the step lines.
-  Widget buildStepLines(StepLineStyle style);
+  /// [highlightCompletedSteps] indicates whether to highlight the completed
+  /// steps.
+  Widget buildStepLines({
+    required StepLineStyle style,
+    required bool highlightCompletedSteps,
+  });
 
   /// Builds the widget tree for the step progress widget.
   ///
@@ -125,7 +133,9 @@ abstract class StepProgressWidget extends StatelessWidget {
   /// Returns a widget tree representing the step progress widget.
   @override
   Widget build(BuildContext context) {
-    final stepLineStyle = StepProgressTheme.of(context)!.data.stepLineStyle;
+    final theme = StepProgressTheme.of(context)!.data;
+    final stepLineStyle = theme.stepLineStyle;
+    final highlightCompletedSteps = theme.highlightCompletedSteps;
     return LayoutBuilder(
       builder: (context, constraint) {
         final width = axis == Axis.horizontal && !constraint.hasBoundedWidth
@@ -143,9 +153,14 @@ abstract class StepProgressWidget extends StatelessWidget {
           child: Stack(
             children: [
               if (visibilityOptions != StepProgressVisibilityOptions.nodeOnly)
-                buildStepLines(stepLineStyle),
+                buildStepLines(
+                  style: stepLineStyle,
+                  highlightCompletedSteps: highlightCompletedSteps,
+                ),
               if (visibilityOptions != StepProgressVisibilityOptions.lineOnly)
-                buildStepNodes(),
+                buildStepNodes(
+                  highlightCompletedSteps: highlightCompletedSteps,
+                ),
             ],
           ),
         );

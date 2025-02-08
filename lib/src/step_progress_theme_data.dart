@@ -11,6 +11,7 @@ import 'package:step_progress/step_progress.dart';
 ///
 /// * [defaultForegroundColor]: The default color of the step nodes.
 /// * [activeForegroundColor]: The color of the active step node.
+/// * [highlightCompletedSteps]: Whether to highlight completed steps.
 /// * [borderColor]: The color of the border around the step nodes.
 /// * [borderWidth]: The width of the border around the step nodes.
 /// * [enableRippleEffect]: Whether to enable the ripple effect on step nodes.
@@ -26,6 +27,7 @@ class StepProgressThemeData {
   const StepProgressThemeData({
     this.defaultForegroundColor = const Color.fromARGB(255, 191, 196, 195),
     this.activeForegroundColor = const Color.fromARGB(255, 0, 167, 160),
+    this.highlightCompletedSteps = true,
     this.borderColor = Colors.white,
     this.borderWidth = 0,
     this.enableRippleEffect = true,
@@ -74,6 +76,9 @@ class StepProgressThemeData {
   /// The style of the ripple effect for the step progress.
   final RippleEffectStyle rippleEffectStyle;
 
+  /// Determines if the completed steps should be highlighted.
+  final bool highlightCompletedSteps;
+
   /// Creates a copy of this [StepProgressThemeData] but with the given fields
   /// replaced with the new values.
   ///
@@ -95,6 +100,7 @@ class StepProgressThemeData {
   /// - [stepNodeStyle]: The style of the step nodes.
   /// - [stepLineStyle]: The style of the step lines.
   /// - [rippleEffectStyle]: The style of the ripple effect.
+  /// - [highlightCompletedSteps]: Whether to highlight completed steps.
   ///
   /// Returns a new instance of [StepProgressThemeData] with the updated values.
   StepProgressThemeData copyWith({
@@ -110,6 +116,7 @@ class StepProgressThemeData {
     StepNodeStyle? stepNodeStyle,
     StepLineStyle? stepLineStyle,
     RippleEffectStyle? rippleEffectStyle,
+    bool? highlightCompletedSteps,
   }) {
     return StepProgressThemeData(
       defaultForegroundColor:
@@ -127,6 +134,8 @@ class StepProgressThemeData {
       stepNodeStyle: stepNodeStyle ?? this.stepNodeStyle,
       stepLineStyle: stepLineStyle ?? this.stepLineStyle,
       rippleEffectStyle: rippleEffectStyle ?? this.rippleEffectStyle,
+      highlightCompletedSteps:
+          highlightCompletedSteps ?? this.highlightCompletedSteps,
     );
   }
 }
