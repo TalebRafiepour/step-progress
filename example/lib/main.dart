@@ -1,4 +1,5 @@
 import 'package:example/example_one.dart';
+import 'package:example/example_three.dart';
 import 'package:example/example_two.dart';
 import 'package:flutter/material.dart';
 
@@ -30,6 +31,7 @@ class HomePage extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          spacing: 30,
           children: [
             ElevatedButton(
               onPressed: () {
@@ -42,7 +44,6 @@ class HomePage extends StatelessWidget {
               },
               child: const Text('Example One'),
             ),
-            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -53,6 +54,17 @@ class HomePage extends StatelessWidget {
                 );
               },
               child: const Text('Example Two'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const ExampleThree(),
+                  ),
+                );
+              },
+              child: const Text('Example Three'),
             ),
           ],
         ),
