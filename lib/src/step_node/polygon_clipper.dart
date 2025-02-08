@@ -1,8 +1,30 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 
+/// A custom clipper that clips a widget into a polygon shape.
+///
+/// This class extends [CustomClipper] and overrides the [getClip] and
+/// [shouldReclip] methods to define the clipping behavior.
+///
+/// The [PolygonClipper] can be used to create various polygon shapes by
+/// specifying the number of sides and other properties.
+///
+/// Example usage:
+/// ```dart
+/// ClipPath(
+///   clipper: PolygonClipper(6),
+///   child: Container(
+///     color: Colors.blue,
+///   ),
+/// )
+/// ```
+///
+/// See also:
+///  * [CustomClipper], the base class for creating custom clippers.
 class PolygonClipper extends CustomClipper<Path> {
   const PolygonClipper(this.sides);
+
+  /// The number of sides for the polygon.
   final int sides;
 
   @override
