@@ -16,6 +16,10 @@ import 'package:step_progress/src/step_progress_widgets/step_progress_widget.dar
 /// that the user is on. The [stepSize] parameter defines the size of each
 /// step indicator.
 ///
+/// The [visibilityOptions] parameter allows you to control the visibility of
+/// various elements within the step progress widget, such as step titles and
+/// subtitles.
+///
 /// Optional parameters include [titles] and [subTitles], which allow you to
 /// provide titles and subtitles for each step. The [onStepTapped] callback
 /// can be used to handle tap events on individual steps.
@@ -26,6 +30,7 @@ import 'package:step_progress/src/step_progress_widgets/step_progress_widget.dar
 ///   totalStep: 5,
 ///   currentStep: 2,
 ///   stepSize: 30.0,
+///   visibilityOptions: StepProgressVisibilityOptions.both,
 ///   titles: ['Step 1', 'Step 2', 'Step 3', 'Step 4', 'Step 5'],
 ///   subTitles: ['Description 1', 'Description 2', 'Description 3',
 ///    'Description 4', 'Description 5'],
@@ -39,6 +44,7 @@ class VerticalStepProgress extends StepProgressWidget {
     required super.totalStep,
     required super.currentStep,
     required super.stepSize,
+    required super.visibilityOptions,
     super.titles,
     super.subTitles,
     super.onStepTapped,

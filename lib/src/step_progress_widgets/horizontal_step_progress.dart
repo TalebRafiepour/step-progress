@@ -14,6 +14,7 @@ import 'package:step_progress/step_progress.dart';
 /// - [totalStep]: The total number of steps.
 /// - [currentStep]: The current step index.
 /// - [stepSize]: The size of each step.
+/// - [visibilityOptions]: Options to control the visibility of various elements
 ///
 /// Optional parameters include:
 /// - [titles]: A list of titles for each step.
@@ -25,13 +26,12 @@ class HorizontalStepProgress extends StepProgressWidget {
     required super.totalStep,
     required super.currentStep,
     required super.stepSize,
+    required super.visibilityOptions,
     super.titles,
     super.subTitles,
     super.onStepTapped,
     super.key,
   }) : super(axis: Axis.horizontal);
-
-  @override
 
   /// Builds the step nodes for the horizontal step progress widget.
   ///
@@ -39,6 +39,7 @@ class HorizontalStepProgress extends StepProgressWidget {
   /// in the horizontal step progress indicator.
   ///
   /// Returns a [Widget] that represents the step nodes.
+  @override
   Widget buildStepNodes() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

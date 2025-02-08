@@ -45,6 +45,9 @@ typedef OnStepTapped = void Function(int index);
 ///
 /// The [subTitles] parameter can be used to specify subtitles for each step.
 ///
+/// The [visibilityOptions] parameter can be used tocontrol the visibility of
+/// step progress elements.
+///
 /// The [width] parameter specifies the width of the step progress widget.
 ///
 /// The [height] parameter specifies the height of the step progress widget.
@@ -67,6 +70,7 @@ class StepProgress extends StatefulWidget {
     this.margin = EdgeInsets.zero,
     this.padding = const EdgeInsets.all(4),
     this.axis = Axis.horizontal,
+    this.visibilityOptions = StepProgressVisibilityOptions.both,
     this.titles,
     this.subTitles,
     this.onStepTapped,
@@ -101,6 +105,9 @@ class StepProgress extends StatefulWidget {
 
   /// Subtitles for each step in the progress
   final List<String>? subTitles;
+
+  /// Options to control the visibility of step progress elements.
+  final StepProgressVisibilityOptions visibilityOptions;
 
   /// Size of each step indicator
   final double stepSize;
@@ -229,6 +236,7 @@ class _StepProgressState extends State<StepProgress>
                 subTitles: widget.subTitles,
                 stepSize: widget.stepSize,
                 onStepTapped: widget.onStepTapped,
+                visibilityOptions: widget.visibilityOptions,
               )
             : VerticalStepProgress(
                 totalStep: widget.totalSteps,
@@ -237,6 +245,7 @@ class _StepProgressState extends State<StepProgress>
                 subTitles: widget.subTitles,
                 stepSize: widget.stepSize,
                 onStepTapped: widget.onStepTapped,
+                visibilityOptions: widget.visibilityOptions,
               ),
       ),
     );

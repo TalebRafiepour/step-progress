@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:step_progress/src/step_line/step_line_style.dart';
 import 'package:step_progress/src/step_progress.dart';
 import 'package:step_progress/src/step_progress_theme.dart';
+import 'package:step_progress/src/step_progress_visibility_options.dart';
 
 /// An abstract class that represents a step progress widget.
 ///
@@ -19,6 +20,7 @@ import 'package:step_progress/src/step_progress_theme.dart';
 /// - [stepSize]: The size of each step in the progress indicator.
 /// - [titles]: An optional list of titles for each step.
 /// - [axis]: The axis in which the step progress is laid out
+/// - [visibilityOptions] The Options to control the visibility of elements.
 /// - [subTitles]: An optional list of subtitles for each step.
 /// - [onStepTapped]: An optional callback function that is called when a step
 /// is tapped.
@@ -28,6 +30,7 @@ abstract class StepProgressWidget extends StatelessWidget {
     required this.currentStep,
     required this.stepSize,
     required this.axis,
+    required this.visibilityOptions,
     this.titles,
     this.subTitles,
     this.onStepTapped,
@@ -69,6 +72,9 @@ abstract class StepProgressWidget extends StatelessWidget {
   /// The axis in which the step progress is laid out (horizontal or vertical).
   final Axis axis;
 
+  /// Options to control the visibility of step progress elements.
+  final StepProgressVisibilityOptions visibilityOptions;
+
   /// Builds the step nodes widget.
   ///
   /// This method should be implemented to create the visual representation
@@ -94,6 +100,23 @@ abstract class StepProgressWidget extends StatelessWidget {
   ///
   /// The `context` parameter is used to access the current theme and other
   /// inherited widgets.
+  ///
+  /// The `LayoutBuilder` is used to determine the constraints of the widget,
+  /// and based on the axis (horizontal or vertical), it calculates the width
+  /// or height accordingly. If the axis is horizontal and the width is not
+  /// bounded, it sets the width based on the total steps and step size.
+  /// Similarly, if the axis is vertical and the height is not bounded, it sets
+  /// the height based on the total steps and step size.
+  ///
+  /// The `ConstrainedBox` ensures that the widget has the calculated width and
+  /// height constraints. Inside the `Stack`, it conditionally builds the step
+  /// lines and step nodes based on the `visibilityOptions`:
+  /// - If `visibilityOptions` is not `StepProgressVisibilityOptions.nodeOnly`,
+  ///   it builds the step lines.
+  /// - If `visibilityOptions` is not `StepProgressVisibilityOptions.lineOnly`,
+  ///   it builds the step nodes.
+  ///
+  /// Returns a widget tree representing the step progress widget.
   @override
   Widget build(BuildContext context) {
     final stepLineStyle = StepProgressTheme.of(context)!.data.stepLineStyle;
@@ -113,8 +136,10 @@ abstract class StepProgressWidget extends StatelessWidget {
           ),
           child: Stack(
             children: [
-              buildStepLines(stepLineStyle),
-              buildStepNodes(),
+              if (visibilityOptions != StepProgressVisibilityOptions.nodeOnly)
+                buildStepLines(stepLineStyle),
+              if (visibilityOptions != StepProgressVisibilityOptions.lineOnly)
+                buildStepNodes(),
             ],
           ),
         );
