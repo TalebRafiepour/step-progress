@@ -20,6 +20,7 @@ class _ExampleOneState extends State<ExampleOne> {
         title: const Text('Example One'),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           StepProgress(
             totalSteps: 4,

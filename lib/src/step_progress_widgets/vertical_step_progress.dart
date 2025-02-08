@@ -43,7 +43,7 @@ class VerticalStepProgress extends StepProgressWidget {
     super.subTitles,
     super.onStepTapped,
     super.key,
-  });
+  }) : super(axis: Axis.vertical);
 
   /// Builds the step nodes for the vertical step progress widget.
   ///
@@ -98,6 +98,7 @@ class VerticalStepProgress extends StepProgressWidget {
         horizontal: stepSize / 2 - style.lineThickness / 2,
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: List.generate(
           totalStep - 1,
           (index) {

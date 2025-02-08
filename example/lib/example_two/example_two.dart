@@ -19,9 +19,10 @@ class _ExampleTwoState extends State<ExampleTwo> {
       appBar: AppBar(
         title: const Text('Example Two'),
         bottom: PreferredSize(
-          preferredSize: const Size(double.infinity, 60),
-          child: Container(
-            color: Colors.blue,
+          preferredSize: const Size(double.infinity, kToolbarHeight),
+          child: SizedBox(
+            width: double.infinity,
+            height: kToolbarHeight,
             child: StepProgress(
               totalSteps: 5,
               controller: _stepProgressController,
@@ -35,6 +36,7 @@ class _ExampleTwoState extends State<ExampleTwo> {
         ),
       ),
       body: Column(
+        spacing: 20,
         children: [
           Expanded(
             child: Center(

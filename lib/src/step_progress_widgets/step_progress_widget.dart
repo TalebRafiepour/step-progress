@@ -18,6 +18,7 @@ import 'package:step_progress/src/step_progress_theme.dart';
 /// - [currentStep]: The current step in the progress indicator.
 /// - [stepSize]: The size of each step in the progress indicator.
 /// - [titles]: An optional list of titles for each step.
+/// - [axis]: The axis in which the step progress is laid out
 /// - [subTitles]: An optional list of subtitles for each step.
 /// - [onStepTapped]: An optional callback function that is called when a step
 /// is tapped.
@@ -26,6 +27,7 @@ abstract class StepProgressWidget extends StatelessWidget {
     required this.totalStep,
     required this.currentStep,
     required this.stepSize,
+    required this.axis,
     this.titles,
     this.subTitles,
     this.onStepTapped,
@@ -64,6 +66,9 @@ abstract class StepProgressWidget extends StatelessWidget {
   /// Callback function when a step is tapped.
   final OnStepTapped? onStepTapped;
 
+  /// The axis in which the step progress is laid out (horizontal or vertical).
+  final Axis axis;
+
   /// Builds the step nodes widget.
   ///
   /// This method should be implemented to create the visual representation
@@ -92,11 +97,28 @@ abstract class StepProgressWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final stepLineStyle = StepProgressTheme.of(context)!.data.stepLineStyle;
-    return Stack(
-      children: [
-        buildStepLines(stepLineStyle),
-        buildStepNodes(),
-      ],
+    return LayoutBuilder(
+      builder: (context, constraint) {
+        final width = axis == Axis.horizontal && !constraint.hasBoundedWidth
+            ? totalStep * 1.5 * stepSize
+            : null;
+        final height = axis == Axis.vertical && !constraint.hasBoundedHeight
+            ? totalStep * 1.5 * stepSize
+            : null;
+
+        return ConstrainedBox(
+          constraints: BoxConstraints.tightFor(
+            width: width,
+            height: height,
+          ),
+          child: Stack(
+            children: [
+              buildStepLines(stepLineStyle),
+              buildStepNodes(),
+            ],
+          ),
+        );
+      },
     );
   }
 }

@@ -45,6 +45,10 @@ typedef OnStepTapped = void Function(int index);
 ///
 /// The [subTitles] parameter can be used to specify subtitles for each step.
 ///
+/// The [width] parameter specifies the width of the step progress widget.
+///
+/// The [height] parameter specifies the height of the step progress widget.
+///
 /// The [onStepTapped] parameter is a callback that is called when a step is
 /// tapped.
 ///
@@ -57,6 +61,8 @@ class StepProgress extends StatefulWidget {
     this.currentStep = 0,
     super.key,
     this.stepSize = 48,
+    this.width,
+    this.height,
     this.theme = const StepProgressThemeData(),
     this.margin = EdgeInsets.zero,
     this.padding = const EdgeInsets.all(4),
@@ -98,6 +104,12 @@ class StepProgress extends StatefulWidget {
 
   /// Size of each step indicator
   final double stepSize;
+
+  /// The width of the step progress widget.
+  final double? width;
+
+  /// The height of the step progress widget.
+  final double? height;
 
   /// Total number of steps in the progress
   final int totalSteps;
@@ -202,40 +214,30 @@ class _StepProgressState extends State<StepProgress>
   Widget build(BuildContext context) {
     return StepProgressTheme(
       data: widget.theme,
-      // To fill available space
-      child: Flexible(
-        flex: 10,
-        child: Align(
-          alignment: AlignmentDirectional.topStart,
-          child: Container(
-            color: Colors.transparent,
-            margin: widget.margin,
-            padding: widget.padding,
-            constraints: BoxConstraints(
-              minHeight: widget.stepSize,
-              maxWidth: double.maxFinite,
-              maxHeight: double.maxFinite,
-              minWidth: widget.stepSize,
-            ),
-            child: widget.axis == Axis.horizontal
-                ? HorizontalStepProgress(
-                    totalStep: widget.totalSteps,
-                    currentStep: _currentStep,
-                    titles: widget.titles,
-                    subTitles: widget.subTitles,
-                    stepSize: widget.stepSize,
-                    onStepTapped: widget.onStepTapped,
-                  )
-                : VerticalStepProgress(
-                    totalStep: widget.totalSteps,
-                    currentStep: _currentStep,
-                    titles: widget.titles,
-                    subTitles: widget.subTitles,
-                    stepSize: widget.stepSize,
-                    onStepTapped: widget.onStepTapped,
-                  ),
-          ),
-        ),
+      child: Container(
+        color: Colors.transparent,
+        margin: widget.margin,
+        padding: widget.padding,
+        width: widget.width,
+        height: widget.height,
+        alignment: AlignmentDirectional.topStart,
+        child: widget.axis == Axis.horizontal
+            ? HorizontalStepProgress(
+                totalStep: widget.totalSteps,
+                currentStep: _currentStep,
+                titles: widget.titles,
+                subTitles: widget.subTitles,
+                stepSize: widget.stepSize,
+                onStepTapped: widget.onStepTapped,
+              )
+            : VerticalStepProgress(
+                totalStep: widget.totalSteps,
+                currentStep: _currentStep,
+                titles: widget.titles,
+                subTitles: widget.subTitles,
+                stepSize: widget.stepSize,
+                onStepTapped: widget.onStepTapped,
+              ),
       ),
     );
   }

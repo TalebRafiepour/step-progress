@@ -29,7 +29,7 @@ class HorizontalStepProgress extends StepProgressWidget {
     super.subTitles,
     super.onStepTapped,
     super.key,
-  });
+  }) : super(axis: Axis.horizontal);
 
   @override
 
