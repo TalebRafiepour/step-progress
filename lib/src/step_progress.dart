@@ -190,9 +190,11 @@ class _StepProgressState extends State<StepProgress>
         newStep >= widget.totalSteps) {
       return;
     }
-    setState(() {
-      _currentStep = newStep;
-    });
+    if (mounted) {
+      setState(() {
+        _currentStep = newStep;
+      });
+    }
     widget.onStepChanged?.call(_currentStep);
   }
 

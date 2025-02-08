@@ -11,6 +11,7 @@ class ExampleTwo extends StatefulWidget {
 class _ExampleTwoState extends State<ExampleTwo> {
   final StepProgressController _stepProgressController =
       StepProgressController(totalSteps: 5);
+  int currentStep = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -19,33 +20,50 @@ class _ExampleTwoState extends State<ExampleTwo> {
         title: const Text('Example Two'),
         bottom: PreferredSize(
           preferredSize: const Size(double.infinity, 60),
-          child: StepProgress(
-            totalSteps: 5,
-            controller: _stepProgressController,
+          child: Container(
+            color: Colors.blue,
+            child: StepProgress(
+              totalSteps: 5,
+              controller: _stepProgressController,
+              onStepChanged: (currentIndex) {
+                setState(() {
+                  currentStep = currentIndex;
+                });
+              },
+            ),
           ),
         ),
       ),
-      body: Center(
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                setState(_stepProgressController.previousStep);
-              },
-              child: const Text('Prev'),
+      body: Column(
+        children: [
+          Expanded(
+            child: Center(
+              child: Text('current step: $currentStep'),
             ),
-            const SizedBox(
-              width: 30,
+          ),
+          Center(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    setState(_stepProgressController.previousStep);
+                  },
+                  child: const Text('Prev'),
+                ),
+                const SizedBox(
+                  width: 30,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(_stepProgressController.nextStep);
+                  },
+                  child: const Text('Next'),
+                ),
+              ],
             ),
-            ElevatedButton(
-              onPressed: () {
-                setState(_stepProgressController.nextStep);
-              },
-              child: const Text('Next'),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
