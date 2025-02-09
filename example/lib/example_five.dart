@@ -18,6 +18,7 @@ class ExampleFive extends StatelessWidget {
           children: [
             StepProgress(
               totalSteps: 4,
+              margin: const EdgeInsets.symmetric(horizontal: 12),
               controller: stepProgressController,
               nodeIconBuilder: (index) {
                 return Text(
@@ -41,7 +42,7 @@ class ExampleFive extends StatelessWidget {
                 defaultForegroundColor: Colors.white,
                 activeForegroundColor: Colors.white,
                 enableRippleEffect: false,
-                borderWidth: 3,
+                borderWidth: 4,
                 activeBorderColor: Color(0xFF2d9ada),
                 borderColor: Color(0xFFdee0e2),
                 stepLineStyle: StepLineStyle(
