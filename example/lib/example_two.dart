@@ -35,37 +35,39 @@ class _ExampleTwoState extends State<ExampleTwo> {
           ),
         ),
       ),
-      body: Column(
-        spacing: 20,
-        children: [
-          Expanded(
-            child: Center(
-              child: Text('current step: $currentStep'),
+      body: SafeArea(
+        child: Column(
+          spacing: 20,
+          children: [
+            Expanded(
+              child: Center(
+                child: Text('current step: $currentStep'),
+              ),
             ),
-          ),
-          Center(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    setState(_stepProgressController.previousStep);
-                  },
-                  child: const Text('Prev'),
-                ),
-                const SizedBox(
-                  width: 30,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(_stepProgressController.nextStep);
-                  },
-                  child: const Text('Next'),
-                ),
-              ],
+            Center(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(_stepProgressController.previousStep);
+                    },
+                    child: const Text('Prev'),
+                  ),
+                  const SizedBox(
+                    width: 30,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(_stepProgressController.nextStep);
+                    },
+                    child: const Text('Next'),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -139,10 +139,10 @@ abstract class StepProgressWidget extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraint) {
         final width = axis == Axis.horizontal && !constraint.hasBoundedWidth
-            ? totalStep * 1.5 * stepSize
+            ? totalStep * 1.45 * stepSize
             : null;
         final height = axis == Axis.vertical && !constraint.hasBoundedHeight
-            ? totalStep * 1.5 * stepSize
+            ? totalStep * 1.45 * stepSize
             : null;
 
         return ConstrainedBox(

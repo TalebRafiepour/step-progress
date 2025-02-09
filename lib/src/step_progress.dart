@@ -236,12 +236,11 @@ class _StepProgressState extends State<StepProgress>
     return StepProgressTheme(
       data: widget.theme,
       child: Container(
+        width: widget.width,
+        height: widget.height,
         color: Colors.transparent,
         margin: widget.margin,
         padding: widget.padding,
-        width: widget.width,
-        height: widget.height,
-        alignment: AlignmentDirectional.topStart,
         child: widget.axis == Axis.horizontal
             ? HorizontalStepProgress(
                 totalStep: widget.totalSteps,
