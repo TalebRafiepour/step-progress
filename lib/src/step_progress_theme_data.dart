@@ -13,6 +13,7 @@ import 'package:step_progress/step_progress.dart';
 /// * [activeForegroundColor]: The color of the active step node.
 /// * [highlightCompletedSteps]: Whether to highlight completed steps.
 /// * [borderColor]: The color of the border around the step nodes.
+/// * [activeBorderColor]: The color of the border when the step is active.
 /// * [borderWidth]: The width of the border around the step nodes.
 /// * [enableRippleEffect]: Whether to enable the ripple effect on step nodes.
 /// * [shape]: The shape of the step nodes (e.g., circle, square).
@@ -29,6 +30,7 @@ class StepProgressThemeData {
     this.activeForegroundColor = const Color.fromARGB(255, 0, 167, 160),
     this.highlightCompletedSteps = true,
     this.borderColor = Colors.white,
+    this.activeBorderColor,
     this.borderWidth = 0,
     this.enableRippleEffect = true,
     this.shape = StepNodeShape.circle,
@@ -48,6 +50,9 @@ class StepProgressThemeData {
 
   /// The color of the border.
   final Color borderColor;
+
+  /// The color of the border when the step is active.
+  final Color? activeBorderColor;
 
   /// The width of the border around the step progress indicator.
   final double borderWidth;
@@ -91,6 +96,7 @@ class StepProgressThemeData {
   /// - [defaultForegroundColor]: The default color for the foreground elements.
   /// - [activeForegroundColor]: The color for the active foreground elements.
   /// - [borderColor]: The color of the border.
+  /// - [activeBorderColor]: The color of the border when the step is active.
   /// - [borderWidth]: The width of the border.
   /// - [stepAnimationDuration]: The duration of the step animation.
   /// - [enableRippleEffect]: Whether the ripple effect is enabled.
@@ -107,6 +113,7 @@ class StepProgressThemeData {
     Color? defaultForegroundColor,
     Color? activeForegroundColor,
     Color? borderColor,
+    Color? activeBorderColor,
     double? borderWidth,
     Duration? stepAnimationDuration,
     bool? enableRippleEffect,
@@ -124,6 +131,7 @@ class StepProgressThemeData {
       activeForegroundColor:
           activeForegroundColor ?? this.activeForegroundColor,
       borderColor: borderColor ?? this.borderColor,
+      activeBorderColor: activeBorderColor ?? this.activeBorderColor,
       borderWidth: borderWidth ?? this.borderWidth,
       stepAnimationDuration:
           stepAnimationDuration ?? this.stepAnimationDuration,

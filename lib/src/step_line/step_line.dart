@@ -63,6 +63,7 @@ class StepLine extends StatelessWidget {
     final theme = StepProgressTheme.of(context)?.data;
     final borderWidth = theme?.borderWidth ?? 0;
     final borderColor = theme?.borderColor ?? Colors.white;
+    final activeBorderColor = theme?.activeBorderColor;
     //
     return Expanded(
       child: LayoutBuilder(
@@ -79,7 +80,9 @@ class StepLine extends StatelessWidget {
             borderRadius: style.borderRadius,
             border: borderWidth > 0
                 ? Border.all(
-                    color: borderColor,
+                    color: (isActive && activeBorderColor != null)
+                        ? activeBorderColor
+                        : borderColor,
                     width: borderWidth,
                     strokeAlign: BorderSide.strokeAlignOutside,
                   )

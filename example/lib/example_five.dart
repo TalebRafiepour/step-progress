@@ -38,11 +38,14 @@ class ExampleFive extends StatelessWidget {
                 );
               },
               theme: const StepProgressThemeData(
+                defaultForegroundColor: Colors.white,
+                activeForegroundColor: Colors.white,
                 enableRippleEffect: false,
                 borderWidth: 3,
-                borderColor: Colors.blue,
+                activeBorderColor: Color(0xFF2d9ada),
+                borderColor: Color(0xFFdee0e2),
                 stepLineStyle: StepLineStyle(
-                  lineThickness: 3,
+                  lineThickness: 0,
                 ),
               ),
             ),
