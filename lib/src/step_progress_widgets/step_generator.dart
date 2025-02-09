@@ -7,8 +7,8 @@ import 'package:step_progress/src/step_progress_theme.dart';
 /// A widget that generates a step in a step progress indicator.
 ///
 /// The [StepGenerator] widget is used to create a step with customizable
-/// width, height, active state, axis, title, subtitle, and an optional tap
-/// callback.
+/// width, height, active state, axis, title, subtitle, an optional tap
+/// callback, and icons for the step node.
 ///
 /// The [width] and [height] parameters are required to define the size of the
 /// step.
@@ -20,6 +20,10 @@ import 'package:step_progress/src/step_progress_theme.dart';
 /// display additional information about the step.
 /// The [onTap] parameter is an optional callback function that is triggered
 /// when the widget is tapped.
+/// The [stepNodeIcon] parameter is an optional widget to display inside the
+/// `StepNode` by default.
+/// The [stepNodeActiveIcon] parameter is an optional widget to display inside
+/// the `StepNode` when the step is active.
 ///
 /// Example usage:
 /// ```dart
@@ -33,6 +37,8 @@ import 'package:step_progress/src/step_progress_theme.dart';
 ///   onTap: () {
 ///     print('Step tapped');
 ///   },
+///   stepNodeIcon: Icon(Icons.check),
+///   stepNodeActiveIcon: Icon(Icons.check_circle),
 /// )
 /// ```
 class StepGenerator extends StatelessWidget {
@@ -44,6 +50,8 @@ class StepGenerator extends StatelessWidget {
     this.title,
     this.subTitle,
     this.onTap,
+    this.stepNodeIcon,
+    this.stepNodeActiveIcon,
     super.key,
   });
 
@@ -67,6 +75,12 @@ class StepGenerator extends StatelessWidget {
 
   /// A callback function triggered when the widget is tapped.
   final VoidCallback? onTap;
+
+  /// Icon widget to display inside `StepNode` by default.
+  final Widget? stepNodeIcon;
+
+  /// Icon widget to display inside `StepNode` when the step is active.
+  final Widget? stepNodeActiveIcon;
 
   /// Builds a widget that represents a step in a step progress indicator.
   ///
@@ -116,6 +130,8 @@ class StepGenerator extends StatelessWidget {
             height: enableRippleEffect ? height / 1.5 : height,
             isActive: isActive,
             style: stepNodeStyle,
+            icon: stepNodeIcon,
+            activeIcon: stepNodeActiveIcon,
           ),
         ],
       );

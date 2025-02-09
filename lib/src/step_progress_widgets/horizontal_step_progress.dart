@@ -14,7 +14,8 @@ import 'package:step_progress/step_progress.dart';
 /// - [totalStep]: The total number of steps.
 /// - [currentStep]: The current step index.
 /// - [stepSize]: The size of each step.
-/// - [visibilityOptions]: Options to control the visibility of various elements
+/// - [visibilityOptions]: Options to control the visibility of various
+/// elements.
 ///
 /// Optional parameters include:
 /// - [titles]: A list of titles for each step.
@@ -23,6 +24,10 @@ import 'package:step_progress/step_progress.dart';
 /// tapped.
 /// - [onStepLineTapped]: A callback function that is called when a line is
 /// tapped.
+/// - [nodeIconBuilder]: A builder function to create custom icons for each
+/// step.
+/// - [nodeActiveIconBuilder]: A builder function to create custom icons for
+/// active steps.
 /// - [key]: An optional key for the widget.
 class HorizontalStepProgress extends StepProgressWidget {
   const HorizontalStepProgress({
@@ -34,6 +39,8 @@ class HorizontalStepProgress extends StepProgressWidget {
     super.subTitles,
     super.onStepNodeTapped,
     super.onStepLineTapped,
+    super.nodeIconBuilder,
+    super.nodeActiveIconBuilder,
     super.key,
   }) : super(axis: Axis.horizontal);
 
@@ -67,6 +74,8 @@ class HorizontalStepProgress extends StepProgressWidget {
             title: title,
             subTitle: subTitle,
             isActive: isActive,
+            stepNodeIcon: nodeIconBuilder?.call(index),
+            stepNodeActiveIcon: nodeActiveIconBuilder?.call(index),
             onTap: () => onStepNodeTapped?.call(index),
           );
         },

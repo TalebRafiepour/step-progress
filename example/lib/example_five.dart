@@ -19,6 +19,24 @@ class ExampleFive extends StatelessWidget {
             StepProgress(
               totalSteps: 4,
               controller: stepProgressController,
+              nodeIconBuilder: (index) {
+                return Text(
+                  '${index + 1}',
+                  style: const TextStyle(
+                    fontSize: 24,
+                    color: Color(0xFFa2a2ab),
+                  ),
+                );
+              },
+              nodeActiveIconBuilder: (index) {
+                return Text(
+                  '${index + 1}',
+                  style: const TextStyle(
+                    fontSize: 24,
+                    color: Color(0xFFb1acaa),
+                  ),
+                );
+              },
               theme: const StepProgressThemeData(
                 enableRippleEffect: false,
                 borderWidth: 3,

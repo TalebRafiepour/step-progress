@@ -19,13 +19,16 @@ import 'package:step_progress/src/step_progress_visibility_options.dart';
 /// - [currentStep]: The current step in the progress indicator.
 /// - [stepSize]: The size of each step in the progress indicator.
 /// - [titles]: An optional list of titles for each step.
-/// - [axis]: The axis in which the step progress is laid out
-/// - [visibilityOptions] The Options to control the visibility of elements.
+/// - [axis]: The axis in which the step progress is laid out.
+/// - [visibilityOptions]: The options to control the visibility of elements.
 /// - [subTitles]: An optional list of subtitles for each step.
 /// - [onStepNodeTapped]: An optional callback function that is called when a
 /// step node is tapped.
 /// - [onStepLineTapped]: An optional callback function that is called when a
 /// step line is tapped.
+/// - [nodeIconBuilder]: An optional builder for the icon of a step node.
+/// - [nodeActiveIconBuilder]: An optional builder for the icon of an active
+/// step node.
 abstract class StepProgressWidget extends StatelessWidget {
   const StepProgressWidget({
     required this.totalStep,
@@ -37,6 +40,8 @@ abstract class StepProgressWidget extends StatelessWidget {
     this.subTitles,
     this.onStepNodeTapped,
     this.onStepLineTapped,
+    this.nodeIconBuilder,
+    this.nodeActiveIconBuilder,
     super.key,
   })  : assert(
           titles == null || titles.length == totalStep,
@@ -80,6 +85,12 @@ abstract class StepProgressWidget extends StatelessWidget {
 
   /// Options to control the visibility of step progress elements.
   final StepProgressVisibilityOptions visibilityOptions;
+
+  /// Builder for the icon of a step node.
+  final StepNodeIconBuilder? nodeIconBuilder;
+
+  /// Builder for the icon of an active step node.
+  final StepNodeIconBuilder? nodeActiveIconBuilder;
 
   /// Builds the step nodes widget.
   ///

@@ -8,7 +8,7 @@ import 'package:step_progress/src/step_progress_theme.dart';
 ///
 /// The [StepNode] widget is used to display a single step in a step progress
 /// indicator. It can be customized with various properties such as width,
-/// height, style, and label.
+/// height, style, label, icon, and activeIcon.
 ///
 /// The [width] and [height] properties define the size of the step node.
 ///
@@ -18,6 +18,11 @@ import 'package:step_progress/src/step_progress_theme.dart';
 ///
 /// The [label] property can be used to display a label for the step node.
 ///
+/// The [icon] property is used to display an icon for the step node.
+///
+/// The [activeIcon] property is used to display an icon when the step node is
+/// active.
+///
 /// The [key] property is used to uniquely identify the widget.
 class StepNode extends StatelessWidget {
   const StepNode({
@@ -26,6 +31,8 @@ class StepNode extends StatelessWidget {
     required this.style,
     this.isActive = false,
     this.label,
+    this.icon,
+    this.activeIcon,
     super.key,
   });
 
@@ -43,6 +50,12 @@ class StepNode extends StatelessWidget {
 
   /// The style of the step node.
   final StepNodeStyle style;
+
+  /// The icon to display for this step node.
+  final Widget? icon;
+
+  /// The icon to display when this step node is active.
+  final Widget? activeIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +94,7 @@ class StepNode extends StatelessWidget {
                 theme?.defaultForegroundColor ??
                 Colors.grey.shade400,
             stepNodeShape: style.shape,
-            icon: style.icon,
+            icon: icon ?? style.icon,
             width: width,
             height: height,
           ),
@@ -96,7 +109,7 @@ class StepNode extends StatelessWidget {
                 theme?.activeForegroundColor ??
                 Colors.white,
             stepNodeShape: style.shape,
-            icon: style.activeIcon ?? style.icon,
+            icon: activeIcon ?? style.activeIcon ?? style.icon,
             width: width,
             height: height,
           ),

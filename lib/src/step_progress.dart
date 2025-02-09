@@ -3,6 +3,12 @@ import 'package:step_progress/src/step_progress_widgets/horizontal_step_progress
 import 'package:step_progress/src/step_progress_widgets/vertical_step_progress.dart';
 import 'package:step_progress/step_progress.dart';
 
+/// A typedef for a function that builds a widget for a step node icon.
+///
+/// The function takes an integer [index] as a parameter, which represents
+/// the position of the step node in the sequence, and returns a [Widget].
+typedef StepNodeIconBuilder = Widget Function(int index);
+
 /// A typedef for a callback function that is triggered when a step line is
 /// tapped.
 ///
@@ -52,7 +58,7 @@ typedef OnStepNodeTapped = void Function(int index);
 ///
 /// The [subTitles] parameter can be used to specify subtitles for each step.
 ///
-/// The [visibilityOptions] parameter can be used tocontrol the visibility of
+/// The [visibilityOptions] parameter can be used to control the visibility of
 /// step progress elements.
 ///
 /// The [width] parameter specifies the width of the step progress widget.
@@ -67,6 +73,12 @@ typedef OnStepNodeTapped = void Function(int index);
 ///
 /// The [onStepChanged] parameter is a callback that is called when the current
 /// step changes.
+///
+/// The [nodeIconBuilder] parameter is a builder function to create custom icons
+/// for each step node.
+///
+/// The [nodeActiveIconBuilder] parameter is a builder function to create custom
+/// icons for active steps.
 class StepProgress extends StatefulWidget {
   const StepProgress({
     required this.totalSteps,
@@ -86,6 +98,8 @@ class StepProgress extends StatefulWidget {
     this.onStepNodeTapped,
     this.onStepLineTapped,
     this.onStepChanged,
+    this.nodeIconBuilder,
+    this.nodeActiveIconBuilder,
   })  : assert(
           totalSteps > 0,
           'totalSteps must be greater than 0',
@@ -158,6 +172,12 @@ class StepProgress extends StatefulWidget {
 
   /// Callback function that is called when the step changes.
   final OnStepChanged? onStepChanged;
+
+  /// A builder function to create custom icons for each step node.
+  final StepNodeIconBuilder? nodeIconBuilder;
+
+  /// A builder for creating custom icons for active steps.
+  final StepNodeIconBuilder? nodeActiveIconBuilder;
 
   @override
   _StepProgressState createState() {
@@ -253,6 +273,8 @@ class _StepProgressState extends State<StepProgress>
                 onStepNodeTapped: widget.onStepNodeTapped,
                 onStepLineTapped: widget.onStepLineTapped,
                 visibilityOptions: widget.visibilityOptions,
+                nodeIconBuilder: widget.nodeIconBuilder,
+                nodeActiveIconBuilder: widget.nodeActiveIconBuilder,
               )
             : VerticalStepProgress(
                 totalStep: widget.totalSteps,
@@ -263,6 +285,8 @@ class _StepProgressState extends State<StepProgress>
                 onStepNodeTapped: widget.onStepNodeTapped,
                 onStepLineTapped: widget.onStepLineTapped,
                 visibilityOptions: widget.visibilityOptions,
+                nodeIconBuilder: widget.nodeIconBuilder,
+                nodeActiveIconBuilder: widget.nodeActiveIconBuilder,
               ),
       ),
     );
