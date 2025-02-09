@@ -239,7 +239,9 @@ class _StepProgressState extends State<StepProgress>
         width: widget.width,
         height: widget.height,
         color: Colors.transparent,
-        margin: widget.margin,
+        margin: widget.margin.add(
+          EdgeInsets.all(widget.theme.borderWidth),
+        ),
         padding: widget.padding,
         child: widget.axis == Axis.horizontal
             ? HorizontalStepProgress(

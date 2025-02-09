@@ -61,6 +61,9 @@ class StepLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = StepProgressTheme.of(context)?.data;
+    final borderWidth = theme?.borderWidth ?? 0;
+    final borderColor = theme?.borderColor ?? Colors.white;
+    //
     return Expanded(
       child: LayoutBuilder(
         builder: (_, constraint) {
@@ -74,6 +77,13 @@ class StepLine extends StatelessWidget {
                 theme?.defaultForegroundColor ??
                 Colors.grey.shade400,
             borderRadius: style.borderRadius,
+            border: borderWidth > 0
+                ? Border.all(
+                    color: borderColor,
+                    width: borderWidth,
+                    strokeAlign: BorderSide.strokeAlignOutside,
+                  )
+                : null,
           );
 
           final animatedContainerDecoration = BoxDecoration(

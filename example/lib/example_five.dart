@@ -21,8 +21,11 @@ class ExampleFive extends StatelessWidget {
               controller: stepProgressController,
               theme: const StepProgressThemeData(
                 enableRippleEffect: false,
-                borderWidth: 6,
+                borderWidth: 3,
                 borderColor: Colors.blue,
+                stepLineStyle: StepLineStyle(
+                  lineThickness: 3,
+                ),
               ),
             ),
             Row(
