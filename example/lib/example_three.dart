@@ -43,15 +43,11 @@ class ExampleThree extends StatelessWidget {
             spacing: 38,
             children: [
               ElevatedButton(
-                onPressed: () {
-                  stepProgressController.previousStep();
-                },
+                onPressed: stepProgressController.previousStep,
                 child: const Text('PREV'),
               ),
               ElevatedButton(
-                onPressed: () {
-                  stepProgressController.nextStep();
-                },
+                onPressed: stepProgressController.nextStep,
                 child: const Text('NEXT'),
               ),
             ],

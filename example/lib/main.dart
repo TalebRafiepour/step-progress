@@ -1,3 +1,4 @@
+import 'package:example/example_five.dart';
 import 'package:example/example_four.dart';
 import 'package:example/example_one.dart';
 import 'package:example/example_three.dart';
@@ -77,6 +78,17 @@ class HomePage extends StatelessWidget {
                 );
               },
               child: const Text('Example Four'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const ExampleFive(),
+                  ),
+                );
+              },
+              child: const Text('Example Five'),
             ),
           ],
         ),
