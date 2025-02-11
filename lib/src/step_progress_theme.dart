@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:step_progress/step_progress.dart';
+import 'package:step_progress/src/step_progress_theme_data.dart';
 
 /// A widget that provides theme data to descendant widgets.
 ///

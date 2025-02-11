@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:step_progress/src/step_node/ripple_effect_style.dart';
 import 'package:step_progress/step_progress.dart';
 
 /// A class that defines the theme data for the Step Progress widget.
@@ -20,6 +19,7 @@ import 'package:step_progress/step_progress.dart';
 /// * [stepAnimationDuration]: The duration of the animation for step
 /// transitions.
 /// * [stepLineSpacing]: The spacing between step lines.
+/// * [stepLabelAlignment]: The alignment of the labels for the step nodes.
 /// * [labelStyle]: The style of the labels for the step nodes.
 /// * [stepNodeStyle]: The style of the step nodes.
 /// * [stepLineStyle]: The style of the lines connecting the step nodes.
@@ -32,10 +32,11 @@ class StepProgressThemeData {
     this.borderColor = Colors.white,
     this.activeBorderColor,
     this.borderWidth = 0,
-    this.enableRippleEffect = true,
+    this.enableRippleEffect = false,
     this.shape = StepNodeShape.circle,
     this.stepAnimationDuration = const Duration(milliseconds: 150),
     this.stepLineSpacing = 0,
+    this.stepLabelAlignment,
     this.labelStyle = const StepLabelStyle(),
     this.stepNodeStyle = const StepNodeStyle(),
     this.stepLineStyle = const StepLineStyle(),
@@ -81,6 +82,9 @@ class StepProgressThemeData {
   /// The style of the ripple effect for the step progress.
   final RippleEffectStyle rippleEffectStyle;
 
+  /// Alignment of the step labels in the step progress indicator.
+  final StepLabelAlignment? stepLabelAlignment;
+
   /// Determines if the completed steps should be highlighted.
   final bool highlightCompletedSteps;
 
@@ -107,6 +111,7 @@ class StepProgressThemeData {
   /// - [stepLineStyle]: The style of the step lines.
   /// - [rippleEffectStyle]: The style of the ripple effect.
   /// - [highlightCompletedSteps]: Whether to highlight completed steps.
+  /// - [stepLabelAlignment]: The alignment of the step labels.
   ///
   /// Returns a new instance of [StepProgressThemeData] with the updated values.
   StepProgressThemeData copyWith({
@@ -124,6 +129,7 @@ class StepProgressThemeData {
     StepLineStyle? stepLineStyle,
     RippleEffectStyle? rippleEffectStyle,
     bool? highlightCompletedSteps,
+    StepLabelAlignment? stepLabelAlignment,
   }) {
     return StepProgressThemeData(
       defaultForegroundColor:
@@ -144,6 +150,7 @@ class StepProgressThemeData {
       rippleEffectStyle: rippleEffectStyle ?? this.rippleEffectStyle,
       highlightCompletedSteps:
           highlightCompletedSteps ?? this.highlightCompletedSteps,
+      stepLabelAlignment: stepLabelAlignment ?? this.stepLabelAlignment,
     );
   }
 }

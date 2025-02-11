@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:step_progress/src/step_label_alignment.dart';
 import 'package:step_progress/src/step_line/step_line_style.dart';
 import 'package:step_progress/src/step_progress.dart';
 import 'package:step_progress/src/step_progress_theme.dart';
@@ -147,14 +148,43 @@ abstract class StepProgressWidget extends StatelessWidget {
     final theme = StepProgressTheme.of(context)!.data;
     final stepLineStyle = theme.stepLineStyle;
     final highlightCompletedSteps = theme.highlightCompletedSteps;
+    final labelAlignment = theme.stepLabelAlignment ??
+        (axis == Axis.horizontal
+            ? StepLabelAlignment.top
+            : StepLabelAlignment.right);
+
     return LayoutBuilder(
-      builder: (context, constraint) {
-        final width = axis == Axis.horizontal && !constraint.hasBoundedWidth
+      builder: (context, constraints) {
+        final width = axis == Axis.horizontal && !constraints.hasBoundedWidth
             ? totalStep * 1.45 * stepSize
             : null;
-        final height = axis == Axis.vertical && !constraint.hasBoundedHeight
+        final height = axis == Axis.vertical && !constraints.hasBoundedHeight
             ? totalStep * 1.45 * stepSize
             : null;
+
+        Alignment alignment() {
+          if (axis == Axis.horizontal) {
+            switch (labelAlignment) {
+              case StepLabelAlignment.top:
+                return Alignment.bottomCenter;
+              case StepLabelAlignment.down:
+                return Alignment.topCenter;
+              case StepLabelAlignment.left:
+              case StepLabelAlignment.right:
+                return Alignment.center;
+            }
+          } else {
+            switch (labelAlignment) {
+              case StepLabelAlignment.top:
+              case StepLabelAlignment.down:
+                return Alignment.center;
+              case StepLabelAlignment.right:
+                return Alignment.centerLeft;
+              case StepLabelAlignment.left:
+                return Alignment.centerRight;
+            }
+          }
+        }
 
         return ConstrainedBox(
           constraints: BoxConstraints.tightFor(
@@ -162,6 +192,7 @@ abstract class StepProgressWidget extends StatelessWidget {
             height: height,
           ),
           child: Stack(
+            alignment: alignment(),
             children: [
               if (visibilityOptions != StepProgressVisibilityOptions.nodeOnly)
                 buildStepLines(

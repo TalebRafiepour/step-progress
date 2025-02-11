@@ -19,10 +19,11 @@ class ExampleSix extends StatelessWidget {
             totalSteps: 3,
             controller: stepProgressController,
             titles: const [
-              'Select campaign settings',
-              'Create an ad group',
-              'Create an Ad',
+              'Step 1',
+              'Step 2',
+              'Step 3',
             ],
+            subTitles: const ['sub 1', 'sub 2', 'sub 3'],
             nodeIconBuilder: (index) {
               return Text(
                 '${index + 1}',
@@ -36,8 +37,7 @@ class ExampleSix extends StatelessWidget {
               );
             },
             theme: const StepProgressThemeData(
-              enableRippleEffect: false,
-              stepLineSpacing: 24,
+              stepLabelAlignment: StepLabelAlignment.right,
               stepLineStyle: StepLineStyle(
                 lineThickness: 2,
               ),

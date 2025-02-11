@@ -41,7 +41,6 @@ class ExampleFive extends StatelessWidget {
               theme: const StepProgressThemeData(
                 defaultForegroundColor: Colors.white,
                 activeForegroundColor: Colors.white,
-                enableRippleEffect: false,
                 borderWidth: 4,
                 activeBorderColor: Color(0xFF2d9ada),
                 borderColor: Color(0xFFdee0e2),

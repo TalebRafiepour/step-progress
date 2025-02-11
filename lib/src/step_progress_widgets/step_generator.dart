@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:step_progress/src/step_label/step_label.dart';
 import 'package:step_progress/src/step_node/step_node.dart';
 import 'package:step_progress/src/step_node/step_node_ripple.dart';
-import 'package:step_progress/src/step_progress_theme.dart';
+import 'package:step_progress/step_progress.dart';
 
 /// A widget that generates a step in a step progress indicator.
 ///
@@ -107,29 +107,24 @@ class StepGenerator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeData = StepProgressTheme.of(context)!.data;
-    final enableRippleEffect = themeData.enableRippleEffect;
-    final stepLabelStyle = themeData.labelStyle;
-    final stepNodeStyle = themeData.stepNodeStyle;
-    final shape = themeData.shape;
-    final rippleEffectStyle = themeData.rippleEffectStyle;
 
     Widget buildStepNode() {
       return Stack(
         alignment: Alignment.center,
         children: [
-          if (enableRippleEffect)
+          if (themeData.enableRippleEffect)
             StepNodeRipple(
-              stepNodeShape: shape,
-              style: rippleEffectStyle,
+              stepNodeShape: themeData.shape,
+              style: themeData.rippleEffectStyle,
               width: width,
               height: height,
               isVisible: isActive,
             ),
           StepNode(
-            width: enableRippleEffect ? width / 1.5 : width,
-            height: enableRippleEffect ? height / 1.5 : height,
+            width: themeData.enableRippleEffect ? width / 1.5 : width,
+            height: themeData.enableRippleEffect ? height / 1.5 : height,
             isActive: isActive,
-            style: stepNodeStyle,
+            style: themeData.stepNodeStyle,
             icon: stepNodeIcon,
             activeIcon: stepNodeActiveIcon,
           ),
@@ -138,44 +133,57 @@ class StepGenerator extends StatelessWidget {
     }
 
     Widget buildStepLabel() {
-      if (title != null || subTitle != null) {
-        return StepLabel(
-          title: title,
-          subTitle: subTitle,
-          isActive: isActive,
-          maxWidth: width,
-          style: stepLabelStyle,
-        );
-      }
-      return const SizedBox.shrink();
-    }
-
-    Widget buildVerticalStep() {
-      return Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          buildStepNode(),
-          buildStepLabel(),
-        ],
+      if (title == null && subTitle == null) return const SizedBox.shrink();
+      return StepLabel(
+        title: title,
+        subTitle: subTitle,
+        isActive: isActive,
+        maxWidth: width,
+        style: themeData.labelStyle,
       );
     }
 
-    Widget buildHorizontalStep() {
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          buildStepLabel(),
-          buildStepNode(),
-        ],
-      );
+    Widget buildStep({required bool isVertical, required bool showLabelFirst}) {
+      final children = [
+        if (showLabelFirst) buildStepLabel(),
+        buildStepNode(),
+        if (!showLabelFirst) buildStepLabel(),
+      ];
+
+      return isVertical
+          ? Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: children,
+            )
+          : Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: children,
+            );
     }
+
+    final labelAlignment = themeData.stepLabelAlignment ??
+        (axis == Axis.horizontal
+            ? StepLabelAlignment.top
+            : StepLabelAlignment.right);
 
     return GestureDetector(
       onTap: onTap,
-      child:
-          axis == Axis.vertical ? buildVerticalStep() : buildHorizontalStep(),
+      child: Builder(
+        builder: (context) {
+          switch (labelAlignment) {
+            case StepLabelAlignment.left:
+              return buildStep(isVertical: true, showLabelFirst: true);
+            case StepLabelAlignment.right:
+              return buildStep(isVertical: true, showLabelFirst: false);
+            case StepLabelAlignment.top:
+              return buildStep(isVertical: false, showLabelFirst: true);
+            case StepLabelAlignment.down:
+              return buildStep(isVertical: false, showLabelFirst: false);
+          }
+        },
+      ),
     );
   }
 }
