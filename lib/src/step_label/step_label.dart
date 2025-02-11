@@ -10,10 +10,9 @@ import 'package:step_progress/src/step_progress_theme.dart';
 ///
 /// The [title] and [subTitle] are optional and can be used to provide
 /// additional information about the step. The [isActive] flag indicates whether
-/// the step is currently active, and defaults to `false`. The [maxWidth] can be
-/// used to constrain the width of the label. The [style] parameter allows
-/// customization of the label's appearance and defaults to an instance of
-/// [StepLabelStyle].
+/// the step is currently active, and defaults to `false`. The [style] parameter
+/// allows customization of the label's appearance and defaults to an instance
+/// of [StepLabelStyle].
 ///
 /// Example usage:
 ///
@@ -22,7 +21,6 @@ import 'package:step_progress/src/step_progress_theme.dart';
 ///   title: 'Step 1',
 ///   subTitle: 'Introduction',
 ///   isActive: true,
-///   maxWidth: 80.0,
 ///   style: StepLabelStyle(
 ///     activeColor: Colors.blue,
 ///     inactiveColor: Colors.grey,
@@ -34,7 +32,6 @@ class StepLabel extends StatelessWidget {
     this.title,
     this.subTitle,
     this.isActive = false,
-    this.maxWidth,
     this.style = const StepLabelStyle(),
     super.key,
   }) : assert(
@@ -47,9 +44,6 @@ class StepLabel extends StatelessWidget {
 
   /// The subtitle of the step label.
   final String? subTitle;
-
-  /// The maximum width of the step label.
-  final double? maxWidth;
 
   /// The style of the step label.
   final StepLabelStyle style;
@@ -65,7 +59,7 @@ class StepLabel extends StatelessWidget {
       margin: style.margin,
       alignment: Alignment.center,
       constraints: BoxConstraints(
-        maxWidth: maxWidth ?? double.infinity,
+        maxWidth: style.maxWidth,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,

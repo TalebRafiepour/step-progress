@@ -14,6 +14,7 @@ class StepLabelStyle {
   /// The [padding] defaults to [EdgeInsets.zero].
   /// The [textAlign] defaults to [TextAlign.center].
   /// The [margin] defaults to [EdgeInsets.all(2)].
+  /// The [maxWidth] defaults to 80.
   const StepLabelStyle({
     this.labelAxisAlignment = CrossAxisAlignment.center,
     this.activeColor,
@@ -25,6 +26,7 @@ class StepLabelStyle {
     this.overflow = TextOverflow.ellipsis,
     this.padding = EdgeInsets.zero,
     this.textAlign = TextAlign.center,
+    this.maxWidth = double.infinity,
     this.margin = const EdgeInsets.all(2),
     this.animationDuration,
   });
@@ -49,6 +51,9 @@ class StepLabelStyle {
 
   /// The maximum number of lines for the title text.
   final int titleMaxLines;
+
+  /// The maximum width of the step label.
+  final double maxWidth;
 
   /// The maximum number of lines for the subtitle text.
   final int subTitleMaxLines;
@@ -79,6 +84,7 @@ class StepLabelStyle {
     TextOverflow? overflow,
     EdgeInsets? padding,
     EdgeInsets? margin,
+    double? maxWidth,
     Duration? animationDuration,
   }) {
     return StepLabelStyle(
@@ -93,6 +99,7 @@ class StepLabelStyle {
       overflow: overflow ?? this.overflow,
       padding: padding ?? this.padding,
       margin: margin ?? this.margin,
+      maxWidth: maxWidth ?? this.maxWidth,
       animationDuration: animationDuration ?? this.animationDuration,
     );
   }

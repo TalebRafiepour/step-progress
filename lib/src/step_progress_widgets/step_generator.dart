@@ -138,7 +138,6 @@ class StepGenerator extends StatelessWidget {
         title: title,
         subTitle: subTitle,
         isActive: isActive,
-        maxWidth: width,
         style: themeData.labelStyle,
       );
     }

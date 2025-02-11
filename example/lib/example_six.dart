@@ -23,7 +23,6 @@ class ExampleSix extends StatelessWidget {
               'Step 2',
               'Step 3',
             ],
-            subTitles: const ['sub 1', 'sub 2', 'sub 3'],
             nodeIconBuilder: (index) {
               return Text(
                 '${index + 1}',
@@ -37,7 +36,8 @@ class ExampleSix extends StatelessWidget {
               );
             },
             theme: const StepProgressThemeData(
-              stepLabelAlignment: StepLabelAlignment.right,
+              stepLabelAlignment: StepLabelAlignment.down,
+              stepLineSpacing: 2,
               stepLineStyle: StepLineStyle(
                 lineThickness: 2,
               ),
