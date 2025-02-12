@@ -26,7 +26,7 @@ class StepLabelStyle {
     this.overflow = TextOverflow.ellipsis,
     this.padding = EdgeInsets.zero,
     this.textAlign = TextAlign.center,
-    this.maxWidth = double.infinity,
+    this.maxWidth = 48,
     this.margin = const EdgeInsets.all(2),
     this.animationDuration,
   });

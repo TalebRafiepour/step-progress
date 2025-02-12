@@ -10,9 +10,7 @@ import 'package:step_progress/src/step_progress_theme.dart';
 ///
 /// The [title] and [subTitle] are optional and can be used to provide
 /// additional information about the step. The [isActive] flag indicates whether
-/// the step is currently active, and defaults to `false`. The [style] parameter
-/// allows customization of the label's appearance and defaults to an instance
-/// of [StepLabelStyle].
+/// the step is currently active, and defaults to `false`.
 ///
 /// Example usage:
 ///
@@ -21,10 +19,6 @@ import 'package:step_progress/src/step_progress_theme.dart';
 ///   title: 'Step 1',
 ///   subTitle: 'Introduction',
 ///   isActive: true,
-///   style: StepLabelStyle(
-///     activeColor: Colors.blue,
-///     inactiveColor: Colors.grey,
-///   ),
 /// )
 /// ```
 class StepLabel extends StatelessWidget {
@@ -32,7 +26,6 @@ class StepLabel extends StatelessWidget {
     this.title,
     this.subTitle,
     this.isActive = false,
-    this.style = const StepLabelStyle(),
     super.key,
   }) : assert(
           title != null || subTitle != null,
@@ -45,15 +38,13 @@ class StepLabel extends StatelessWidget {
   /// The subtitle of the step label.
   final String? subTitle;
 
-  /// The style of the step label.
-  final StepLabelStyle style;
-
   /// Indicates whether the step label is active.
   final bool isActive;
 
   @override
   Widget build(BuildContext context) {
-    final theme = StepProgressTheme.of(context)?.data;
+    final theme = StepProgressTheme.of(context)!.data;
+    final style = theme.labelStyle;
     return Container(
       padding: style.padding,
       margin: style.margin,
@@ -67,13 +58,11 @@ class StepLabel extends StatelessWidget {
         children: [
           if (title != null)
             AnimatedDefaultTextStyle(
-              duration: style.animationDuration ??
-                  theme?.stepAnimationDuration ??
-                  const Duration(milliseconds: 150),
-              style: _titleStyle(context).copyWith(
+              duration: style.animationDuration ?? theme.stepAnimationDuration,
+              style: _titleStyle(style.titleStyle, context).copyWith(
                 color: isActive
-                    ? style.activeColor ?? theme?.activeForegroundColor
-                    : style.defualtColor ?? theme?.defaultForegroundColor,
+                    ? style.activeColor ?? theme.activeForegroundColor
+                    : style.defualtColor ?? theme.defaultForegroundColor,
               ),
               child: Text(
                 title!,
@@ -84,13 +73,11 @@ class StepLabel extends StatelessWidget {
             ),
           if (subTitle != null)
             AnimatedDefaultTextStyle(
-              duration: style.animationDuration ??
-                  theme?.stepAnimationDuration ??
-                  const Duration(milliseconds: 150),
-              style: _subTitleStyle(context).copyWith(
+              duration: style.animationDuration ?? theme.stepAnimationDuration,
+              style: _subTitleStyle(style.subTitleStyle, context).copyWith(
                 color: isActive
-                    ? style.activeColor ?? theme?.activeForegroundColor
-                    : style.defualtColor ?? theme?.defaultForegroundColor,
+                    ? style.activeColor ?? theme.activeForegroundColor
+                    : style.defualtColor ?? theme.defaultForegroundColor,
               ),
               child: Text(
                 subTitle!,
@@ -113,10 +100,8 @@ class StepLabel extends StatelessWidget {
   /// applied throughout the application, with a preference for custom styles
   /// when available.
   ///
-  /// - Parameter context: The build context used to access the theme.
-  /// - Returns: The text style for the title.
-  TextStyle _titleStyle(BuildContext context) {
-    return style.titleStyle ??
+  TextStyle _titleStyle(TextStyle? titleStyle, BuildContext context) {
+    return titleStyle ??
         Theme.of(context).textTheme.labelMedium ??
         const TextStyle();
   }
@@ -130,9 +115,8 @@ class StepLabel extends StatelessWidget {
   /// 3. If neither of the above conditions are met, a default text style with
   /// a font size of 10 is used.
   ///
-  /// This method requires a [BuildContext] to access the current theme.
-  TextStyle _subTitleStyle(BuildContext context) {
-    return style.subTitleStyle ??
+  TextStyle _subTitleStyle(TextStyle? subTitleStyle, BuildContext context) {
+    return subTitleStyle ??
         Theme.of(context).textTheme.labelSmall ??
         const TextStyle(fontSize: 10);
   }

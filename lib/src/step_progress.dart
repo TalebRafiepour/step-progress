@@ -40,7 +40,7 @@ typedef OnStepNodeTapped = void Function(int index);
 /// The [currentStep] parameter specifies the current step in the progress
 /// indicator. It defaults to 0.
 ///
-/// The [stepSize] parameter specifies the size of each step. It defaults to 48.
+/// The [stepSize] parameter specifies the size of each step. It defaults to 34.
 ///
 /// The [theme] parameter specifies the theme data for the step progress
 /// indicator. It defaults to [StepProgressThemeData].
@@ -49,7 +49,7 @@ typedef OnStepNodeTapped = void Function(int index);
 /// indicator. It defaults to [EdgeInsets.zero].
 ///
 /// The [padding] parameter specifies the padding inside the step progress
-/// indicator. It defaults to [EdgeInsets.all(4)].
+/// indicator. It defaults to [EdgeInsets.zero].
 ///
 /// The [axis] parameter specifies the axis along which the steps are laid out.
 /// It defaults to [Axis.horizontal].
@@ -85,12 +85,12 @@ class StepProgress extends StatefulWidget {
     this.controller,
     this.currentStep = 0,
     super.key,
-    this.stepSize = 48,
+    this.stepSize = 34,
     this.width,
     this.height,
     this.theme = const StepProgressThemeData(),
     this.margin = EdgeInsets.zero,
-    this.padding = const EdgeInsets.all(4),
+    this.padding = EdgeInsets.zero,
     this.axis = Axis.horizontal,
     this.visibilityOptions = StepProgressVisibilityOptions.both,
     this.titles,

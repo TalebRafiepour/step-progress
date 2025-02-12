@@ -6,7 +6,7 @@ class ExampleSix extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final stepProgressController = StepProgressController(totalSteps: 3);
+    final stepProgressController = StepProgressController(totalSteps: 4);
     return Scaffold(
       appBar: AppBar(
         title: const Text('StepProgress -  position label'),
@@ -15,26 +15,14 @@ class ExampleSix extends StatelessWidget {
         spacing: 48,
         children: [
           StepProgress(
-            stepSize: 34,
-            totalSteps: 3,
+            totalSteps: 4,
             controller: stepProgressController,
             titles: const [
               'Step 1',
               'Step 2',
               'Step 3',
+              'Step 4',
             ],
-            nodeIconBuilder: (index) {
-              return Text(
-                '${index + 1}',
-                style: const TextStyle(fontSize: 16, color: Colors.white),
-              );
-            },
-            nodeActiveIconBuilder: (index) {
-              return Text(
-                '${index + 1}',
-                style: const TextStyle(fontSize: 16, color: Colors.white),
-              );
-            },
             theme: const StepProgressThemeData(
               stepLabelAlignment: StepLabelAlignment.topBottom,
               stepLineSpacing: 2,
