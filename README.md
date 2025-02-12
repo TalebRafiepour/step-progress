@@ -8,6 +8,8 @@
 
 **StepProgress** is a lightweight package designed to display step progress indicators for completing multi-step tasks in a user interface. It provides customizable widgets to visually represent the progress of a task, making it easier for users to understand their current position and the steps remaining.
 
+![StepProgress-without-labels](https://github.com/TalebRafiepour/showcase/blob/main/step_progress/sample-2-step-progress-without-labels.gif?raw=true)
+
 ## Features
 
 - **Visual Step Indication**: Clearly displays progress through a sequence of steps, available in both horizontal and vertical orientations.
@@ -250,36 +252,36 @@ StepProgress(
 
 | Property                | Description                                        | Type                | Default Value                       |
 |-------------------------|----------------------------------------------------|---------------------|-------------------------------------|
-| defaultForegroundColor  | The default color of the step nodes.               | Color               | `Color.fromARGB(255, 191, 196, 195)`|
-| activeForegroundColor   | The color of the active step node.                 | Color               | `Color.fromARGB(255, 0, 167, 160)`  |
-| highlightCompletedSteps | Whether to highlight completed steps.              | bool                | `true`                              |
-| borderColor             | The color of the border around the step nodes.     | Color               | `Colors.white`                      |
-| activeBorderColor       | The color of the border when the step is active.   | Color?              |`null`                               |
-| borderWidth             | The width of the border around the step nodes.     | double              | `0.0`                               |
-| enableRippleEffect      | Whether to enable the ripple effect on step nodes. | bool                | `false`                             |
-| shape                   | The shape of the step nodes (e.g., circle, square).| StepNodeShape       | `StepNodeShape.circle`              |
-| stepAnimationDuration   | The duration of the animation for step transitions.| Duration            |`Duration(milliseconds: 150)`        |
-| stepLineSpacing         | The spacing between step lines.                    | double              | `0.0`                               |
-| stepLabelAlignment      | The alignment of the labels for the step nodes.    | StepLabelAlignment? |`null`                               |
-| labelStyle              | The style of the labels for the step nodes.        | StepLabelStyle      | `StepLabelStyle()`                  |
-| stepNodeStyle           | The style of the step nodes.                       | StepNodeStyle       | `StepNodeStyle()`                   |
-| stepLineStyle           | The style of the lines connecting the step nodes.  | StepLineStyle       | `StepLineStyle()`                   |
-| rippleEffectStyle       | The style of the ripple effect on step nodes.      | RippleEffectStyle   | `RippleEffectStyle()`               |
+|`defaultForegroundColor` | The default color of the step nodes.               | Color               | `Color.fromARGB(255, 191, 196, 195)`|
+|`activeForegroundColor`  | The color of the active step node.                 | Color               | `Color.fromARGB(255, 0, 167, 160)`  |
+|`highlightCompletedSteps`| Whether to highlight completed steps.              | bool                | `true`                              |
+|`borderColor`            | The color of the border around the step nodes.     | Color               | `Colors.white`                      |
+|`activeBorderColor`      | The color of the border when the step is active.   | Color?              |`null`                               |
+|`borderWidth`            | The width of the border around the step nodes.     | double              | `0.0`                               |
+|`enableRippleEffect`     | Whether to enable the ripple effect on step nodes. | bool                | `false`                             |
+|`shape`                  | The shape of the step nodes (e.g., circle, square).| StepNodeShape       | `StepNodeShape.circle`              |
+|`stepAnimationDuration`  | The duration of the animation for step transitions.| Duration            |`Duration(milliseconds: 150)`        |
+|`stepLineSpacing`        | The spacing between step lines.                    | double              | `0.0`                               |
+|`stepLabelAlignment`     | The alignment of the labels for the step nodes.    | StepLabelAlignment? |`null`                               |
+|`labelStyle`             | The style of the labels for the step nodes.        | StepLabelStyle      | `StepLabelStyle()`                  |
+|`stepNodeStyle`          | The style of the step nodes.                       | StepNodeStyle       | `StepNodeStyle()`                   |
+|`stepLineStyle`          | The style of the lines connecting the step nodes.  | StepLineStyle       | `StepLineStyle()`                   |
+|`rippleEffectStyle`      | The style of the ripple effect on step nodes.      | RippleEffectStyle   | `RippleEffectStyle()`               |
 
 
 ## StepNodeStyle Properties
 
 | Property               | Type            | Description                                                                                                  | Default Value|
 | ---------------------- | --------------- | ------------------------------------------------------------------------------------------------------------ | ----------------------------- |
-| defaultForegroundColor | `Color?`        | The default color for the foreground of the step node. If not set, it will be read from the theme.           | `null` |
-| activeForegroundColor  | `Color?`        | The color for the foreground of the step node when it is active. If not set, it will be read from the theme. | `null` |
-| animationDuration      | `Duration?`     | The duration of the animation for the step node. If not set, it will be read from the theme.                 | `null` |
-| iconColor              | `Color`         | The color of the icon.                             | `const Color.fromARGB(253, 6, 138, 129)` (teal color)                                    |
-| shape                  | `StepNodeShape` | The shape of the step node.                        | `StepNodeShape.circle`                                                                   |
-| decoration             | `BoxDecoration` | The decoration of the step node.                   | `const BoxDecoration(color: Color.fromARGB(50, 255, 255, 255))` (semi-transparent white) |
-| icon                   | `Widget?`       | The icon widget to display.                        | `null`                                                                                   |
-| activeIcon             | `Widget?`       | The icon widget to display when the step is active.| `const Icon(Icons.check, size: 18, color: Colors.white)`                                 |
-| enableRippleEffect     | `bool`          | Whether to enable the ripple effect.               | `true`                                                                                   |
+|`defaultForegroundColor`| `Color?`        | The default color for the foreground of the step node. If not set, it will be read from the theme.           | `null` |
+|`activeForegroundColor` | `Color?`        | The color for the foreground of the step node when it is active. If not set, it will be read from the theme. | `null` |
+|`animationDuration`     | `Duration?`     | The duration of the animation for the step node. If not set, it will be read from the theme.                 | `null` |
+|`iconColor`             | `Color`         | The color of the icon.                             | `const Color.fromARGB(253, 6, 138, 129)` (teal color)                                    |
+|`shape`                 | `StepNodeShape` | The shape of the step node.                        | `StepNodeShape.circle`                                                                   |
+|`decoration`            | `BoxDecoration` | The decoration of the step node.                   | `const BoxDecoration(color: Color.fromARGB(50, 255, 255, 255))` (semi-transparent white) |
+|`icon`                  | `Widget?`       | The icon widget to display.                        | `null`                                                                                   |
+|`activeIcon`            | `Widget?`       | The icon widget to display when the step is active.| `const Icon(Icons.check, size: 18, color: Colors.white)`                                 |
+|`enableRippleEffect`    | `bool`          | Whether to enable the ripple effect.               | `true`                                                                                   |
 
 
 ## RippleEffectStyle Properties
@@ -290,6 +292,36 @@ StepProgress(
 | `animationDuration`| `Duration?`  | The duration of the ripple effect animation. If `null`, the theme determines the duration.| `null`        |
 | `borderColor`      | `Color?`     | The color of the ripple effect's border. If `null`, the theme determines the color.       | `null`        |
 | `borderWidth`      | `double`     | The width of the ripple effect's border.                                                  | `2`           |
+
+
+## StepLineStyle Properties
+
+| Property           | Type          | Description                                                                            | Default Value         |
+|--------------------|---------------|----------------------------------------------------------------------------------------|-----------------------|
+| `foregroundColor`  | `Color?`      | The color of the step line. If not set, it will be determined by the theme.            | `null`                |
+| `activeColor`      | `Color?`      | The color used when the step is active. If not set, it will be determined by the theme.| `null`                |
+| `animationDuration`| `Duration?`   | The duration of the animation. If not set, it will be determined by the theme.         | `null`                |
+| `lineThickness`    | `double`      | The thickness of the line in the step progress.                                        | `4.0`                 |
+| `borderRadius`     | `BorderRadius`| The border radius of the line in the step progress.                                    | `BorderRadius.zero`   |
+
+
+## StepLabelStyle Properties
+
+| Property             | Type                | Default Value              | Description                                                                 |
+| -------------------- | ------------------- | -------------------------- | --------------------------------------------------------------------------- |
+| `labelAxisAlignment` | `CrossAxisAlignment`| `CrossAxisAlignment.center`| The alignment of the label along the cross axis.                            |
+| `titleStyle`         | `TextStyle?`        | `null`                     | The style to use for the title text.                                        |
+| `subTitleStyle`      | `TextStyle?`        | `null`                     | The style to use for the subtitle text.                                     |
+| `activeColor`        | `Color?`            | `null`                     | The color to use when the step is active.                                   |
+| `defualtColor`       | `Color?`            | `null`                     | The color to use when the step is not active.                               |
+| `textAlign`          | `TextAlign`         | `TextAlign.center`         | How the text should be aligned horizontally.                                |
+| `titleMaxLines`      | `int`               | `3`                        | The maximum number of lines for the title text.                             |
+| `maxWidth`           | `double`            | `48`                       | The maximum width of the step label.                                        |
+| `subTitleMaxLines`   | `int`               | `1`                        | The maximum number of lines for the subtitle text.                          |
+| `overflow`           | `TextOverflow`      | `TextOverflow.ellipsis`    | How visual overflow should be handled.                                      |
+| `padding`            | `EdgeInsets`        | `EdgeInsets.zero`          | The amount of space to surround the label with.                             |
+| `margin`             | `EdgeInsets`        | `EdgeInsets.all(2)`        | The amount of space to surround the label with.                             |
+| `animationDuration`  | `Duration?`         | `null`                     | The duration of the animation when the style changes.                       |
 
 --------------
 ## Support the Package
