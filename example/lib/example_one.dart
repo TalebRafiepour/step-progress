@@ -10,7 +10,7 @@ class ExampleOne extends StatelessWidget {
         StepProgressController(totalSteps: 4);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Example One'),
+        title: const Text('StepProgress - vertical'),
       ),
       body: SafeArea(
         child: Column(

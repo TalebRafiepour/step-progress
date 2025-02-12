@@ -17,7 +17,7 @@ class _ExampleTwoState extends State<ExampleTwo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Example Two'),
+        title: const Text('StepProgress - without labels'),
         bottom: PreferredSize(
           preferredSize: const Size(double.infinity, kToolbarHeight),
           child: SizedBox(
@@ -25,6 +25,7 @@ class _ExampleTwoState extends State<ExampleTwo> {
             height: kToolbarHeight,
             child: StepProgress(
               totalSteps: 5,
+              padding: const EdgeInsets.symmetric(horizontal: 24),
               controller: _stepProgressController,
               onStepChanged: (currentIndex) {
                 setState(() {
