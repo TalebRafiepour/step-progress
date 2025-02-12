@@ -25,7 +25,7 @@ void main() {
       expect(style.animationDuration, isNull);
     });
 
-    // Positive test case: Validate that copyWith returns new instance 
+    // Positive test case: Validate that copyWith returns new instance
     // with updated values.
     test('copyWith returns updated instance with new values', () {
       const original = StepLabelStyle();
