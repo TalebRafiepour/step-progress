@@ -36,7 +36,7 @@ class ExampleSix extends StatelessWidget {
               );
             },
             theme: const StepProgressThemeData(
-              stepLabelAlignment: StepLabelAlignment.down,
+              stepLabelAlignment: StepLabelAlignment.topBottom,
               stepLineSpacing: 2,
               stepLineStyle: StepLineStyle(
                 lineThickness: 2,

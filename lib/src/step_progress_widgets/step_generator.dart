@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:step_progress/src/step_label/step_label.dart';
 import 'package:step_progress/src/step_node/step_node.dart';
 import 'package:step_progress/src/step_node/step_node_ripple.dart';
+import 'package:step_progress/src/step_progress_widgets/visibility_widget.dart';
 import 'package:step_progress/step_progress.dart';
 
 /// A widget that generates a step in a step progress indicator.
@@ -24,12 +25,15 @@ import 'package:step_progress/step_progress.dart';
 /// `StepNode` by default.
 /// The [stepNodeActiveIcon] parameter is an optional widget to display inside
 /// the `StepNode` when the step is active.
+/// The [stepIndex] parameter specifies the index of the current step in the
+/// step progress.
 ///
 /// Example usage:
 /// ```dart
 /// StepGenerator(
 ///   width: 50.0,
 ///   height: 50.0,
+///   stepIndex: 1,
 ///   isActive: true,
 ///   axis: Axis.vertical,
 ///   title: 'Step 1',
@@ -45,6 +49,7 @@ class StepGenerator extends StatelessWidget {
   const StepGenerator({
     required this.width,
     required this.height,
+    required this.stepIndex,
     this.isActive = false,
     this.axis = Axis.horizontal,
     this.title,
@@ -81,6 +86,9 @@ class StepGenerator extends StatelessWidget {
 
   /// Icon widget to display inside `StepNode` when the step is active.
   final Widget? stepNodeActiveIcon;
+
+  /// The index of the current step in the step progress.
+  final int stepIndex;
 
   /// Builds a widget that represents a step in a step progress indicator.
   ///
@@ -142,12 +150,28 @@ class StepGenerator extends StatelessWidget {
       );
     }
 
-    Widget buildStep({required bool isVertical, required bool showLabelFirst}) {
-      final children = [
-        if (showLabelFirst) buildStepLabel(),
-        buildStepNode(),
-        if (!showLabelFirst) buildStepLabel(),
-      ];
+    Widget buildStep({
+      required bool isVertical,
+      required bool showLabelFirst,
+      bool isMultipleSide = false,
+    }) {
+      final children = isMultipleSide
+          ? [
+              VisibilityWidget(
+                visible: showLabelFirst,
+                child: buildStepLabel(),
+              ),
+              buildStepNode(),
+              VisibilityWidget(
+                visible: !showLabelFirst,
+                child: buildStepLabel(),
+              ),
+            ]
+          : [
+              if (showLabelFirst) buildStepLabel(),
+              buildStepNode(),
+              if (!showLabelFirst) buildStepLabel(),
+            ];
 
       return isVertical
           ? Row(
@@ -178,8 +202,33 @@ class StepGenerator extends StatelessWidget {
               return buildStep(isVertical: true, showLabelFirst: false);
             case StepLabelAlignment.top:
               return buildStep(isVertical: false, showLabelFirst: true);
-            case StepLabelAlignment.down:
+            case StepLabelAlignment.bottom:
               return buildStep(isVertical: false, showLabelFirst: false);
+            case StepLabelAlignment.topBottom:
+              return buildStep(
+                isMultipleSide: true,
+                isVertical: false,
+                showLabelFirst: stepIndex.isEven,
+              );
+            case StepLabelAlignment.bottomTop:
+              return buildStep(
+                isVertical: false,
+                isMultipleSide: true,
+                showLabelFirst: stepIndex.isOdd,
+              );
+
+            case StepLabelAlignment.rightLeft:
+              return buildStep(
+                isMultipleSide: true,
+                isVertical: true,
+                showLabelFirst: stepIndex.isOdd,
+              );
+            case StepLabelAlignment.leftRight:
+              return buildStep(
+                isMultipleSide: true,
+                isVertical: true,
+                showLabelFirst: stepIndex.isEven,
+              );
           }
         },
       ),

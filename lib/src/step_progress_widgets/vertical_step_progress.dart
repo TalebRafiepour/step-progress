@@ -100,6 +100,7 @@ class VerticalStepProgress extends StepProgressWidget {
             axis: Axis.vertical,
             width: stepSize,
             height: stepSize,
+            stepIndex: index,
             title: title,
             subTitle: subTitle,
             isActive: isActive,

@@ -167,21 +167,29 @@ abstract class StepProgressWidget extends StatelessWidget {
             switch (labelAlignment) {
               case StepLabelAlignment.top:
                 return Alignment.bottomCenter;
-              case StepLabelAlignment.down:
+              case StepLabelAlignment.bottom:
                 return Alignment.topCenter;
               case StepLabelAlignment.left:
               case StepLabelAlignment.right:
+              case StepLabelAlignment.topBottom:
+              case StepLabelAlignment.bottomTop:
+              case StepLabelAlignment.rightLeft:
+              case StepLabelAlignment.leftRight:
                 return Alignment.center;
             }
           } else {
             switch (labelAlignment) {
-              case StepLabelAlignment.top:
-              case StepLabelAlignment.down:
-                return Alignment.center;
               case StepLabelAlignment.right:
                 return Alignment.centerLeft;
               case StepLabelAlignment.left:
                 return Alignment.centerRight;
+              case StepLabelAlignment.top:
+              case StepLabelAlignment.bottom:
+              case StepLabelAlignment.topBottom:
+              case StepLabelAlignment.bottomTop:
+              case StepLabelAlignment.leftRight:
+              case StepLabelAlignment.rightLeft:
+                return Alignment.center;
             }
           }
         }

@@ -71,6 +71,7 @@ class HorizontalStepProgress extends StepProgressWidget {
           return StepGenerator(
             width: stepSize,
             height: stepSize,
+            stepIndex: index,
             title: title,
             subTitle: subTitle,
             isActive: isActive,
