@@ -1,77 +1,168 @@
 import 'package:flutter/material.dart';
-import 'package:step_progress/src/step_progress_controller.dart';
+import 'package:step_progress/src/step_progress_widgets/horizontal_step_progress.dart';
+import 'package:step_progress/src/step_progress_widgets/vertical_step_progress.dart';
+import 'package:step_progress/step_progress.dart';
 
-import 'package:step_progress/src/step_progress_painter.dart';
-import 'package:step_progress/src/step_progress_style.dart';
+/// A typedef for a function that builds a widget for a step node icon.
+///
+/// The function takes an integer [index] as a parameter, which represents
+/// the position of the step node in the sequence, and returns a [Widget].
+typedef StepNodeIconBuilder = Widget Function(int index);
+
+/// A typedef for a callback function that is triggered when a step line is
+/// tapped.
+///
+/// The callback function takes an integer [index] as a parameter, which
+/// represents the index of the tapped step line.
+typedef OnStepLineTapped = void Function(int index);
 
 /// A typedef for a callback function that is called when the step changes.
 ///
 /// The [currentIndex] parameter indicates the index of the current step.
 typedef OnStepChanged = void Function(int currentIndex);
 
+/// A typedef for a callback function that is triggered when a step is tapped.
+///
+/// The callback function takes an integer [index] as a parameter, which
+/// represents the index of the step that was tapped.
+typedef OnStepNodeTapped = void Function(int index);
+
 /// A widget that displays a step progress indicator.
 ///
-/// The [StepProgress] widget is a customizable progress indicator that
-/// displays the current step in a multi-step process. It can be styled
-/// and configured to fit various use cases.
+/// The [StepProgress] widget is a customizable step progress indicator that
+/// can be used to show the progress of a multi-step process.
 ///
-/// The [controller] parameter is required and is used to control the
-/// current step and other properties of the progress indicator.
+/// The [totalSteps] parameter is required and specifies the total number of
+/// steps in the progress indicator.
 ///
-/// The [style] parameter allows you to customize the appearance of the
-/// progress indicator. It defaults to [StepProgressStyle].
+/// The [controller] parameter can be used to control the progress of the steps.
 ///
-/// The [width] and [height] parameters specify the dimensions of the
-/// progress indicator. By default, the width is set to [double.infinity]
-/// and the height is set to [kToolbarHeight].
+/// The [currentStep] parameter specifies the current step in the progress
+/// indicator. It defaults to 0.
 ///
-/// The [margin] and [padding] parameters allow you to add space around
-/// and inside the progress indicator, respectively. Both default to
-/// [EdgeInsets.zero].
+/// The [stepSize] parameter specifies the size of each step. It defaults to 34.
 ///
-/// The [onStepChanged] callback is triggered whenever the current step
-/// changes.
+/// The [theme] parameter specifies the theme data for the step progress
+/// indicator. It defaults to [StepProgressThemeData].
 ///
-/// Example usage:
-/// ```dart
-/// StepProgress(
-///   controller: stepController,
-///   style: StepProgressStyle(
-///     activeColor: Colors.blue,
-///     inactiveColor: Colors.grey,
-///   ),
-///   onStepChanged: (int step) {
-///     print('Current step: $step');
-///   },
-/// )
-/// ```
+/// The [margin] parameter specifies the margin around the step progress
+/// indicator. It defaults to [EdgeInsets.zero].
+///
+/// The [padding] parameter specifies the padding inside the step progress
+/// indicator. It defaults to [EdgeInsets.zero].
+///
+/// The [axis] parameter specifies the axis along which the steps are laid out.
+/// It defaults to [Axis.horizontal].
+///
+/// The [titles] parameter can be used to specify titles for each step.
+///
+/// The [subTitles] parameter can be used to specify subtitles for each step.
+///
+/// The [visibilityOptions] parameter can be used to control the visibility of
+/// step progress elements.
+///
+/// The [width] parameter specifies the width of the step progress widget.
+///
+/// The [height] parameter specifies the height of the step progress widget.
+///
+/// The [onStepNodeTapped] parameter is a callback that is called when a step
+/// node is tapped.
+///
+/// The [onStepLineTapped] parameter is a callback that is called when a step
+/// line is tapped.
+///
+/// The [onStepChanged] parameter is a callback that is called when the current
+/// step changes.
+///
+/// The [nodeIconBuilder] parameter is a builder function to create custom icons
+/// for each step node.
+///
+/// The [nodeActiveIconBuilder] parameter is a builder function to create custom
+/// icons for active steps.
 class StepProgress extends StatefulWidget {
   const StepProgress({
-    required this.controller,
+    required this.totalSteps,
+    this.controller,
+    this.currentStep = 0,
     super.key,
-    this.style = const StepProgressStyle(),
-    this.stepAnimationDuration = const Duration(milliseconds: 300),
-    this.width = double.infinity,
-    this.height = kToolbarHeight,
+    this.stepSize = 34,
+    this.width,
+    this.height,
+    this.theme = const StepProgressThemeData(),
     this.margin = EdgeInsets.zero,
     this.padding = EdgeInsets.zero,
+    this.axis = Axis.horizontal,
+    this.visibilityOptions = StepProgressVisibilityOptions.both,
+    this.titles,
+    this.subTitles,
+    this.onStepNodeTapped,
+    this.onStepLineTapped,
     this.onStepChanged,
-  });
+    this.nodeIconBuilder,
+    this.nodeActiveIconBuilder,
+  })  : assert(
+          totalSteps > 0,
+          'totalSteps must be greater than 0',
+        ),
+        assert(
+          currentStep >= 0 && currentStep < totalSteps,
+          'currentStep must be greater than or equal to 0'
+          ' and lower than totalSteps',
+        ),
+        assert(
+          titles == null || titles.length == totalSteps,
+          'titles must be equals to total steps',
+        ),
+        assert(
+          subTitles == null || subTitles.length == totalSteps,
+          'subTitles must be equals to total steps',
+        ),
+        assert(
+          titles == null ||
+              subTitles == null ||
+              titles.length == subTitles.length,
+          'titles length must be equal to subTitles length if'
+          ' both are provided',
+        );
 
-  /// The duration of the step animation.
-  final Duration stepAnimationDuration;
+  /// Titles for each step in the progress
+  final List<String>? titles;
 
-  /// The controller that manages the state and behavior of the step progress.
-  final StepProgressController controller;
+  /// Subtitles for each step in the progress
+  final List<String>? subTitles;
 
-  /// The style configuration for the step progress.
-  final StepProgressStyle style;
+  /// Options to control the visibility of step progress elements.
+  final StepProgressVisibilityOptions visibilityOptions;
+
+  /// Size of each step indicator
+  final double stepSize;
 
   /// The width of the step progress widget.
-  final double width;
+  final double? width;
 
   /// The height of the step progress widget.
-  final double height;
+  final double? height;
+
+  /// Total number of steps in the progress
+  final int totalSteps;
+
+  /// Current step in the progress
+  final int currentStep;
+
+  /// Theme data for customizing the step progress appearance
+  final StepProgressThemeData theme;
+
+  /// Axis along which the steps are arranged (horizontal or vertical)
+  final Axis axis;
+
+  /// Callback function when a step is tapped
+  final OnStepNodeTapped? onStepNodeTapped;
+
+  /// Callback function that is triggered when a step line is tapped.
+  final OnStepLineTapped? onStepLineTapped;
+
+  /// The controller that manages the state and behavior of the step progress.
+  final StepProgressController? controller;
 
   /// The margin around the step progress widget.
   final EdgeInsets margin;
@@ -82,116 +173,121 @@ class StepProgress extends StatefulWidget {
   /// Callback function that is called when the step changes.
   final OnStepChanged? onStepChanged;
 
+  /// A builder function to create custom icons for each step node.
+  final StepNodeIconBuilder? nodeIconBuilder;
+
+  /// A builder for creating custom icons for active steps.
+  final StepNodeIconBuilder? nodeActiveIconBuilder;
+
   @override
-  _StepProgressState createState() => _StepProgressState();
+  _StepProgressState createState() {
+    assert(
+      controller == null || totalSteps == controller?.totalSteps,
+      'totalSteps in controller must be equal to provided totalSteps',
+    );
+    return _StepProgressState();
+  }
 }
 
 class _StepProgressState extends State<StepProgress>
     with SingleTickerProviderStateMixin {
-  // Animation controller to manage the animations
-  late AnimationController _animationController;
-
-  // Animation for the progress indicator
-  late Animation<double> _progressAnimation;
-
-  // Animation for the step transitions
-  late Animation<double> _stepAnimation;
-
-  // Tween to define the range of values for the progress animation
-  late Tween<double> _progressTween;
+  late int _currentStep = _getCurrentStep;
 
   @override
   void initState() {
-    _animationController = AnimationController(
-      vsync: this,
-      duration: widget.stepAnimationDuration,
-    );
-    _progressTween = Tween<double>(begin: 0, end: _getEndProgress());
-    _progressAnimation = _progressTween.animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: const Interval(0, 0.3, curve: Curves.easeIn),
-      ),
-    );
-    _stepAnimation = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: const Interval(0.25, 1, curve: Curves.easeOut),
-      ),
-    );
-    widget.controller.addListener(_animateProgress);
-    _animationController.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        widget.onStepChanged?.call(widget.controller.currentStep);
-      }
+    widget.controller?.addListener(() {
+      _changeStep(widget.controller!.currentStep);
     });
     super.initState();
   }
 
-  /// Animates the progress of the step progress indicator.
-  ///
-  /// This method calculates the new progress percentage using the
-  /// `_getEndProgress` method, updates the tween's begin and end values,
-  /// resets the animation controller, and then starts the animation.
-  void _animateProgress() {
-    final double newPercent = _getEndProgress();
-    _progressTween.begin = _progressTween.end;
-    _animationController.reset();
-    _progressTween.end = newPercent;
-    _animationController.forward();
+  /// Called whenever the widget configuration changes.
+  /// This method changes the current step when it's changed in the parent
+  /// widget by setState.
+  @override
+  void didUpdateWidget(covariant StepProgress oldWidget) {
+    if (widget.currentStep != _currentStep ||
+        oldWidget.controller != widget.controller) {
+      _currentStep = _getCurrentStep;
+    }
+    super.didUpdateWidget(oldWidget);
   }
 
-  /// Calculates the end progress percentage based on the current step
-  /// and total steps.
+  /// Returns the current step of the progress.
   ///
-  /// The progress percentage is calculated as the ratio of the current step
-  /// to the total steps minus one.
-  /// If the calculated percentage is greater than 1, it returns 1.
-  /// If the calculated percentage is less than 0, it returns 0.
-  /// Otherwise, it returns the calculated percentage.
+  /// If a [StepProgressController] is provided, it retrieves the current step
+  ///  from the controller. Otherwise, it uses the `currentStep`
+  /// property of the widget.
   ///
-  /// Returns:
-  ///   A double value representing the end progress percentage.
-  double _getEndProgress() {
-    final double percent =
-        widget.controller.currentStep / (widget.controller.totalStep - 1);
-    if (percent > 1) {
-      return 1;
-    } else if (percent < 0) {
-      return 0;
-    } else {
-      return percent;
+  /// This getter ensures that the current step is always accurately retrieved
+  /// based on the presence of a controller.
+  int get _getCurrentStep {
+    return widget.controller != null
+        ? widget.controller!.currentStep
+        : widget.currentStep;
+  }
+
+  /// Changes the current step to the specified [newStep].
+  ///
+  /// If [newStep] is the same as the current step, less than 0, or greater than
+  /// or equal to the total number of steps, the function will return without
+  /// making any changes.
+  ///
+  /// When the step is successfully changed, the state is updated and the
+  /// `onStepChanged` callback is called with the new step value.
+  ///
+  /// [newStep] - The step to change to.
+  void _changeStep(int newStep) {
+    if (_currentStep == newStep ||
+        newStep < 0 ||
+        newStep >= widget.totalSteps) {
+      return;
     }
+    if (mounted) {
+      setState(() {
+        _currentStep = newStep;
+      });
+    }
+    widget.onStepChanged?.call(_currentStep);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: widget.width,
-      height: widget.height,
-      color: widget.style.backgroundColor,
-      margin: widget.margin,
-      padding: widget.padding,
-      child: AnimatedBuilder(
-        animation: _animationController,
-        builder: (_, child) {
-          return CustomPaint(
-            painter: StepProgressPainter(
-              progressPercent: _progressAnimation.value,
-              stepScale: _stepAnimation.value,
-              totalStep: widget.controller.totalStep,
-              currentStep: widget.controller.currentStep,
-              strokeColor: widget.style.strokeColor,
-              valueColor: widget.style.valueColor,
-              defaultColor: widget.style.defaultColor,
-              tickColor: widget.style.tickColor,
-              ltr: widget.style.ltr ??
-                  Directionality.of(context) == TextDirection.ltr,
-            ),
-            child: child,
-          );
-        },
-        child: const SizedBox.shrink(),
+    return StepProgressTheme(
+      data: widget.theme,
+      child: Container(
+        width: widget.width,
+        height: widget.height,
+        color: Colors.transparent,
+        margin: widget.margin.add(
+          EdgeInsets.all(widget.theme.borderWidth),
+        ),
+        padding: widget.padding,
+        child: widget.axis == Axis.horizontal
+            ? HorizontalStepProgress(
+                totalStep: widget.totalSteps,
+                currentStep: _currentStep,
+                titles: widget.titles,
+                subTitles: widget.subTitles,
+                stepSize: widget.stepSize,
+                onStepNodeTapped: widget.onStepNodeTapped,
+                onStepLineTapped: widget.onStepLineTapped,
+                visibilityOptions: widget.visibilityOptions,
+                nodeIconBuilder: widget.nodeIconBuilder,
+                nodeActiveIconBuilder: widget.nodeActiveIconBuilder,
+              )
+            : VerticalStepProgress(
+                totalStep: widget.totalSteps,
+                currentStep: _currentStep,
+                titles: widget.titles,
+                subTitles: widget.subTitles,
+                stepSize: widget.stepSize,
+                onStepNodeTapped: widget.onStepNodeTapped,
+                onStepLineTapped: widget.onStepLineTapped,
+                visibilityOptions: widget.visibilityOptions,
+                nodeIconBuilder: widget.nodeIconBuilder,
+                nodeActiveIconBuilder: widget.nodeActiveIconBuilder,
+              ),
       ),
     );
   }
