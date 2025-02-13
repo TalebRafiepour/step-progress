@@ -22,8 +22,7 @@ void main() {
       animationDuration: Duration(milliseconds: 150),
     );
 
-    testWidgets('renders non-active StepNode correctly',
-        (tester) async {
+    testWidgets('renders non-active StepNode correctly', (tester) async {
       // Build the widget.
       await tester.pumpWidget(
         const MaterialApp(
@@ -50,8 +49,7 @@ void main() {
       expect(coreWidgets.last.isVisible, equals(false));
     });
 
-    testWidgets('renders active StepNode correctly',
-        (tester) async {
+    testWidgets('renders active StepNode correctly', (tester) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
@@ -171,7 +169,7 @@ void main() {
       );
 
       // Even though extreme values may cause layout issues in an actual app,
-      // our test should at least verify that the StepNode widget 
+      // our test should at least verify that the StepNode widget
       // instances exist.
       expect(find.byType(StepNode), findsNWidgets(2));
     });
