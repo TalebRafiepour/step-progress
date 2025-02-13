@@ -10,7 +10,10 @@ class RippleEffectStyle {
     this.foregroundColor,
     this.borderWidth = 2,
     this.animationDuration,
-  });
+  }) : assert(
+          borderWidth >= 0,
+          'borderWidth must be equal or greater than 0',
+        );
 
   /// The color of the foreground. If not set, it will be determined by the
   /// theme.
