@@ -6,27 +6,8 @@ import 'package:step_progress/src/step_node/ripple_effect_style.dart';
 import 'package:step_progress/src/step_node/step_node_ripple.dart';
 import 'package:step_progress/src/step_node/step_node_shape.dart';
 import 'package:step_progress/src/step_node/step_node_shaped_container.dart';
-import 'package:step_progress/src/step_progress_theme.dart';
-import 'package:step_progress/src/step_progress_theme_data.dart';
 
-// A helper widget to supply the needed theme via StepProgressTheme.
-class TestThemeWrapper extends StatelessWidget {
-  const TestThemeWrapper({required this.child, super.key});
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return StepProgressTheme(
-      data: const StepProgressThemeData(
-        stepAnimationDuration: Duration(milliseconds: 200),
-        activeForegroundColor: Colors.red, // some theme color
-      ),
-      child: MaterialApp(
-        home: Scaffold(body: Center(child: child)),
-      ),
-    );
-  }
-}
+import '../helper/test_theme_wrapper.dart';
 
 void main() {
   group('StepNodeRipple widget tests', () {
@@ -99,8 +80,7 @@ void main() {
 
     testWidgets(
         'when count > 1, widget should include (count) nested '
-        'StepNodeShapedContainer',
-        (tester) async {
+        'StepNodeShapedContainer', (tester) async {
       // When count is greater than 1 the widget builds a nested StepNodeRipple.
       await tester.pumpWidget(
         const TestThemeWrapper(

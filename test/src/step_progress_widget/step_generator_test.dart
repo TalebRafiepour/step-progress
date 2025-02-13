@@ -241,7 +241,7 @@ void main() {
           ),
         ),
       );
-      
+
       // make sure widgets are settle
       await tester.pumpAndSettle();
 
