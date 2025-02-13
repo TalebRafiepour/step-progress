@@ -45,7 +45,14 @@ class StepNodeRipple extends StatelessWidget {
     this.count = 6,
     this.isVisible = true,
     super.key,
-  });
+  })  : assert(
+          width >= 0,
+          'Width must be equal or greater than 0',
+        ),
+        assert(
+          height >= 0,
+          'Height must be equal or greater than 0',
+        );
 
   /// The shape of the step node.
   final StepNodeShape stepNodeShape;
