@@ -90,30 +90,30 @@ class StepNodeRipple extends StatelessWidget {
       child: AnimatedScale(
         duration: animationDuration(),
         scale: isVisible ? 1 : 0,
-        child: StepNodeShapedContainer(
-          stepNodeShape: stepNodeShape,
-          width: width,
-          height: height,
-          decoration: BoxDecoration(
-            color: style.foregroundColor ?? Colors.transparent,
-            border: Border.all(
-              color: style.borderColor ??
-                  theme?.activeForegroundColor ??
-                  Colors.white,
-              width: style.borderWidth,
-            ),
-          ),
-          child: count == 1
-              ? null
-              : StepNodeRipple(
-                  stepNodeShape: stepNodeShape,
-                  style: style,
-                  count: count - 1,
-                  width: width - (width / count),
-                  height: height - (height / count),
-                  isVisible: isVisible,
+        child: !isVisible
+            ? null
+            : Stack(
+                alignment: Alignment.center,
+                children: List.generate(
+                  count,
+                  (index) {
+                    return StepNodeShapedContainer(
+                      stepNodeShape: stepNodeShape,
+                      width: width - index * (width / count),
+                      height: height - index * (height / count),
+                      decoration: BoxDecoration(
+                        color: style.foregroundColor ?? Colors.transparent,
+                        border: Border.all(
+                          color: style.borderColor ??
+                              theme?.activeForegroundColor ??
+                              Colors.white,
+                          width: style.borderWidth,
+                        ),
+                      ),
+                    );
+                  },
                 ),
-        ),
+              ),
       ),
     );
   }

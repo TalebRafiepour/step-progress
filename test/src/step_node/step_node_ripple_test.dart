@@ -98,8 +98,9 @@ void main() {
     });
 
     testWidgets(
-        'recursive behavior: when count > 1, widget should include nested'
-        ' StepNodeRipple', (tester) async {
+        'when count > 1, widget should include (count) nested '
+        'StepNodeShapedContainer',
+        (tester) async {
       // When count is greater than 1 the widget builds a nested StepNodeRipple.
       await tester.pumpWidget(
         const TestThemeWrapper(
@@ -114,8 +115,11 @@ void main() {
         ),
       );
 
-      // There must be 3 instances .
-      expect(find.byType(StepNodeRipple), findsNWidgets(3));
+      // There must be single instances of StepNodeRipple.
+      expect(find.byType(StepNodeRipple), findsOneWidget);
+
+      // There must be 3 (count) widget of type StepNodeShapedContainer
+      expect(find.byType(StepNodeShapedContainer), findsNWidgets(3));
 
       // Verify that the sizes are reduced correctly in the nested widget.
       // Fetch the outer StepNodeShapedContainer decoration and compare

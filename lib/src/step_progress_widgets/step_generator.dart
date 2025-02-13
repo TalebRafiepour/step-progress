@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:step_progress/src/step_label/step_label.dart';
 import 'package:step_progress/src/step_node/step_node.dart';
 import 'package:step_progress/src/step_node/step_node_ripple.dart';
-import 'package:step_progress/src/step_progress_widgets/visibility_widget.dart';
+import 'package:step_progress/src/step_progress_widgets/keep_size_visibility.dart';
 import 'package:step_progress/step_progress.dart';
 
 /// A widget that generates a step in a step progress indicator.
@@ -117,26 +117,31 @@ class StepGenerator extends StatelessWidget {
     final themeData = StepProgressTheme.of(context)!.data;
 
     Widget buildStepNode() {
-      return Stack(
+      return Container(
+        width: width,
+        height: height,
         alignment: Alignment.center,
-        children: [
-          if (themeData.enableRippleEffect)
-            StepNodeRipple(
-              stepNodeShape: themeData.shape,
-              style: themeData.rippleEffectStyle,
-              width: width,
-              height: height,
-              isVisible: isActive,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            if (themeData.enableRippleEffect)
+              StepNodeRipple(
+                stepNodeShape: themeData.shape,
+                style: themeData.rippleEffectStyle,
+                width: width,
+                height: height,
+                isVisible: isActive,
+              ),
+            StepNode(
+              width: themeData.enableRippleEffect ? width / 1.5 : width,
+              height: themeData.enableRippleEffect ? height / 1.5 : height,
+              isActive: isActive,
+              style: themeData.stepNodeStyle,
+              icon: stepNodeIcon,
+              activeIcon: stepNodeActiveIcon,
             ),
-          StepNode(
-            width: themeData.enableRippleEffect ? width / 1.5 : width,
-            height: themeData.enableRippleEffect ? height / 1.5 : height,
-            isActive: isActive,
-            style: themeData.stepNodeStyle,
-            icon: stepNodeIcon,
-            activeIcon: stepNodeActiveIcon,
-          ),
-        ],
+          ],
+        ),
       );
     }
 
@@ -156,12 +161,12 @@ class StepGenerator extends StatelessWidget {
     }) {
       final children = isMultipleSide
           ? [
-              VisibilityWidget(
+              KeepSizeVisibility(
                 visible: showLabelFirst,
                 child: buildStepLabel(),
               ),
               buildStepNode(),
-              VisibilityWidget(
+              KeepSizeVisibility(
                 visible: !showLabelFirst,
                 child: buildStepLabel(),
               ),
