@@ -11,7 +11,10 @@ class StepLineStyle {
     this.activeColor,
     this.animationDuration,
     this.borderRadius = BorderRadius.zero,
-  });
+  }) : assert(
+          lineThickness >= 0,
+          'lineThickness must be equal or greater than 0',
+        );
 
   /// The color of the foreground elements. If not set, it will be
   /// determined by the theme.
