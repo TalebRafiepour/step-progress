@@ -1,3 +1,34 @@
+## 2.0.0
+
+- **StepLabel Enhancements:**
+  - Introduced `StepLabelStyle` for advanced customization.
+  - Added animation support for the `StepLabel` widget.
+
+- **StepProgress Improvements:**
+  - Implemented `StepProgressTheme` to offer enhanced styling and theme customization.
+  - Added support for vertical orientation in `StepProgress`.
+  - Added `visibilityOptions` to allow toggling the visibility of lines and nodes.
+
+- **StepLine Customizations:**
+  - Added `lineSpacing` and `borderRadius` properties for `StepLine`.
+  - Introduced `StepLineStyle` for advance customization of `StepLine`.
+  
+
+- **Additional Features:**
+  - Launched the `subTitles` functionality to display subtitles beneath titles.
+  - Provided the `onStepTapped` callback for custom handling when a step is tapped.
+  - Defined the `onStepLineTapped` callback for improved interactivity with the stepper.
+  - Enabled the `highlightCompletedSteps` option to control the display of active colors on completed steps.
+  - Added callbacks `nodeIconBuilder` and `activeNodeIconBuilder` for custom node icon creation.
+  - Rolled out the `activeBorderColor` property in the theme for additional customization.
+  - Introduced `stepLabelAlignment` for flexible label positioning.
+
+- **Codebase & Testing Enhancements:**
+  - Refactored and optimized the codebase to simplify contributions and ongoing development.
+  - Expanded documentation across all files to improve code readability.
+  - Developed multiple examples demonstrating key functionalities of the package.
+  - Implemented comprehensive unit and widget tests for the most critical widgets and classes.
+
 ## 1.0.8
 
 * Updated the `README.md` file.
