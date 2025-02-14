@@ -201,16 +201,6 @@ void main() {
           Theme.of(tester.element(find.byType(StepLabel))).textTheme.labelSmall;
       expect(animatedText.style.fontSize, expectedStyle?.fontSize);
     });
-
-    // Negative test: expects an assertion error if both title and subTitle
-    // are null.
-    test('Throws assertion error when both title and subTitle are null', () {
-      // Wrap the constructor in a closure so that we can expect it to throw.
-      expect(
-        StepLabel.new,
-        throwsA(isA<AssertionError>()),
-      );
-    });
   });
 
   group('StepLabel Private Methods (Indirect Testing)', () {

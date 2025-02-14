@@ -105,24 +105,16 @@ class StepProgress extends StatefulWidget {
           'totalSteps must be greater than 0',
         ),
         assert(
-          currentStep >= 0 && currentStep < totalSteps,
-          'currentStep must be greater than or equal to 0'
-          ' and lower than totalSteps',
+          currentStep < totalSteps,
+          'currentStep must be  lower than totalSteps',
         ),
         assert(
-          titles == null || titles.length == totalSteps,
-          'titles must be equals to total steps',
+          titles == null || titles.length <= totalSteps,
+          'titles must be equals to or less than total steps',
         ),
         assert(
-          subTitles == null || subTitles.length == totalSteps,
-          'subTitles must be equals to total steps',
-        ),
-        assert(
-          titles == null ||
-              subTitles == null ||
-              titles.length == subTitles.length,
-          'titles length must be equal to subTitles length if'
-          ' both are provided',
+          subTitles == null || subTitles.length <= totalSteps,
+          'subTitles must be equals to or less than total steps',
         );
 
   /// Titles for each step in the progress
@@ -229,9 +221,9 @@ class _StepProgressState extends State<StepProgress>
 
   /// Changes the current step to the specified [newStep].
   ///
-  /// If [newStep] is the same as the current step, less than 0, or greater than
-  /// or equal to the total number of steps, the function will return without
-  /// making any changes.
+  /// If [newStep] is the same as the current step, less than -1, or greater
+  /// than or equal to the total number of steps, the function will return
+  /// without making any changes.
   ///
   /// When the step is successfully changed, the state is updated and the
   /// `onStepChanged` callback is called with the new step value.
@@ -239,7 +231,7 @@ class _StepProgressState extends State<StepProgress>
   /// [newStep] - The step to change to.
   void _changeStep(int newStep) {
     if (_currentStep == newStep ||
-        newStep < 0 ||
+        newStep < -1 ||
         newStep >= widget.totalSteps) {
       return;
     }

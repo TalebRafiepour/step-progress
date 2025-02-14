@@ -90,8 +90,8 @@ class VerticalStepProgress extends StepProgressWidget {
       children: List.generate(
         totalStep,
         (index) {
-          final title = titles?[index];
-          final subTitle = subTitles?[index];
+          final title = titles?.elementAtOrNull(index);
+          final subTitle = subTitles?.elementAtOrNull(index);
           final isActive = highlightCompletedSteps
               ? index <= currentStep
               : index == currentStep;
@@ -100,6 +100,7 @@ class VerticalStepProgress extends StepProgressWidget {
             axis: Axis.vertical,
             width: stepSize,
             height: stepSize,
+            anyLabelExist: titles != null || subTitles != null,
             stepIndex: index,
             title: title,
             subTitle: subTitle,

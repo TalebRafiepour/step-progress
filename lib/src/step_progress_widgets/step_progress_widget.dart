@@ -45,19 +45,12 @@ abstract class StepProgressWidget extends StatelessWidget {
     this.nodeActiveIconBuilder,
     super.key,
   })  : assert(
-          titles == null || titles.length == totalStep,
-          'titles must be equals to total steps',
+          titles == null || titles.length <= totalStep,
+          'titles lenght must be equals to or less than total steps',
         ),
         assert(
-          subTitles == null || subTitles.length == totalStep,
-          'subTitles must be equals to total steps',
-        ),
-        assert(
-          titles == null ||
-              subTitles == null ||
-              titles.length == subTitles.length,
-          'titles length must be equal to subTitles length if'
-          ' both are provided',
+          subTitles == null || subTitles.length <= totalStep,
+          'subTitles lenght must be equals to less than total steps',
         );
 
   /// The total number of steps in the progress indicator.

@@ -62,8 +62,8 @@ class HorizontalStepProgress extends StepProgressWidget {
       children: List.generate(
         totalStep,
         (index) {
-          final title = titles?[index];
-          final subTitle = subTitles?[index];
+          final title = titles?.elementAtOrNull(index);
+          final subTitle = subTitles?.elementAtOrNull(index);
           final isActive = highlightCompletedSteps
               ? index <= currentStep
               : index == currentStep;
@@ -72,6 +72,7 @@ class HorizontalStepProgress extends StepProgressWidget {
             width: stepSize,
             height: stepSize,
             stepIndex: index,
+            anyLabelExist: titles != null || subTitles != null,
             title: title,
             subTitle: subTitle,
             isActive: isActive,

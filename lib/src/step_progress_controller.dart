@@ -11,8 +11,8 @@ class StepProgressController extends ChangeNotifier {
     this.initialStep = 0,
   })  : assert(totalSteps > 0, 'totalSteps must be greater than 0'),
         assert(
-          initialStep >= 0 && initialStep < totalSteps,
-          'initialStep must be between 0 and lower than $totalSteps',
+          initialStep < totalSteps,
+          'initialStep must be lower than $totalSteps',
         );
 
   /// The initial step to start from.
@@ -35,10 +35,10 @@ class StepProgressController extends ChangeNotifier {
     }
   }
 
-  /// Moves to the previous step if the current step is greater than 0.
+  /// Moves to the previous step if the current step is equal or greater than 0.
   /// Decrements the `currentStep` by 1 and notifies listeners.
   void previousStep() {
-    if (currentStep > 0) {
+    if (currentStep >= 0) {
       currentStep--;
       notifyListeners();
     }

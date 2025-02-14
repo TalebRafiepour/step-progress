@@ -27,10 +27,7 @@ class StepLabel extends StatelessWidget {
     this.subTitle,
     this.isActive = false,
     super.key,
-  }) : assert(
-          title != null || subTitle != null,
-          'At least one of title or subTitle must be initialized',
-        );
+  });
 
   /// The title of the step label.
   final String? title;
@@ -52,42 +49,47 @@ class StepLabel extends StatelessWidget {
       constraints: BoxConstraints(
         maxWidth: style.maxWidth,
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: style.labelAxisAlignment,
-        children: [
-          if (title != null)
-            AnimatedDefaultTextStyle(
-              duration: style.animationDuration ?? theme.stepAnimationDuration,
-              style: _titleStyle(style.titleStyle, context).copyWith(
-                color: isActive
-                    ? style.activeColor ?? theme.activeForegroundColor
-                    : style.defualtColor ?? theme.defaultForegroundColor,
-              ),
-              child: Text(
-                title!,
-                textAlign: style.textAlign,
-                overflow: style.overflow,
-                maxLines: style.titleMaxLines,
-              ),
+      child: (title == null && subTitle == null)
+          ? null
+          : Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: style.labelAxisAlignment,
+              children: [
+                if (title != null)
+                  AnimatedDefaultTextStyle(
+                    duration:
+                        style.animationDuration ?? theme.stepAnimationDuration,
+                    style: _titleStyle(style.titleStyle, context).copyWith(
+                      color: isActive
+                          ? style.activeColor ?? theme.activeForegroundColor
+                          : style.defualtColor ?? theme.defaultForegroundColor,
+                    ),
+                    child: Text(
+                      title!,
+                      textAlign: style.textAlign,
+                      overflow: style.overflow,
+                      maxLines: style.titleMaxLines,
+                    ),
+                  ),
+                if (subTitle != null)
+                  AnimatedDefaultTextStyle(
+                    duration:
+                        style.animationDuration ?? theme.stepAnimationDuration,
+                    style:
+                        _subTitleStyle(style.subTitleStyle, context).copyWith(
+                      color: isActive
+                          ? style.activeColor ?? theme.activeForegroundColor
+                          : style.defualtColor ?? theme.defaultForegroundColor,
+                    ),
+                    child: Text(
+                      subTitle!,
+                      textAlign: style.textAlign,
+                      overflow: style.overflow,
+                      maxLines: style.subTitleMaxLines,
+                    ),
+                  ),
+              ],
             ),
-          if (subTitle != null)
-            AnimatedDefaultTextStyle(
-              duration: style.animationDuration ?? theme.stepAnimationDuration,
-              style: _subTitleStyle(style.subTitleStyle, context).copyWith(
-                color: isActive
-                    ? style.activeColor ?? theme.activeForegroundColor
-                    : style.defualtColor ?? theme.defaultForegroundColor,
-              ),
-              child: Text(
-                subTitle!,
-                textAlign: style.textAlign,
-                overflow: style.overflow,
-                maxLines: style.subTitleMaxLines,
-              ),
-            ),
-        ],
-      ),
     );
   }
 

@@ -26,9 +26,9 @@ void main() {
       expect(controller.currentStep, 4);
     });
 
-    test('previousStep does not decrement below zero', () {
+    test('previousStep does not decrement below -1', () {
       final controller = StepProgressController(totalSteps: 5)..previousStep();
-      expect(controller.currentStep, 0);
+      expect(controller.currentStep, -1);
     });
 
     test('listeners are notified when step changes', () {

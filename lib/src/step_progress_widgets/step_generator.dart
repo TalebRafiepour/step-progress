@@ -13,6 +13,8 @@ import 'package:step_progress/step_progress.dart';
 ///
 /// The [width] and [height] parameters are required to define the size of the
 /// step.
+/// The [anyLabelExist] required to detect if any other step nodes contains
+/// label.
 /// The [isActive] parameter indicates whether the step is active or not, with
 /// a default value of false.
 /// The [axis] parameter specifies the orientation of the step, either
@@ -33,6 +35,7 @@ import 'package:step_progress/step_progress.dart';
 /// StepGenerator(
 ///   width: 50.0,
 ///   height: 50.0,
+///   anyLabelExist: true,
 ///   stepIndex: 1,
 ///   isActive: true,
 ///   axis: Axis.vertical,
@@ -50,6 +53,7 @@ class StepGenerator extends StatelessWidget {
     required this.width,
     required this.height,
     required this.stepIndex,
+    required this.anyLabelExist,
     this.isActive = false,
     this.axis = Axis.horizontal,
     this.title,
@@ -89,6 +93,9 @@ class StepGenerator extends StatelessWidget {
 
   /// The index of the current step in the step progress.
   final int stepIndex;
+
+  /// This means any other step nodes has label or not
+  final bool anyLabelExist;
 
   /// Builds a widget that represents a step in a step progress indicator.
   ///
@@ -146,7 +153,21 @@ class StepGenerator extends StatelessWidget {
     }
 
     Widget buildStepLabel() {
-      if (title == null && subTitle == null) return const SizedBox.shrink();
+      if (title == null && subTitle == null) {
+        if (anyLabelExist) {
+          final style = themeData.labelStyle;
+          return Container(
+            padding: style.padding,
+            margin: style.margin,
+            alignment: Alignment.center,
+            constraints: BoxConstraints(
+              maxWidth: style.maxWidth,
+            ),
+          );
+        } else {
+          return const SizedBox.shrink();
+        }
+      }
       return StepLabel(
         title: title,
         subTitle: subTitle,
