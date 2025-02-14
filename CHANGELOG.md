@@ -1,3 +1,8 @@
+## 2.0.1
+
+* Move the `CONTRIBUTING.md` file to the root of project.
+* Update `topics` of package in pubspec.yaml` file.
+
 ## 2.0.0
 
 - **StepLabel Enhancements:**
