@@ -22,15 +22,30 @@ class StepProgressController extends ChangeNotifier {
   final int totalSteps;
 
   /// The current step, initialized to the initial step.
-  late int currentStep = initialStep;
+  late int _currentStep = initialStep;
+
+  /// Returns current step
+  int get currentStep => _currentStep;
+
+  /// validate newStep and set it to current step
+  void setCurrentStep(int newStep) {
+    assert(
+      newStep >= -1 && newStep < totalSteps,
+      'new step must be equal or greater than -1 and lower than $totalSteps',
+    );
+    if (_currentStep != newStep) {
+      _currentStep = newStep;
+      notifyListeners();
+    }
+  }
 
   /// Advances to the next step if the current step is not the last one.
   ///
   /// Increments the `currentStep` by one and notifies listeners if the
   /// incremented step is still less than the total number of steps.
   void nextStep() {
-    if (currentStep + 1 < totalSteps) {
-      currentStep++;
+    if (_currentStep + 1 < totalSteps) {
+      _currentStep++;
       notifyListeners();
     }
   }
@@ -38,8 +53,8 @@ class StepProgressController extends ChangeNotifier {
   /// Moves to the previous step if the current step is equal or greater than 0.
   /// Decrements the `currentStep` by 1 and notifies listeners.
   void previousStep() {
-    if (currentStep >= 0) {
-      currentStep--;
+    if (_currentStep >= 0) {
+      _currentStep--;
       notifyListeners();
     }
   }
