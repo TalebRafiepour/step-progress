@@ -6,7 +6,7 @@
 [![GitHub Closed Issues](https://img.shields.io/github/issues-closed/TalebRafiepour/step_progress)](https://github.com/TalebRafiepour/step_progress/issues?q=is%3Aissue+is%3Aclosed)
 ![GitHub License](https://img.shields.io/github/license/TalebRafiepour/step_progress)
 
-**StepProgress** is a lightweight package designed to display step progress indicators for completing multi-step tasks in a user interface. It provides customizable widgets to visually represent the progress of a task, making it easier for users to understand their current position and the steps remaining.
+**StepProgress** is a lightweight and highly flexible package designed to display step progress indicators for completing multi-step tasks in a user interface. This package supports both **vertical and horizontal** orientations, allowing developers to customize the display according to their application's needs. It provides a variety of customizable widgets that visually represent the progress of a task, making it easier for users to understand their current position and the steps remaining. With this flexibility, **StepProgress** can seamlessly integrate into various UI designs, enhancing user experience across different platforms.
 
 ![StepProgress-without-labels](https://github.com/TalebRafiepour/showcase/blob/main/step_progress/sample-2-step-progress-without-labels.gif?raw=true)
 
@@ -207,6 +207,39 @@ StepProgress(
   theme: const StepProgressThemeData(
     stepLabelAlignment: StepLabelAlignment.right,
     labelStyle: StepLabelStyle(labelAxisAlignment: CrossAxisAlignment.start),
+  ),
+),
+```
+
+### Example 8: Vertical Step Progress with lineSpacing
+![StepProgress-vertical-lineSpacing](https://github.com/TalebRafiepour/showcase/blob/main/step_progress/sample-8-stepprogress-vertical-line-spacing.gif?raw=true)
+
+#### Implementation
+
+```dart
+StepProgress(
+  totalSteps: 4,
+  controller: stepProgressController,
+  axis: Axis.vertical,
+  height: 300,
+  titles: const [
+    'Step 1',
+    'Step 2',
+    'Step 3',
+    'Step 4',
+  ],
+  padding: const EdgeInsets.all(18),
+  theme: const StepProgressThemeData(
+    stepLabelAlignment: StepLabelAlignment.left,
+    labelStyle: StepLabelStyle(
+      labelAxisAlignment: CrossAxisAlignment.start,
+    ),
+    stepLineSpacing: 24,
+    stepLineStyle: StepLineStyle(
+      borderRadius: BorderRadius.all(
+        Radius.circular(4),
+      ),
+    ),
   ),
 ),
 ```
