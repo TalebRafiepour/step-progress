@@ -74,14 +74,10 @@ class StepNodeRipple extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = StepProgressTheme.of(context)?.data;
+    final theme = StepProgressTheme.of(context)!.data;
 
     Duration animationDuration() {
-      return style.animationDuration ??
-          theme?.stepAnimationDuration ??
-          const Duration(
-            milliseconds: 150,
-          );
+      return style.animationDuration ?? theme.stepAnimationDuration;
     }
 
     return AnimatedOpacity(
@@ -104,11 +100,13 @@ class StepNodeRipple extends StatelessWidget {
                       decoration: BoxDecoration(
                         color: style.foregroundColor ?? Colors.transparent,
                         border: Border.all(
-                          color: style.borderColor ??
-                              theme?.activeForegroundColor ??
-                              Colors.white,
+                          color:
+                              style.borderColor ?? theme.activeForegroundColor,
                           width: style.borderWidth,
                         ),
+                        borderRadius: theme
+                                .stepNodeStyle.activeDecoration?.borderRadius ??
+                            theme.stepNodeStyle.decoration.borderRadius,
                       ),
                     );
                   },

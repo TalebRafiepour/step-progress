@@ -8,7 +8,7 @@ class RippleEffectStyle {
   const RippleEffectStyle({
     this.borderColor,
     this.foregroundColor,
-    this.borderWidth = 2,
+    this.borderWidth = 1,
     this.animationDuration,
   }) : assert(
           borderWidth >= 0,
