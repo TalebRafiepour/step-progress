@@ -121,8 +121,9 @@ void main() {
         (tester) async {
       // Test with minimal parameters, leaving out optional label and icons.
       await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
+        const TestThemeWrapper(
+          themeData: dummyThemeData,
+          child: Scaffold(
             body: StepNode(
               width: 80,
               height: 80,
