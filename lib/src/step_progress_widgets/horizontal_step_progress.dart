@@ -59,6 +59,7 @@ class HorizontalStepProgress extends StepProgressWidget {
   }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: List.generate(
         totalStep,
         (index) {
@@ -88,6 +89,7 @@ class HorizontalStepProgress extends StepProgressWidget {
   /// Builds the step lines with the given style.
   ///
   /// The [style] parameter specifies the appearance of the step lines.
+  /// The [maxStepSize] parameter determines the maximum size of a step.
   /// The [highlightCompletedSteps] parameter determines whether completed steps
   /// should be highlighted.
   ///
@@ -95,12 +97,13 @@ class HorizontalStepProgress extends StepProgressWidget {
   @override
   Widget buildStepLines({
     required StepLineStyle style,
+    required double maxStepSize,
     required bool highlightCompletedSteps,
   }) {
     return Padding(
       padding: EdgeInsets.symmetric(
         vertical: stepSize / 2 - style.lineThickness / 2,
-        horizontal: stepSize / 2,
+        horizontal: maxStepSize / 2,
       ),
       child: Row(
         children: List.generate(

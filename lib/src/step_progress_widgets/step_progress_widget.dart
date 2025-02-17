@@ -101,10 +101,12 @@ abstract class StepProgressWidget extends StatelessWidget {
   /// of the lines connecting the step nodes in the step progress widget.
   ///
   /// [style] defines the appearance and style of the step lines.
+  /// [maxStepSize] is the maximum size of the step nodes.
   /// [highlightCompletedSteps] indicates whether to highlight the completed
   /// steps.
   Widget buildStepLines({
     required StepLineStyle style,
+    required double maxStepSize,
     required bool highlightCompletedSteps,
   });
 
@@ -145,6 +147,14 @@ abstract class StepProgressWidget extends StatelessWidget {
         (axis == Axis.horizontal
             ? StepLabelAlignment.top
             : StepLabelAlignment.right);
+
+    final labelMaxWidth = theme.labelStyle.maxWidth;
+    // The maximum size of a step node.
+    final maxStepSize = ((titles != null || subTitles != null) &&
+            labelMaxWidth.isFinite &&
+            labelMaxWidth > stepSize)
+        ? labelMaxWidth
+        : stepSize;
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -198,6 +208,7 @@ abstract class StepProgressWidget extends StatelessWidget {
               if (visibilityOptions != StepProgressVisibilityOptions.nodeOnly)
                 buildStepLines(
                   style: stepLineStyle,
+                  maxStepSize: maxStepSize,
                   highlightCompletedSteps: highlightCompletedSteps,
                 ),
               if (visibilityOptions != StepProgressVisibilityOptions.lineOnly)
