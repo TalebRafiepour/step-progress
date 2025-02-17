@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:step_progress/src/step_node/polygon_clipper.dart';
+import 'package:step_progress/src/step_node/star_clipper.dart';
 import 'package:step_progress/src/step_node/triangle_clipper.dart';
 import 'package:step_progress/step_progress.dart';
 
@@ -59,12 +60,20 @@ class StepNodeShapedContainer extends StatelessWidget {
       StepNodeShape.square => _buildSquareContainer(),
       StepNodeShape.rectangle => _buildSquareContainer(),
       StepNodeShape.diamond => _buildDiamondContainer(),
+      StepNodeShape.star => _buildStarContainer(),
       StepNodeShape.pentagon => _buildPolygonContainer(5),
       StepNodeShape.hexagon => _buildPolygonContainer(6),
       StepNodeShape.heptagon => _buildPolygonContainer(7),
       StepNodeShape.octagon => _buildPolygonContainer(8),
       StepNodeShape.triangle => _buildTriangleContainer()
     };
+  }
+
+  Widget _buildStarContainer() {
+    return ClipPath(
+      clipper: const StarClipper(),
+      child: _buildDefaultContainer(),
+    );
   }
 
   Widget _buildDiamondContainer() {

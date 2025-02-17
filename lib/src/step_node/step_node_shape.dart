@@ -6,6 +6,7 @@
 /// - `rectangle`: A rectangular shape.
 /// - `triangle`: A triangular shape.
 /// - `diamond`: A diamond shape.
+/// - `star`: A star shape.
 /// - `pentagon`: A pentagonal shape.
 /// - `hexagon`: A hexagonal shape.
 /// - `heptagon`: A heptagonal shape.
@@ -16,6 +17,7 @@ enum StepNodeShape {
   rectangle,
   triangle,
   diamond,
+  star,
   pentagon,
   hexagon,
   heptagon,
