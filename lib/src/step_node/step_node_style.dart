@@ -13,9 +13,10 @@ import 'package:step_progress/src/step_node/step_node_shape.dart';
 /// is active.
 /// * [animationDuration]: The duration of the animation when the step node
 /// changes state.
-/// * [shape]: The shape of the step node. Defaults to [StepNodeShape.circle].
+/// * [shape]: The shape of the step node.
 /// * [decoration]: The decoration of the step node. Defaults to a
 /// [BoxDecoration] with a semi-transparent white color.
+/// * [activeDecoration]: The decoration of the step node when it is active.
 /// * [icon]: The icon to display inside the step node.
 /// * [activeIcon]: The icon to display inside the step node when it is active.
 /// Defaults to a check icon.
@@ -28,10 +29,11 @@ class StepNodeStyle {
     this.defaultForegroundColor,
     this.activeForegroundColor,
     this.animationDuration,
-    this.shape = StepNodeShape.circle,
+    this.shape,
     this.decoration = const BoxDecoration(
       color: Color.fromARGB(50, 255, 255, 255),
     ),
+    this.activeDecoration,
     this.icon,
     this.activeIcon = const Icon(
       Icons.check,
@@ -58,10 +60,13 @@ class StepNodeStyle {
   final Color iconColor;
 
   /// The shape of the step node.
-  final StepNodeShape shape;
+  final StepNodeShape? shape;
 
   /// The decoration of the step node.
   final BoxDecoration decoration;
+
+  /// The decoration of the step node when it is active.
+  final BoxDecoration? activeDecoration;
 
   /// The icon widget to display.
   final Widget? icon;
@@ -82,6 +87,7 @@ class StepNodeStyle {
   /// - [iconColor]: The color of the icon.
   /// - [shape]: The shape of the step node.
   /// - [decoration]: The decoration for the step node.
+  /// - [activeDecoration]: The decoration for the step node when active.
   /// - [icon]: The icon widget.
   /// - [activeIcon]: The icon widget when active.
   /// - [enableRippleEffect]: Whether to enable the ripple effect.
@@ -92,6 +98,7 @@ class StepNodeStyle {
     Color? iconColor,
     StepNodeShape? shape,
     BoxDecoration? decoration,
+    BoxDecoration? activeDecoration,
     Widget? icon,
     Widget? activeIcon,
     bool? enableRippleEffect,
@@ -105,6 +112,7 @@ class StepNodeStyle {
       iconColor: iconColor ?? this.iconColor,
       shape: shape ?? this.shape,
       decoration: decoration ?? this.decoration,
+      activeDecoration: activeDecoration ?? this.activeDecoration,
       icon: icon ?? this.icon,
       activeIcon: activeIcon ?? this.activeIcon,
       enableRippleEffect: enableRippleEffect ?? this.enableRippleEffect,

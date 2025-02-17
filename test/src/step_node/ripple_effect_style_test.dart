@@ -11,7 +11,7 @@ void main() {
       // Ensure default values are set correctly.
       expect(style.foregroundColor, isNull);
       expect(style.borderColor, isNull);
-      expect(style.borderWidth, 2);
+      expect(style.borderWidth, 1);
       expect(style.animationDuration, isNull);
     });
 

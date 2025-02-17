@@ -10,14 +10,13 @@ void main() {
     test('Constructor sets default values correctly', () {
       const style = StepNodeStyle();
 
-      // defaultForegroundColor, activeForegroundColor, and animationDuration
-      // should be null
+      // defaultForegroundColor, activeForegroundColor, shape, activeDecoration,
+      // and animationDuration should be null
       expect(style.defaultForegroundColor, isNull);
       expect(style.activeForegroundColor, isNull);
       expect(style.animationDuration, isNull);
-
-      // Default shape should be circle
-      expect(style.shape, equals(StepNodeShape.circle));
+      expect(style.shape, isNull);
+      expect(style.activeDecoration, isNull);
 
       // Default decoration color is a semi-transparent white as set in
       // the constructor
@@ -50,7 +49,10 @@ void main() {
         activeForegroundColor: Colors.green,
         animationDuration: Duration(seconds: 1),
         iconColor: Colors.blue,
-        //shape: StepNodeShape.circle, // default
+        shape: StepNodeShape.circle,
+        activeDecoration: BoxDecoration(
+          color: Colors.orange,
+        ),
         decoration: BoxDecoration(
           color: Colors.yellow,
         ),
@@ -64,6 +66,10 @@ void main() {
       expect(copy.defaultForegroundColor, equals(style.defaultForegroundColor));
       expect(copy.activeForegroundColor, equals(style.activeForegroundColor));
       expect(copy.animationDuration, equals(style.animationDuration));
+      expect(
+        copy.activeDecoration?.color,
+        equals(style.activeDecoration?.color),
+      );
       expect(copy.iconColor, equals(style.iconColor));
       expect(copy.shape, equals(style.shape));
       expect(copy.decoration.color, equals(style.decoration.color));
@@ -81,11 +87,14 @@ void main() {
         activeForegroundColor: Colors.green,
         animationDuration: Duration(seconds: 1),
         iconColor: Colors.blue,
-        //shape: StepNodeShape.circle,
+        shape: StepNodeShape.circle,
         decoration: BoxDecoration(
           color: Colors.yellow,
         ),
         icon: Icon(Icons.star),
+        activeDecoration: BoxDecoration(
+          color: Colors.orange,
+        ),
         activeIcon: Icon(Icons.check),
         enableRippleEffect: false,
       );
@@ -96,6 +105,7 @@ void main() {
       // Assuming that StepNodeShape has another value like "square"
       const newShape = StepNodeShape.square;
       const newDecoration = BoxDecoration(color: Colors.grey);
+      const newActiveDecoration = BoxDecoration(color: Colors.brown);
       const newIcon = Icon(Icons.ac_unit);
       const newActiveIcon = Icon(Icons.access_alarm);
 
@@ -106,6 +116,7 @@ void main() {
         iconColor: newIconColor,
         shape: newShape,
         decoration: newDecoration,
+        activeDecoration: newActiveDecoration,
         icon: newIcon,
         activeIcon: newActiveIcon,
         enableRippleEffect: true,
@@ -117,6 +128,7 @@ void main() {
       expect(copy.iconColor, equals(newIconColor));
       expect(copy.shape, equals(newShape));
       expect(copy.decoration.color, equals(Colors.grey));
+      expect(copy.activeDecoration?.color, equals(Colors.brown));
       expect(copy.icon.toString(), equals(newIcon.toString()));
       expect(copy.activeIcon.toString(), equals(newActiveIcon.toString()));
       expect(copy.enableRippleEffect, isTrue);
@@ -131,9 +143,12 @@ void main() {
         activeForegroundColor: Colors.green,
         animationDuration: Duration(seconds: 1),
         iconColor: Colors.blue,
-        //shape: StepNodeShape.circle,
+        shape: StepNodeShape.circle,
         decoration: BoxDecoration(
           color: Colors.yellow,
+        ),
+        activeDecoration: BoxDecoration(
+          color: Colors.orange,
         ),
         icon: Icon(Icons.star),
         activeIcon: Icon(Icons.check),
@@ -149,6 +164,7 @@ void main() {
         iconColor: null,
         shape: null,
         decoration: null,
+        activeDecoration: null,
         icon: null,
         activeIcon: null,
         enableRippleEffect: null,
@@ -160,6 +176,7 @@ void main() {
       expect(copy.iconColor, equals(Colors.blue));
       expect(copy.shape, equals(StepNodeShape.circle));
       expect(copy.decoration.color, equals(Colors.yellow));
+      expect(copy.activeDecoration?.color, equals(Colors.orange));
 
       // Compare icon widget properties via toString.
       expect(copy.icon.toString(), equals(const Icon(Icons.star).toString()));
@@ -179,6 +196,7 @@ void main() {
         iconColor: Colors.blue,
         shape: StepNodeShape.circle,
         decoration: BoxDecoration(color: Colors.yellow),
+        activeDecoration: BoxDecoration(color: Colors.orange),
         icon: Icon(Icons.star),
         activeIcon: Icon(Icons.check),
         enableRippleEffect: false,

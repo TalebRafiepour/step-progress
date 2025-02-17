@@ -87,6 +87,7 @@ class VerticalStepProgress extends StepProgressWidget {
   }) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: List.generate(
         totalStep,
         (index) {
@@ -122,12 +123,14 @@ class VerticalStepProgress extends StepProgressWidget {
   ///
   /// The [style] parameter specifies the appearance of the step lines, such as
   /// color, thickness, and other visual properties.
+  /// The [maxStepSize] parameter determines the maximum size of a step.
   ///
   /// Returns a [Widget] that displays the step lines according to the provided
   /// style.
   @override
   Widget buildStepLines({
     required StepLineStyle style,
+    required double maxStepSize,
     required bool highlightCompletedSteps,
   }) {
     return Padding(

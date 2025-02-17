@@ -5,11 +5,21 @@
 /// - `square`: A square shape.
 /// - `rectangle`: A rectangular shape.
 /// - `triangle`: A triangular shape.
-/// - `polygon`: A polygonal shape.
+/// - `diamond`: A diamond shape.
+/// - `star`: A star shape.
+/// - `pentagon`: A pentagonal shape.
+/// - `hexagon`: A hexagonal shape.
+/// - `heptagon`: A heptagonal shape.
+/// - `octagon`: An octagonal shape.
 enum StepNodeShape {
   circle,
   square,
   rectangle,
   triangle,
-  polygon,
+  diamond,
+  star,
+  pentagon,
+  hexagon,
+  heptagon,
+  octagon,
 }

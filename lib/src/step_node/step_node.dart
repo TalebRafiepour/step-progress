@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:step_progress/src/step_node/step_node_core.dart';
 import 'package:step_progress/src/step_node/step_node_shaped_container.dart';
-import 'package:step_progress/src/step_node/step_node_style.dart';
 import 'package:step_progress/src/step_progress_theme.dart';
 
 /// A widget that represents a step node in a step progress indicator.
@@ -11,8 +10,6 @@ import 'package:step_progress/src/step_progress_theme.dart';
 /// height, style, label, icon, and activeIcon.
 ///
 /// The [width] and [height] properties define the size of the step node.
-///
-/// The [style] property is used to customize the appearance of the step node.
 ///
 /// The [isActive] property indicates whether the step node is active or not.
 ///
@@ -28,7 +25,6 @@ class StepNode extends StatelessWidget {
   const StepNode({
     required this.width,
     required this.height,
-    required this.style,
     this.isActive = false,
     this.label,
     this.icon,
@@ -48,9 +44,6 @@ class StepNode extends StatelessWidget {
   /// Indicates if the step node is active.
   final bool isActive;
 
-  /// The style of the step node.
-  final StepNodeStyle style;
-
   /// The icon to display for this step node.
   final Widget? icon;
 
@@ -59,10 +52,11 @@ class StepNode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = StepProgressTheme.of(context)?.data;
-    final borderWidth = theme?.borderWidth ?? 0;
-    final borderColor = theme?.borderColor ?? Colors.white;
-    final activeBorderColor = theme?.activeBorderColor;
+    final theme = StepProgressTheme.of(context)!.data;
+    final style = theme.stepNodeStyle;
+    final borderWidth = theme.borderWidth;
+    final borderColor = theme.borderColor;
+    final activeBorderColor = theme.activeBorderColor;
     //
     BoxDecoration applyBorder(BoxDecoration decoration) {
       if (borderWidth > 0 && decoration.border == null) {
@@ -82,36 +76,38 @@ class StepNode extends StatelessWidget {
     return StepNodeShapedContainer(
       width: width,
       height: width,
-      stepNodeShape: style.shape,
+      stepNodeShape: style.shape ?? theme.shape,
       decoration: applyBorder(style.decoration),
       child: Stack(
+        alignment: Alignment.center,
         children: [
           StepNodeCore(
             isVisible: !isActive,
-            animationDuration: style.animationDuration ??
-                theme?.stepAnimationDuration ??
-                const Duration(
-                  milliseconds: 150,
-                ),
-            foregroundColor: style.defaultForegroundColor ??
-                theme?.defaultForegroundColor ??
-                Colors.grey.shade400,
-            stepNodeShape: style.shape,
+            animationDuration:
+                style.animationDuration ?? theme.stepAnimationDuration,
+            decoration: style.decoration.copyWith(
+              color:
+                  style.defaultForegroundColor ?? theme.defaultForegroundColor,
+            ),
+            stepNodeShape: style.shape ?? theme.shape,
             icon: icon ?? style.icon,
             width: width,
             height: height,
           ),
           StepNodeCore(
             isVisible: isActive,
-            animationDuration: style.animationDuration ??
-                theme?.stepAnimationDuration ??
-                const Duration(
-                  milliseconds: 150,
+            animationDuration:
+                style.animationDuration ?? theme.stepAnimationDuration,
+            decoration: style.activeDecoration?.copyWith(
+                  color: style.activeDecoration?.color ??
+                      style.activeForegroundColor ??
+                      theme.activeForegroundColor,
+                ) ??
+                style.decoration.copyWith(
+                  color: style.activeForegroundColor ??
+                      theme.activeForegroundColor,
                 ),
-            foregroundColor: style.activeForegroundColor ??
-                theme?.activeForegroundColor ??
-                Colors.white,
-            stepNodeShape: style.shape,
+            stepNodeShape: style.shape ?? theme.shape,
             icon: activeIcon ?? style.activeIcon ?? style.icon,
             width: width,
             height: height,
