@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:step_progress/src/step_node/polygon_clipper.dart';
+import 'package:step_progress/src/step_node/triangle_clipper.dart';
 import 'package:step_progress/step_progress.dart';
 
 /// A container widget that shapes its child according to the provided
@@ -50,13 +52,66 @@ class StepNodeShapedContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return switch (stepNodeShape) {
+      StepNodeShape.circle => _buildCircleContainer(),
+      StepNodeShape.square => _buildSquareContainer(),
+      StepNodeShape.rectangle => _buildSquareContainer(),
+      StepNodeShape.polygon => _buildPolygonContainer(),
+      StepNodeShape.triangle => _buildTriangleContainer()
+    };
+  }
+
+  Widget _buildTriangleContainer() {
+    return ClipPath(
+      clipper: const TriangleClipper(),
+      child: _buildDefaultContainer(),
+    );
+  }
+
+  Widget _buildPolygonContainer() {
+    return ClipPath(
+      clipper: const PolygonClipper(6),
+      child: _buildDefaultContainer(),
+    );
+  }
+
+  Widget _buildDefaultContainer() {
     return Container(
-      padding: padding,
-      margin: margin,
       width: width,
       height: height,
-      alignment: Alignment.center,
-      decoration: decoration?.copyWith(shape: BoxShape.circle),
+      padding: padding,
+      margin: margin,
+      decoration: decoration,
+      child: child,
+    );
+  }
+
+  Widget _buildSquareContainer() {
+    return Container(
+      width: width,
+      height: height,
+      padding: padding,
+      margin: margin,
+      decoration: decoration?.copyWith(
+            shape: BoxShape.rectangle,
+          ) ??
+          const BoxDecoration(),
+      child: child,
+    );
+  }
+
+  Widget _buildCircleContainer() {
+    return Container(
+      width: width,
+      height: height,
+      padding: padding,
+      margin: margin,
+      decoration: decoration?.copyWith(
+            shape: BoxShape.circle,
+          ) ??
+          const BoxDecoration(
+            shape: BoxShape.circle,
+          ),
       child: child,
     );
   }

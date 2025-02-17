@@ -4,8 +4,9 @@ import 'package:step_progress/src/step_node/step_node.dart';
 import 'package:step_progress/src/step_node/step_node_core.dart';
 import 'package:step_progress/src/step_node/step_node_shaped_container.dart';
 import 'package:step_progress/src/step_node/step_node_style.dart';
-import 'package:step_progress/src/step_progress_theme.dart';
 import 'package:step_progress/src/step_progress_theme_data.dart';
+
+import '../helper/test_theme_wrapper.dart';
 
 void main() {
   group('StepNode Widget Tests', () {
@@ -22,15 +23,25 @@ void main() {
       animationDuration: Duration(milliseconds: 150),
     );
 
+    const dummyThemeData = StepProgressThemeData(
+      stepNodeStyle: dummyStyle,
+      borderWidth: 2,
+      borderColor: Colors.black,
+      activeBorderColor: Colors.red,
+      stepAnimationDuration: Duration(milliseconds: 200),
+      defaultForegroundColor: Colors.grey,
+      activeForegroundColor: Colors.white,
+    );
+
     testWidgets('renders non-active StepNode correctly', (tester) async {
       // Build the widget.
       await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
+        const TestThemeWrapper(
+          themeData: dummyThemeData,
+          child: Scaffold(
             body: StepNode(
               width: 50,
               height: 50,
-              style: dummyStyle,
               label: 'Step 1',
             ),
           ),
@@ -51,12 +62,12 @@ void main() {
 
     testWidgets('renders active StepNode correctly', (tester) async {
       await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
+        const TestThemeWrapper(
+          themeData: dummyThemeData,
+          child: Scaffold(
             body: StepNode(
               width: 60,
               height: 60,
-              style: dummyStyle,
               isActive: true,
               label: 'Step Active',
             ),
@@ -77,27 +88,14 @@ void main() {
 
     testWidgets('applies border decoration from theme when provided',
         (tester) async {
-      // Create a custom theme with border properties.
-      const customThemeData = StepProgressThemeData(
-        borderWidth: 2,
-        borderColor: Colors.black,
-        activeBorderColor: Colors.red,
-        stepAnimationDuration: Duration(milliseconds: 200),
-        defaultForegroundColor: Colors.grey,
-        activeForegroundColor: Colors.white,
-      );
-
       await tester.pumpWidget(
-        const MaterialApp(
-          home: StepProgressTheme(
-            data: customThemeData,
-            child: Scaffold(
-              body: StepNode(
-                width: 70,
-                height: 70,
-                style: dummyStyle,
-                label: 'Test Border',
-              ),
+        const TestThemeWrapper(
+          themeData: dummyThemeData,
+          child: Scaffold(
+            body: StepNode(
+              width: 70,
+              height: 70,
+              label: 'Test Border',
             ),
           ),
         ),
@@ -128,7 +126,6 @@ void main() {
             body: StepNode(
               width: 80,
               height: 80,
-              style: dummyStyle,
             ),
           ),
         ),
@@ -143,22 +140,21 @@ void main() {
         (tester) async {
       // Testing boundary conditions for dimensions.
       await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
+        const TestThemeWrapper(
+          themeData: dummyThemeData,
+          child: Scaffold(
             body: Column(
               children: [
                 // Edge case: 0.0 width and height.
                 StepNode(
                   width: 0,
                   height: 0,
-                  style: dummyStyle,
                 ),
                 // Edge case: using very large values.
                 Expanded(
                   child: StepNode(
                     width: double.maxFinite,
                     height: double.maxFinite,
-                    style: dummyStyle,
                     isActive: true,
                   ),
                 ),

@@ -143,7 +143,6 @@ class StepGenerator extends StatelessWidget {
               width: themeData.enableRippleEffect ? width / 1.5 : width,
               height: themeData.enableRippleEffect ? height / 1.5 : height,
               isActive: isActive,
-              style: themeData.stepNodeStyle,
               icon: stepNodeIcon,
               activeIcon: stepNodeActiveIcon,
             ),

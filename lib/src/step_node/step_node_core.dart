@@ -11,7 +11,7 @@ import 'package:step_progress/src/step_node/step_node_shaped_container.dart';
 class StepNodeCore extends StatelessWidget {
   const StepNodeCore({
     required this.stepNodeShape,
-    this.foregroundColor,
+    required this.decoration,
     this.icon = const Icon(
       Icons.check,
       size: 18,
@@ -28,9 +28,8 @@ class StepNodeCore extends StatelessWidget {
   /// a default icon is used.
   final Widget? icon;
 
-  /// The color to use for the icon and text of this step node.
-  /// If null, the default color is used.
-  final Color? foregroundColor;
+  /// The decoration to apply to the step node.
+  final BoxDecoration decoration;
 
   /// The shape of the step node.  See [StepNodeShape] for available options.
   final StepNodeShape stepNodeShape;
@@ -62,9 +61,7 @@ class StepNodeCore extends StatelessWidget {
                 width: width,
                 height: height,
                 stepNodeShape: stepNodeShape,
-                decoration: BoxDecoration(
-                  color: foregroundColor,
-                ),
+                decoration: decoration,
                 child: icon,
               ),
       ),

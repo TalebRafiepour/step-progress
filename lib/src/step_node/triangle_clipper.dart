@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 /// The [shouldReclip] method returns `false` indicating that the clip
 /// does not need to be recalculated when the widget is rebuilt.
 class TriangleClipper extends CustomClipper<Path> {
+  const TriangleClipper();
+
   @override
   Path getClip(Size size) {
     final path = Path()
