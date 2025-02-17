@@ -17,8 +17,10 @@ void main() {
           home: Scaffold(
             body: StepNodeCore(
               stepNodeShape: StepNodeShape.circle,
-              foregroundColor: Colors.red,
               isVisible: true,
+              decoration: BoxDecoration(
+                color: Colors.red,
+              ),
             ),
           ),
         ),
@@ -46,7 +48,9 @@ void main() {
           home: Scaffold(
             body: StepNodeCore(
               stepNodeShape: StepNodeShape.circle,
-              foregroundColor: Colors.green,
+              decoration: BoxDecoration(
+                color: Colors.green,
+              ),
               isVisible: false,
             ),
           ),
@@ -71,7 +75,9 @@ void main() {
           home: Scaffold(
             body: StepNodeCore(
               stepNodeShape: StepNodeShape.circle,
-              foregroundColor: Colors.blue,
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
               icon: customIcon,
             ),
           ),
@@ -93,7 +99,9 @@ void main() {
           home: Scaffold(
             body: StepNodeCore(
               stepNodeShape: StepNodeShape.circle,
-              foregroundColor: Colors.purple,
+              decoration: BoxDecoration(
+                color: Colors.purple,
+              ),
               width: testWidth,
               height: testHeight,
             ),
@@ -120,7 +128,6 @@ void main() {
           home: Scaffold(
             body: StepNodeCore(
               stepNodeShape: StepNodeShape.circle,
-              foregroundColor: null,
               isVisible: true,
             ),
           ),

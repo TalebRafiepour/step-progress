@@ -11,7 +11,7 @@ import 'package:step_progress/src/step_node/step_node_shaped_container.dart';
 class StepNodeCore extends StatelessWidget {
   const StepNodeCore({
     required this.stepNodeShape,
-    required this.decoration,
+    this.decoration,
     this.icon = const Icon(
       Icons.check,
       size: 18,
@@ -29,7 +29,7 @@ class StepNodeCore extends StatelessWidget {
   final Widget? icon;
 
   /// The decoration to apply to the step node.
-  final BoxDecoration decoration;
+  final BoxDecoration? decoration;
 
   /// The shape of the step node.  See [StepNodeShape] for available options.
   final StepNodeShape stepNodeShape;
