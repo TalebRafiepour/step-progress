@@ -284,6 +284,33 @@ StepProgress(
 ),
 ```
 
+### Example 10: Horizontal Step Progress with Triangle shape
+![StepProgress-horizontal-triangle-shape](https://github.com/TalebRafiepour/showcase/blob/main/step_progress/sample-10-stepprogress-triangle-shape.gif?raw=true)
+
+#### Implementation
+
+```dart
+StepProgress(
+  totalSteps: 4,
+  controller: stepProgressController,
+  visibilityOptions: StepProgressVisibilityOptions.nodeOnly,
+  titles: const [
+    'Step 1',
+    'Step 2',
+    'Step 3',
+    'Step 4',
+  ],
+  padding: const EdgeInsets.all(18),
+  theme: const StepProgressThemeData(
+    shape: StepNodeShape.triangle,
+    stepLabelAlignment: StepLabelAlignment.left,
+    stepNodeStyle: StepNodeStyle(
+      activeIcon: null,
+    ),
+  ),
+  ),
+```
+
 ## Installation
 
 To use StepProgress, add it to your `pubspec.yaml` file:

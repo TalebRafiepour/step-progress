@@ -5,6 +5,7 @@ import 'package:example/example_nine.dart';
 import 'package:example/example_one.dart';
 import 'package:example/example_seven.dart';
 import 'package:example/example_six.dart';
+import 'package:example/example_ten.dart';
 import 'package:example/example_three.dart';
 import 'package:example/example_two.dart';
 import 'package:flutter/material.dart';
@@ -139,6 +140,17 @@ class HomePage extends StatelessWidget {
                   );
                 },
                 child: const Text('Example Nine'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const ExampleTen(),
+                    ),
+                  );
+                },
+                child: const Text('Example Ten'),
               ),
             ],
           ),
