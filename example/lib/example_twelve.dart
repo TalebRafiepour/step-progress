@@ -36,9 +36,6 @@ class ExampleTwelve extends StatelessWidget {
                   Radius.circular(4),
                 ),
               ),
-              labelStyle: StepLabelStyle(
-                margin: EdgeInsets.only(bottom: 6),
-              ),
               stepNodeStyle: StepNodeStyle(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(

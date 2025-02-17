@@ -8,7 +8,8 @@
 
 **StepProgress** is a lightweight and highly flexible package designed to display step progress indicators for completing multi-step tasks in a user interface. This package supports both **vertical and horizontal** orientations, allowing developers to customize the display according to their application's needs. It provides a variety of customizable widgets that visually represent the progress of a task, making it easier for users to understand their current position and the steps remaining. With this flexibility, **StepProgress** can seamlessly integrate into various UI designs, enhancing user experience across different platforms.
 
-![StepProgress-without-labels](https://github.com/TalebRafiepour/showcase/blob/main/step_progress/sample-2-step-progress-without-labels.gif?raw=true)
+![StepProgress-horizontal-diamond-shape](https://github.com/TalebRafiepour/showcase/blob/main/step_progress/sample-11-stepprogress-diamond-shape.gif?raw=true)
+
 
 ## Features
 
@@ -341,6 +342,45 @@ StepProgress(
     ),
     stepNodeStyle: StepNodeStyle(
       activeIcon: null,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(6),
+        ),
+      ),
+    ),
+  ),
+),
+```
+
+### Example 12: Vertical Step Progress with Hexagon shape
+![StepProgress-vertical-hexagon-shape](https://github.com/TalebRafiepour/showcase/blob/main/step_progress/sample-12-step-progress-vertical-hexagon-shape.gif?raw=true)
+
+#### Implementation
+
+```dart
+StepProgress(
+  totalSteps: 4,
+  stepSize: 24,
+  height: 390,
+  axis: Axis.vertical,
+  controller: stepProgressController,
+  titles: const [
+    'Step 1',
+    'Step 2',
+    'Step 3',
+    'Step 4',
+  ],
+  padding: const EdgeInsets.all(18),
+  theme: const StepProgressThemeData(
+    stepLabelAlignment: StepLabelAlignment.leftRight,
+    shape: StepNodeShape.hexagon,
+    stepLineSpacing: 18,
+    stepLineStyle: StepLineStyle(
+      borderRadius: BorderRadius.all(
+        Radius.circular(4),
+      ),
+    ),
+    stepNodeStyle: StepNodeStyle(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(
           Radius.circular(6),
