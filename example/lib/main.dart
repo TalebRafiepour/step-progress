@@ -1,4 +1,5 @@
 import 'package:example/example_eight.dart';
+import 'package:example/example_eleven.dart';
 import 'package:example/example_five.dart';
 import 'package:example/example_four.dart';
 import 'package:example/example_nine.dart';
@@ -40,7 +41,7 @@ class HomePage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            spacing: 30,
+            spacing: 18,
             children: [
               ElevatedButton(
                 onPressed: () {
@@ -151,6 +152,17 @@ class HomePage extends StatelessWidget {
                   );
                 },
                 child: const Text('Example Ten'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const ExampleEleven(),
+                    ),
+                  );
+                },
+                child: const Text('Example Elevn'),
               ),
             ],
           ),

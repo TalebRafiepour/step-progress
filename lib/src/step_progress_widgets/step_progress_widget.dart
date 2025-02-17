@@ -148,7 +148,11 @@ abstract class StepProgressWidget extends StatelessWidget {
             ? StepLabelAlignment.top
             : StepLabelAlignment.right);
 
-    final labelMaxWidth = theme.labelStyle.maxWidth;
+    final labelMaxWidth = (theme.labelStyle.maxWidth) +
+        theme.labelStyle.padding.left +
+        theme.labelStyle.padding.right +
+        theme.labelStyle.margin.left +
+        theme.labelStyle.margin.right;
     // The maximum size of a step node.
     final maxStepSize = ((titles != null || subTitles != null) &&
             labelMaxWidth.isFinite &&

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:step_progress/src/step_node/polygon_clipper.dart';
 import 'package:step_progress/src/step_node/triangle_clipper.dart';
@@ -56,9 +58,18 @@ class StepNodeShapedContainer extends StatelessWidget {
       StepNodeShape.circle => _buildCircleContainer(),
       StepNodeShape.square => _buildSquareContainer(),
       StepNodeShape.rectangle => _buildSquareContainer(),
+      StepNodeShape.diamond => _buildDiamondContainer(),
       StepNodeShape.polygon => _buildPolygonContainer(),
       StepNodeShape.triangle => _buildTriangleContainer()
     };
+  }
+
+  Widget _buildDiamondContainer() {
+    return AnimatedRotation(
+      turns: pi / 2,
+      duration: Duration.zero,
+      child: _buildDefaultContainer(),
+    );
   }
 
   Widget _buildTriangleContainer() {
@@ -106,6 +117,7 @@ class StepNodeShapedContainer extends StatelessWidget {
       height: height,
       padding: padding,
       margin: margin,
+      alignment: Alignment.center,
       decoration: decoration?.copyWith(
             shape: BoxShape.circle,
           ) ??

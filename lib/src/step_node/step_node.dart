@@ -79,6 +79,7 @@ class StepNode extends StatelessWidget {
       stepNodeShape: style.shape ?? theme.shape,
       decoration: applyBorder(style.decoration),
       child: Stack(
+        alignment: Alignment.center,
         children: [
           StepNodeCore(
             isVisible: !isActive,
