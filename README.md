@@ -391,6 +391,50 @@ StepProgress(
 ),
 ```
 
+### Example 13: Vertical Step Progress with Star shape
+![StepProgress-vertical-star-shape](https://github.com/TalebRafiepour/showcase/blob/main/step_progress/sample-13-stepprogress-vertical-star-shape.gif?raw=true)
+
+#### Implementation
+
+```dart
+StepProgress(
+  totalSteps: 4,
+  stepSize: 28,
+  height: 390,
+  axis: Axis.vertical,
+  controller: stepProgressController,
+  padding: const EdgeInsets.all(18),
+  theme: const StepProgressThemeData(
+    stepLabelAlignment: StepLabelAlignment.left,
+    shape: StepNodeShape.star,
+    stepLineSpacing: 18,
+    stepLineStyle: StepLineStyle(
+      lineThickness: 3,
+      borderRadius: BorderRadius.all(
+        Radius.circular(3),
+      ),
+    ),
+    stepNodeStyle: StepNodeStyle(
+      activeIcon: Icon(
+        Icons.verified_rounded,
+        size: 10,
+        color: Colors.white,
+      ),
+      icon: Icon(
+        Icons.more_horiz_outlined,
+        size: 10,
+        color: Colors.white,
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(6),
+        ),
+      ),
+    ),
+  ),
+),
+```
+
 ## Installation
 
 To use StepProgress, add it to your `pubspec.yaml` file:
