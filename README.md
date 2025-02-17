@@ -42,7 +42,6 @@
 #### Implementation
 
 ```dart
-dart
 StepProgress(
   totalSteps: 4,
   controller: stepProgressController,
@@ -235,6 +234,47 @@ StepProgress(
       labelAxisAlignment: CrossAxisAlignment.start,
     ),
     stepLineSpacing: 24,
+    stepLineStyle: StepLineStyle(
+      borderRadius: BorderRadius.all(
+        Radius.circular(4),
+      ),
+    ),
+  ),
+),
+```
+
+### Example 9: Horizontal Step Progress with Square shape
+![StepProgress-horizontal-square-shape](https://github.com/TalebRafiepour/showcase/blob/main/step_progress/sample-9-stepprogress-square-shape.gif?raw=true)
+
+#### Implementation
+
+```dart
+StepProgress(
+  totalSteps: 4,
+  controller: stepProgressController,
+  titles: const [
+    'Step 1',
+    'Step 2',
+    'Step 3',
+    'Step 4',
+  ],
+  padding: const EdgeInsets.all(18),
+  theme: const StepProgressThemeData(
+    shape: StepNodeShape.square,
+    stepLabelAlignment: StepLabelAlignment.top,
+    stepLineSpacing: 24,
+    stepNodeStyle: StepNodeStyle(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(4),
+        ),
+      ),
+      activeDecoration: BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(6),
+        ),
+      ),
+    ),
     stepLineStyle: StepLineStyle(
       borderRadius: BorderRadius.all(
         Radius.circular(4),
