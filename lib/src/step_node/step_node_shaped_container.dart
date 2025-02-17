@@ -59,7 +59,10 @@ class StepNodeShapedContainer extends StatelessWidget {
       StepNodeShape.square => _buildSquareContainer(),
       StepNodeShape.rectangle => _buildSquareContainer(),
       StepNodeShape.diamond => _buildDiamondContainer(),
-      StepNodeShape.polygon => _buildPolygonContainer(),
+      StepNodeShape.pentagon => _buildPolygonContainer(5),
+      StepNodeShape.hexagon => _buildPolygonContainer(6),
+      StepNodeShape.heptagon => _buildPolygonContainer(7),
+      StepNodeShape.octagon => _buildPolygonContainer(8),
       StepNodeShape.triangle => _buildTriangleContainer()
     };
   }
@@ -79,9 +82,9 @@ class StepNodeShapedContainer extends StatelessWidget {
     );
   }
 
-  Widget _buildPolygonContainer() {
+  Widget _buildPolygonContainer(int sides) {
     return ClipPath(
-      clipper: const PolygonClipper(6),
+      clipper: PolygonClipper(sides),
       child: _buildDefaultContainer(),
     );
   }
