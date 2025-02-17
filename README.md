@@ -311,6 +311,46 @@ StepProgress(
   ),
 ```
 
+### Example 11: Horizontal Step Progress with Diamond shape
+![StepProgress-horizontal-diamond-shape](https://github.com/TalebRafiepour/showcase/blob/main/step_progress/sample-11-stepprogress-diamond-shape.gif?raw=true)
+
+#### Implementation
+
+```dart
+StepProgress(
+  totalSteps: 4,
+  stepSize: 24,
+  controller: stepProgressController,
+  titles: const [
+    'Step 1',
+    'Step 2',
+    'Step 3',
+    'Step 4',
+  ],
+  padding: const EdgeInsets.all(18),
+  theme: const StepProgressThemeData(
+    shape: StepNodeShape.diamond,
+    stepLineSpacing: 18,
+    stepLineStyle: StepLineStyle(
+      borderRadius: BorderRadius.all(
+        Radius.circular(4),
+      ),
+    ),
+    labelStyle: StepLabelStyle(
+      margin: EdgeInsets.only(bottom: 6),
+    ),
+    stepNodeStyle: StepNodeStyle(
+      activeIcon: null,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(6),
+        ),
+      ),
+    ),
+  ),
+),
+```
+
 ## Installation
 
 To use StepProgress, add it to your `pubspec.yaml` file:
