@@ -1,3 +1,12 @@
+## 2.1.0
+
+Here's what's new in version 2.1.0:
+
+*   **Bug Fix:** Resolved line spacing issues that occurred when labels had margins.
+*   **New Examples:** Added new examples to showcase the library's capabilities and usage.
+*   **Enhanced Step Node Shapes:** Expanded the variety of available shapes for StepNode, including square, circle, triangle, hexagon, and diamond. [#12](https://github.com/TalebRafiepour/step_progress/issues/12).
+
+
 ## 2.0.1
 
 * Move the `CONTRIBUTING.md` file to the root of project.
