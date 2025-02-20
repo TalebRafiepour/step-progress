@@ -501,9 +501,10 @@ StepProgress(
 |`activeForegroundColor` | `Color?`        | The color for the foreground of the step node when it is active. If not set, it will be read from the theme. | `null` |
 |`animationDuration`     | `Duration?`     | The duration of the animation for the step node. If not set, it will be read from the theme.                 | `null` |
 |`iconColor`             | `Color`         | The color of the icon.                             | `const Color.fromARGB(253, 6, 138, 129)` (teal color)                                    |
-|`shape`                 | `StepNodeShape` | The shape of the step node.                        | `StepNodeShape.circle`                                                                   |
+|`shape`                 | `StepNodeShape` | The shape of the step node.                                                                                  | `null` |
 |`decoration`            | `BoxDecoration` | The decoration of the step node.                   | `const BoxDecoration(color: Color.fromARGB(50, 255, 255, 255))` (semi-transparent white) |
-|`icon`                  | `Widget?`       | The icon widget to display.                        | `null`                                                                                   |
+|`activeDecoration`      | `BoxDecoration` | The decoration of the step node when it is active.                                                           | `null` |
+|`icon`                  | `Widget?`       | The icon widget to display.                                                                                  | `null` |
 |`activeIcon`            | `Widget?`       | The icon widget to display when the step is active.| `const Icon(Icons.check, size: 18, color: Colors.white)`                                 |
 |`enableRippleEffect`    | `bool`          | Whether to enable the ripple effect.               | `true`                                                                                   |
 
@@ -515,7 +516,7 @@ StepProgress(
 | `foregroundColor`  | `Color?`     | The color of the ripple effect's foreground. If `null`, the theme determines the color.   | `null`        |
 | `animationDuration`| `Duration?`  | The duration of the ripple effect animation. If `null`, the theme determines the duration.| `null`        |
 | `borderColor`      | `Color?`     | The color of the ripple effect's border. If `null`, the theme determines the color.       | `null`        |
-| `borderWidth`      | `double`     | The width of the ripple effect's border.                                                  | `2`           |
+| `borderWidth`      | `double`     | The width of the ripple effect's border.                                                  | `1`           |
 
 
 ## StepLineStyle Properties
