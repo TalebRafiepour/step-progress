@@ -559,6 +559,10 @@ We appreciate your support for the StepProgress package! You can help us by:
 
 Your contributions and feedback are invaluable to us!
 
+## Donate
+
+**If you wants to support me: <a href="https://github.com/TalebRafiepour/TalebRafiepour/blob/main/DONATE.md" alt="Donate button"><img src="https://img.shields.io/badge/-Donate-red?logo=undertale" /></a>**
+
 ## License
 
 `StepProgress` is released under the `BSD-3-Clause` License.
