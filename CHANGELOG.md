@@ -1,6 +1,4 @@
-Here's a rewritten version of the changelog with some improvements:
-
-## 2.1.1
+## 2.1.2
 
 - **Bug Fix**: Corrected the misalignment issue with step nodes [#18](https://github.com/TalebRafiepour/step_progress/issues/18).
 - **Dependency Update**: Upgraded the Dart SDK to version `3.7.0` for improved compatibility and performance.
