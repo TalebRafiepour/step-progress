@@ -74,37 +74,44 @@ class StepLine extends StatelessWidget {
           );
 
           final containerDecoration = BoxDecoration(
-            color: style.foregroundColor ??
+            color:
+                style.foregroundColor ??
                 theme?.defaultForegroundColor ??
                 Colors.grey.shade400,
             borderRadius: style.borderRadius,
-            border: borderWidth > 0
-                ? Border.all(
-                    color: (isActive && activeBorderColor != null)
-                        ? activeBorderColor
-                        : borderColor,
-                    width: borderWidth,
-                    strokeAlign: BorderSide.strokeAlignOutside,
-                  )
-                : null,
+            border:
+                borderWidth > 0
+                    ? Border.all(
+                      color:
+                          (isActive && activeBorderColor != null)
+                              ? activeBorderColor
+                              : borderColor,
+                      width: borderWidth,
+                      strokeAlign: BorderSide.strokeAlignOutside,
+                    )
+                    : null,
           );
 
           final animatedContainerDecoration = BoxDecoration(
-            color: style.activeColor ??
+            color:
+                style.activeColor ??
                 theme?.activeForegroundColor ??
                 Colors.white,
             borderRadius: style.borderRadius,
           );
 
-          final double animatedContainerWidth = _isHorizontal
-              ? (isActive ? _width(constraint) : 0)
-              : _width(constraint);
+          final double animatedContainerWidth =
+              _isHorizontal
+                  ? (isActive ? _width(constraint) : 0)
+                  : _width(constraint);
 
-          final double animatedContainerHeight = _isHorizontal
-              ? _height(constraint)
-              : (isActive ? _height(constraint) : 0);
+          final double animatedContainerHeight =
+              _isHorizontal
+                  ? _height(constraint)
+                  : (isActive ? _height(constraint) : 0);
 
-          final animationDuration = style.animationDuration ??
+          final animationDuration =
+              style.animationDuration ??
               theme?.stepAnimationDuration ??
               const Duration(milliseconds: 150);
 

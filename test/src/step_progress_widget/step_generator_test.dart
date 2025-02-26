@@ -8,26 +8,25 @@ import 'package:step_progress/src/step_progress_widgets/step_generator.dart';
 import 'package:step_progress/step_progress.dart';
 
 StepProgressThemeData get dummyThemeData => const StepProgressThemeData(
-      enableRippleEffect: true,
-      shape: StepNodeShape.circle,
-      rippleEffectStyle: RippleEffectStyle(
-        borderColor: Colors.blueAccent,
-        borderWidth: 30,
-      ),
-      stepNodeStyle: StepNodeStyle(
-        defaultForegroundColor: Colors.grey,
-        activeForegroundColor: Colors.green,
-      ),
-      labelStyle: StepLabelStyle(
-        titleStyle: TextStyle(color: Colors.black),
-      ),
-      stepLabelAlignment: StepLabelAlignment.top,
-    );
+  enableRippleEffect: true,
+  shape: StepNodeShape.circle,
+  rippleEffectStyle: RippleEffectStyle(
+    borderColor: Colors.blueAccent,
+    borderWidth: 30,
+  ),
+  stepNodeStyle: StepNodeStyle(
+    defaultForegroundColor: Colors.grey,
+    activeForegroundColor: Colors.green,
+  ),
+  labelStyle: StepLabelStyle(titleStyle: TextStyle(color: Colors.black)),
+  stepLabelAlignment: StepLabelAlignment.top,
+);
 
 void main() {
   group('StepGenerator Widget Tests', () {
-    testWidgets('Displays title and subtitle correctly when provided',
-        (tester) async {
+    testWidgets('Displays title and subtitle correctly when provided', (
+      tester,
+    ) async {
       bool tapped = false;
 
       await tester.pumpWidget(
@@ -64,8 +63,9 @@ void main() {
       expect(tapped, isTrue);
     });
 
-    testWidgets('Does not display label when title and subTitle are null',
-        (tester) async {
+    testWidgets('Does not display label when title and subTitle are null', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: StepProgressTheme(
@@ -88,8 +88,9 @@ void main() {
       expect(find.byType(StepLabel), findsNothing);
     });
 
-    testWidgets('Renders ripple effect when active and enabled in theme',
-        (tester) async {
+    testWidgets('Renders ripple effect when active and enabled in theme', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         MaterialApp(
           home: StepProgressTheme(
@@ -140,38 +141,39 @@ void main() {
     });
 
     testWidgets(
-        'Renders correctly with vertical axis and right label alignment',
-        (tester) async {
-      // Override the theme with a vertical axis scenario for testing.
-      final customThemeData = dummyThemeData.copyWith(
-        stepLabelAlignment: StepLabelAlignment.right,
-      );
+      'Renders correctly with vertical axis and right label alignment',
+      (tester) async {
+        // Override the theme with a vertical axis scenario for testing.
+        final customThemeData = dummyThemeData.copyWith(
+          stepLabelAlignment: StepLabelAlignment.right,
+        );
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: StepProgressTheme(
-            data: customThemeData,
-            child: const Scaffold(
-              body: StepGenerator(
-                width: 40,
-                height: 40,
-                stepIndex: 4,
-                isActive: true,
-                axis: Axis.vertical,
-                anyLabelExist: true,
-                title: 'Vertical Step',
-                subTitle: 'Right side label',
+        await tester.pumpWidget(
+          MaterialApp(
+            home: StepProgressTheme(
+              data: customThemeData,
+              child: const Scaffold(
+                body: StepGenerator(
+                  width: 40,
+                  height: 40,
+                  stepIndex: 4,
+                  isActive: true,
+                  axis: Axis.vertical,
+                  anyLabelExist: true,
+                  title: 'Vertical Step',
+                  subTitle: 'Right side label',
+                ),
               ),
             ),
           ),
-        ),
-      );
+        );
 
-      // For vertical arrangements with right alignment, the label is
-      // rendered after the node.
-      // We check that the title text is found.
-      expect(find.text('Vertical Step'), findsOneWidget);
-    });
+        // For vertical arrangements with right alignment, the label is
+        // rendered after the node.
+        // We check that the title text is found.
+        expect(find.text('Vertical Step'), findsOneWidget);
+      },
+    );
 
     testWidgets('Handles tap gracefully when onTap is null', (tester) async {
       // Test that nothing crashes when onTap is null.
@@ -198,8 +200,9 @@ void main() {
       await tester.pump();
     });
 
-    testWidgets('Throws error when StepProgressTheme is missing',
-        (tester) async {
+    testWidgets('Throws error when StepProgressTheme is missing', (
+      tester,
+    ) async {
       // Negative test: Since StepGenerator uses StepProgressTheme.of(context)!,
       // not providing a theme should result in an exception.
       await tester.pumpWidget(
@@ -222,8 +225,9 @@ void main() {
       expect(exception, isNotNull);
     });
 
-    testWidgets('Supports even/odd step indices with topBottom alignment',
-        (tester) async {
+    testWidgets('Supports even/odd step indices with topBottom alignment', (
+      tester,
+    ) async {
       // Testing the multi-side alignment with alternating label positions.
       final customThemeData = dummyThemeData.copyWith(
         stepLabelAlignment: StepLabelAlignment.topBottom,
@@ -282,8 +286,9 @@ void main() {
       expect(find.text('Odd Step'), findsOneWidget);
     });
 
-    testWidgets('Works with boundary conditions for size (width/height = 0)',
-        (tester) async {
+    testWidgets('Works with boundary conditions for size (width/height = 0)', (
+      tester,
+    ) async {
       // Test that providing zero size does not crash the widget.
       await tester.pumpWidget(
         MaterialApp(

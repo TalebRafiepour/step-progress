@@ -41,10 +41,7 @@ class StepProgressThemeData {
     this.stepNodeStyle = const StepNodeStyle(),
     this.stepLineStyle = const StepLineStyle(),
     this.rippleEffectStyle = const RippleEffectStyle(),
-  }) : assert(
-          borderWidth >= 0,
-          'borderWidth must be 0 or greater than 0',
-        );
+  }) : assert(borderWidth >= 0, 'borderWidth must be 0 or greater than 0');
 
   /// The default color used for the foreground elements in the step progress.
   final Color defaultForegroundColor;

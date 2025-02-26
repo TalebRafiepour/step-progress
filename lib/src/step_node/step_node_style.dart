@@ -35,11 +35,7 @@ class StepNodeStyle {
     ),
     this.activeDecoration,
     this.icon,
-    this.activeIcon = const Icon(
-      Icons.check,
-      size: 18,
-      color: Colors.white,
-    ),
+    this.activeIcon = const Icon(Icons.check, size: 18, color: Colors.white),
     this.iconColor = const Color.fromARGB(253, 6, 138, 129),
     this.enableRippleEffect = true,
   });

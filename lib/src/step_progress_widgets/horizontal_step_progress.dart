@@ -51,38 +51,48 @@ class HorizontalStepProgress extends StepProgressWidget {
   ///
   /// The [highlightCompletedSteps] parameter determines whether the completed
   /// steps should be visually highlighted.
+  /// The [labelAlignment] parameter to specify node alignment depends on labels
   ///
   /// Returns a [Widget] that represents the step nodes.
   @override
   Widget buildStepNodes({
     required bool highlightCompletedSteps,
+    required StepLabelAlignment labelAlignment,
   }) {
+    CrossAxisAlignment crossAxisAlignment() {
+      if (labelAlignment == StepLabelAlignment.top) {
+        return CrossAxisAlignment.end;
+      } else if (labelAlignment == StepLabelAlignment.bottom) {
+        return CrossAxisAlignment.start;
+      } else {
+        return CrossAxisAlignment.center;
+      }
+    }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: List.generate(
-        totalStep,
-        (index) {
-          final title = titles?.elementAtOrNull(index);
-          final subTitle = subTitles?.elementAtOrNull(index);
-          final isActive = highlightCompletedSteps
-              ? index <= currentStep
-              : index == currentStep;
+      crossAxisAlignment: crossAxisAlignment(),
+      children: List.generate(totalStep, (index) {
+        final title = titles?.elementAtOrNull(index);
+        final subTitle = subTitles?.elementAtOrNull(index);
+        final isActive =
+            highlightCompletedSteps
+                ? index <= currentStep
+                : index == currentStep;
 
-          return StepGenerator(
-            width: stepSize,
-            height: stepSize,
-            stepIndex: index,
-            anyLabelExist: titles != null || subTitles != null,
-            title: title,
-            subTitle: subTitle,
-            isActive: isActive,
-            stepNodeIcon: nodeIconBuilder?.call(index),
-            stepNodeActiveIcon: nodeActiveIconBuilder?.call(index),
-            onTap: () => onStepNodeTapped?.call(index),
-          );
-        },
-      ),
+        return StepGenerator(
+          width: stepSize,
+          height: stepSize,
+          stepIndex: index,
+          anyLabelExist: titles != null || subTitles != null,
+          title: title,
+          subTitle: subTitle,
+          isActive: isActive,
+          stepNodeIcon: nodeIconBuilder?.call(index),
+          stepNodeActiveIcon: nodeActiveIconBuilder?.call(index),
+          onTap: () => onStepNodeTapped?.call(index),
+        );
+      }),
     );
   }
 
@@ -106,18 +116,16 @@ class HorizontalStepProgress extends StepProgressWidget {
         horizontal: maxStepSize / 2,
       ),
       child: Row(
-        children: List.generate(
-          totalStep - 1,
-          (index) {
-            return StepLine(
-              isActive: highlightCompletedSteps
-                  ? index < currentStep
-                  : index == currentStep - 1,
-              style: style,
-              onTap: () => onStepLineTapped?.call(index),
-            );
-          },
-        ),
+        children: List.generate(totalStep - 1, (index) {
+          return StepLine(
+            isActive:
+                highlightCompletedSteps
+                    ? index < currentStep
+                    : index == currentStep - 1,
+            style: style,
+            onTap: () => onStepLineTapped?.call(index),
+          );
+        }),
       ),
     );
   }

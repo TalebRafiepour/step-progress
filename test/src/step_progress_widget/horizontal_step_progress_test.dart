@@ -11,8 +11,7 @@ import '../helper/test_theme_wrapper.dart';
 
 void main() {
   group('HorizontalStepProgress Widget Tests', () {
-    testWidgets(
-        'buildStepNodes produces the correct number of StepGenerator'
+    testWidgets('buildStepNodes produces the correct number of StepGenerator'
         ' widgets with highlightCompletedSteps true', (tester) async {
       // Set up parameters.
       const int totalSteps = 5;
@@ -47,13 +46,15 @@ void main() {
       // When highlightCompletedSteps is true, nodes at index <= currentStep
       // should be active.
       for (var i = 0; i < totalSteps; i++) {
-        final StepGenerator widget =
-            tester.widgetList<StepGenerator>(stepGeneratorFinder).elementAt(i);
+        final StepGenerator widget = tester
+            .widgetList<StepGenerator>(stepGeneratorFinder)
+            .elementAt(i);
         if (i <= currentStep) {
           expect(
             widget.isActive,
             isTrue,
-            reason: 'Step $i should be active when highlightCompletedSteps is '
+            reason:
+                'Step $i should be active when highlightCompletedSteps is '
                 'enabled.',
           );
         } else {
@@ -68,8 +69,7 @@ void main() {
       }
     });
 
-    testWidgets(
-        'buildStepNodes produces the correct active state when '
+    testWidgets('buildStepNodes produces the correct active state when '
         'highlightCompletedSteps is false', (tester) async {
       // Set up parameters.
       const int totalSteps = 4;
@@ -79,9 +79,7 @@ void main() {
 
       await tester.pumpWidget(
         const TestThemeWrapper(
-          themeData: StepProgressThemeData(
-            highlightCompletedSteps: false,
-          ),
+          themeData: StepProgressThemeData(highlightCompletedSteps: false),
           child: Scaffold(
             // Here we pass null for titles and subtitles to simulate
             // missing data.
@@ -101,28 +99,32 @@ void main() {
       // With highlightCompletedSteps false, only the current step should
       // be active.
       for (var i = 0; i < totalSteps; i++) {
-        final StepGenerator widget =
-            tester.widgetList<StepGenerator>(stepGeneratorFinder).elementAt(i);
+        final StepGenerator widget = tester
+            .widgetList<StepGenerator>(stepGeneratorFinder)
+            .elementAt(i);
         if (i == currentStep) {
           expect(
             widget.isActive,
             isTrue,
-            reason: 'Only the current step should be active when '
+            reason:
+                'Only the current step should be active when '
                 'highlightCompletedSteps is false.',
           );
         } else {
           expect(
             widget.isActive,
             isFalse,
-            reason: 'Step $i should be inactive when highlightCompletedSteps '
+            reason:
+                'Step $i should be inactive when highlightCompletedSteps '
                 'is false.',
           );
         }
       }
     });
 
-    testWidgets('Tapping a step node triggers the onStepNodeTapped callback',
-        (tester) async {
+    testWidgets('Tapping a step node triggers the onStepNodeTapped callback', (
+      tester,
+    ) async {
       // Set up parameters.
       const int totalSteps = 3;
       const int currentStep = 0;
@@ -154,68 +156,74 @@ void main() {
       expect(
         tappedIndex,
         equals(1),
-        reason: 'Tapping step node at index 1 should trigger the callback with '
+        reason:
+            'Tapping step node at index 1 should trigger the callback with '
             'index 1.',
       );
     });
 
     testWidgets(
-        'buildStepLines produces the correct number of StepLine widgets and '
-        'active status', (tester) async {
-      // Set up parameters.
-      const int totalSteps = 4;
-      const int currentStep = 2;
-      const double stepSize = 50;
-      const visibilityOptions = StepProgressVisibilityOptions.both;
+      'buildStepLines produces the correct number of StepLine widgets and '
+      'active status',
+      (tester) async {
+        // Set up parameters.
+        const int totalSteps = 4;
+        const int currentStep = 2;
+        const double stepSize = 50;
+        const visibilityOptions = StepProgressVisibilityOptions.both;
 
-      await tester.pumpWidget(
-        TestThemeWrapper(
-          themeData: const StepProgressThemeData(
-            highlightCompletedSteps: true,
-          ),
-          child: Scaffold(
-            body: HorizontalStepProgress(
-              totalStep: totalSteps,
-              currentStep: currentStep,
-              stepSize: stepSize,
-              visibilityOptions: visibilityOptions,
-              // No need to specify titles/subtitles for line testing.
-              onStepLineTapped: (_) {},
+        await tester.pumpWidget(
+          TestThemeWrapper(
+            themeData: const StepProgressThemeData(
+              highlightCompletedSteps: true,
+            ),
+            child: Scaffold(
+              body: HorizontalStepProgress(
+                totalStep: totalSteps,
+                currentStep: currentStep,
+                stepSize: stepSize,
+                visibilityOptions: visibilityOptions,
+                // No need to specify titles/subtitles for line testing.
+                onStepLineTapped: (_) {},
+              ),
             ),
           ),
-        ),
-      );
+        );
 
-      // There should be totalSteps-1 StepLine widgets
-      final stepLineFinder = find.byType(StepLine);
-      expect(stepLineFinder, findsNWidgets(totalSteps - 1));
+        // There should be totalSteps-1 StepLine widgets
+        final stepLineFinder = find.byType(StepLine);
+        expect(stepLineFinder, findsNWidgets(totalSteps - 1));
 
-      // Verify the active state of each line.
-      // When highlightCompletedSteps is true, active if index < currentStep.
-      final stepLineWidgets =
-          tester.widgetList<StepLine>(stepLineFinder).toList();
-      for (var i = 0; i < stepLineWidgets.length; i++) {
-        final widget = stepLineWidgets[i];
-        if (i < currentStep) {
-          expect(
-            widget.isActive,
-            isTrue,
-            reason: 'StepLine at index $i should be active when'
-                ' i < currentStep.',
-          );
-        } else {
-          expect(
-            widget.isActive,
-            isFalse,
-            reason: 'StepLine at index $i should be inactive when'
-                ' i >= currentStep.',
-          );
+        // Verify the active state of each line.
+        // When highlightCompletedSteps is true, active if index < currentStep.
+        final stepLineWidgets =
+            tester.widgetList<StepLine>(stepLineFinder).toList();
+        for (var i = 0; i < stepLineWidgets.length; i++) {
+          final widget = stepLineWidgets[i];
+          if (i < currentStep) {
+            expect(
+              widget.isActive,
+              isTrue,
+              reason:
+                  'StepLine at index $i should be active when'
+                  ' i < currentStep.',
+            );
+          } else {
+            expect(
+              widget.isActive,
+              isFalse,
+              reason:
+                  'StepLine at index $i should be inactive when'
+                  ' i >= currentStep.',
+            );
+          }
         }
-      }
-    });
+      },
+    );
 
-    testWidgets('Tapping a step line triggers the onStepLineTapped callback',
-        (tester) async {
+    testWidgets('Tapping a step line triggers the onStepLineTapped callback', (
+      tester,
+    ) async {
       // Set up parameters.
       const int totalSteps = 5;
       const int currentStep = 3;
@@ -247,13 +255,15 @@ void main() {
       expect(
         tappedLineIndex,
         equals(0),
-        reason: 'Tapping the first step line should trigger the callback with '
+        reason:
+            'Tapping the first step line should trigger the callback with '
             'index 0.',
       );
     });
 
-    testWidgets('Edge case: totalStep equals 1 produces no StepLine widgets',
-        (tester) async {
+    testWidgets('Edge case: totalStep equals 1 produces no StepLine widgets', (
+      tester,
+    ) async {
       const int totalSteps = 1;
       const int currentStep = 0;
       const double stepSize = 40;

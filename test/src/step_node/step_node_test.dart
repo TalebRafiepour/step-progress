@@ -12,10 +12,7 @@ void main() {
   group('StepNode Widget Tests', () {
     // Create a dummy style object for testing.
     const dummyStyle = StepNodeStyle(
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        shape: BoxShape.circle,
-      ),
+      decoration: BoxDecoration(color: Colors.blue, shape: BoxShape.circle),
       icon: Icon(Icons.circle, color: Colors.red),
       activeIcon: Icon(Icons.check, color: Colors.green),
       defaultForegroundColor: Colors.grey,
@@ -39,11 +36,7 @@ void main() {
         const TestThemeWrapper(
           themeData: dummyThemeData,
           child: Scaffold(
-            body: StepNode(
-              width: 50,
-              height: 50,
-              label: 'Step 1',
-            ),
+            body: StepNode(width: 50, height: 50, label: 'Step 1'),
           ),
         ),
       );
@@ -86,17 +79,14 @@ void main() {
       expect(coreWidgets.last.isVisible, equals(true));
     });
 
-    testWidgets('applies border decoration from theme when provided',
-        (tester) async {
+    testWidgets('applies border decoration from theme when provided', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         const TestThemeWrapper(
           themeData: dummyThemeData,
           child: Scaffold(
-            body: StepNode(
-              width: 70,
-              height: 70,
-              label: 'Test Border',
-            ),
+            body: StepNode(width: 70, height: 70, label: 'Test Border'),
           ),
         ),
       );
@@ -105,8 +95,9 @@ void main() {
       final shapedContainerFinder = find.byType(StepNodeShapedContainer).first;
       expect(shapedContainerFinder, findsOneWidget);
 
-      final shapedContainer =
-          tester.widget<StepNodeShapedContainer>(shapedContainerFinder);
+      final shapedContainer = tester.widget<StepNodeShapedContainer>(
+        shapedContainerFinder,
+      );
       final decoration = shapedContainer.decoration!;
 
       // Verify that a border was added and its properties match.
@@ -117,28 +108,25 @@ void main() {
     });
 
     testWidgets(
-        'handles missing optional parameters gracefully (negative test)',
-        (tester) async {
-      // Test with minimal parameters, leaving out optional label and icons.
-      await tester.pumpWidget(
-        const TestThemeWrapper(
-          themeData: dummyThemeData,
-          child: Scaffold(
-            body: StepNode(
-              width: 80,
-              height: 80,
-            ),
+      'handles missing optional parameters gracefully (negative test)',
+      (tester) async {
+        // Test with minimal parameters, leaving out optional label and icons.
+        await tester.pumpWidget(
+          const TestThemeWrapper(
+            themeData: dummyThemeData,
+            child: Scaffold(body: StepNode(width: 80, height: 80)),
           ),
-        ),
-      );
+        );
 
-      // Even though optional parameters are missing, the widget should render
-      // two StepNodeCore widgets.
-      expect(find.byType(StepNodeCore), findsNWidgets(2));
-    });
+        // Even though optional parameters are missing, the widget should render
+        // two StepNodeCore widgets.
+        expect(find.byType(StepNodeCore), findsNWidgets(2));
+      },
+    );
 
-    testWidgets('renders with extreme width and height values (edge cases)',
-        (tester) async {
+    testWidgets('renders with extreme width and height values (edge cases)', (
+      tester,
+    ) async {
       // Testing boundary conditions for dimensions.
       await tester.pumpWidget(
         const TestThemeWrapper(
@@ -147,10 +135,7 @@ void main() {
             body: Column(
               children: [
                 // Edge case: 0.0 width and height.
-                StepNode(
-                  width: 0,
-                  height: 0,
-                ),
+                StepNode(width: 0, height: 0),
                 // Edge case: using very large values.
                 Expanded(
                   child: StepNode(

@@ -159,19 +159,13 @@ class StepGenerator extends StatelessWidget {
             padding: style.padding,
             margin: style.margin,
             alignment: Alignment.center,
-            constraints: BoxConstraints(
-              maxWidth: style.maxWidth,
-            ),
+            constraints: BoxConstraints(maxWidth: style.maxWidth),
           );
         } else {
           return const SizedBox.shrink();
         }
       }
-      return StepLabel(
-        title: title,
-        subTitle: subTitle,
-        isActive: isActive,
-      );
+      return StepLabel(title: title, subTitle: subTitle, isActive: isActive);
     }
 
     Widget buildStep({
@@ -179,38 +173,44 @@ class StepGenerator extends StatelessWidget {
       required bool showLabelFirst,
       bool isMultipleSide = false,
     }) {
-      final children = isMultipleSide
-          ? [
-              KeepSizeVisibility(
-                visible: showLabelFirst,
-                child: buildStepLabel(),
-              ),
-              buildStepNode(),
-              KeepSizeVisibility(
-                visible: !showLabelFirst,
-                child: buildStepLabel(),
-              ),
-            ]
-          : [
-              if (showLabelFirst) buildStepLabel(),
-              buildStepNode(),
-              if (!showLabelFirst) buildStepLabel(),
-            ];
+      final children =
+          isMultipleSide
+              ? [
+                KeepSizeVisibility(
+                  visible: showLabelFirst,
+                  child: buildStepLabel(),
+                ),
+                buildStepNode(),
+                KeepSizeVisibility(
+                  visible: !showLabelFirst,
+                  child: buildStepLabel(),
+                ),
+              ]
+              : [
+                if (showLabelFirst) buildStepLabel(),
+                buildStepNode(),
+                if (!showLabelFirst) buildStepLabel(),
+              ];
 
-      return isVertical
-          ? Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: children,
-            )
-          : Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: children,
-            );
+      return Directionality(
+        textDirection: TextDirection.ltr,
+        child:
+            isVertical
+                ? Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: children,
+                )
+                : Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: children,
+                ),
+      );
     }
 
-    final labelAlignment = themeData.stepLabelAlignment ??
+    final labelAlignment =
+        themeData.stepLabelAlignment ??
         (axis == Axis.horizontal
             ? StepLabelAlignment.top
             : StepLabelAlignment.right);

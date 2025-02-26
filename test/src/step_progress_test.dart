@@ -9,8 +9,9 @@ import 'package:step_progress/step_progress.dart';
 
 void main() {
   group('StepProgress Widget - Positive Cases', () {
-    testWidgets('Should build widget with horizontal axis correctly',
-        (tester) async {
+    testWidgets('Should build widget with horizontal axis correctly', (
+      tester,
+    ) async {
       // Build the widget with horizontal axis and verify presence of
       // HorizontalStepProgress.
       await tester.pumpWidget(
@@ -32,8 +33,9 @@ void main() {
       expect(find.text('Step 2'), findsOneWidget);
     });
 
-    testWidgets('Should build widget with vertical axis correctly',
-        (tester) async {
+    testWidgets('Should build widget with vertical axis correctly', (
+      tester,
+    ) async {
       // Build the widget with vertical axis and verify presence of
       // VerticalStepProgress.
       await tester.pumpWidget(
@@ -54,8 +56,9 @@ void main() {
       expect(find.text('C'), findsOneWidget);
     });
 
-    testWidgets('Should update widget when controller currentStep changes',
-        (tester) async {
+    testWidgets('Should update widget when controller currentStep changes', (
+      tester,
+    ) async {
       final controller = StepProgressController(initialStep: 0, totalSteps: 5);
 
       int? changedStep;
@@ -82,83 +85,85 @@ void main() {
     });
 
     testWidgets(
-        'Should call onStepNodeTapped when a step is tapped (if implemented)',
-        (tester) async {
-      // In this test we simulate a tap event and verify the callback.
-      // This test assumes that the HorizontalStepProgress or
-      // VerticalStepProgress widget wraps the step nodes with
-      // a GestureDetector.
-      int tappedIndex = -1;
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: StepProgress(
-              totalSteps: 3,
-              currentStep: 1,
-              onStepNodeTapped: (index) {
-                tappedIndex = index;
-              },
+      'Should call onStepNodeTapped when a step is tapped (if implemented)',
+      (tester) async {
+        // In this test we simulate a tap event and verify the callback.
+        // This test assumes that the HorizontalStepProgress or
+        // VerticalStepProgress widget wraps the step nodes with
+        // a GestureDetector.
+        int tappedIndex = -1;
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(
+              body: StepProgress(
+                totalSteps: 3,
+                currentStep: 1,
+                onStepNodeTapped: (index) {
+                  tappedIndex = index;
+                },
+              ),
             ),
           ),
-        ),
-      );
+        );
 
-      // Try to tap on a widget that would represent a step node.
-      // Here we simply find a widget with text that we expect is inside the
-      // step node.
-      await tester.tap(find.byType(StepNode).first);
-      await tester.pumpAndSettle();
+        // Try to tap on a widget that would represent a step node.
+        // Here we simply find a widget with text that we expect is inside the
+        // step node.
+        await tester.tap(find.byType(StepNode).first);
+        await tester.pumpAndSettle();
 
-      // Check that the tapped callback was triggered.
-      expect(tappedIndex, isNot(-1));
-    });
+        // Check that the tapped callback was triggered.
+        expect(tappedIndex, isNot(-1));
+      },
+    );
   });
 
   group('StepProgress Widget - Negative and Boundary Cases', () {
     testWidgets(
-        'Should not update or call onStepChanged when new step is same as'
-        ' current step', (tester) async {
-      int onStepChangedCalls = 0;
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: StepProgress(
-              totalSteps: 4,
-              currentStep: 1,
-              onStepChanged: (_) {
-                onStepChangedCalls++;
-              },
+      'Should not update or call onStepChanged when new step is same as'
+      ' current step',
+      (tester) async {
+        int onStepChangedCalls = 0;
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(
+              body: StepProgress(
+                totalSteps: 4,
+                currentStep: 1,
+                onStepChanged: (_) {
+                  onStepChangedCalls++;
+                },
+              ),
             ),
           ),
-        ),
-      );
+        );
 
-      // Since currentStep is provided via widget property and not via
-      // controller in this case,
-      // we simulate a new value equal to the current one. Because _changeStep
-      // checks for equality,
-      // onStepChanged will not be called.
-      // Here we rebuild with the same currentStep.
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: StepProgress(
-              totalSteps: 4,
-              currentStep: 1,
-              onStepChanged: (_) {
-                onStepChangedCalls++;
-              },
+        // Since currentStep is provided via widget property and not via
+        // controller in this case,
+        // we simulate a new value equal to the current one. Because _changeStep
+        // checks for equality,
+        // onStepChanged will not be called.
+        // Here we rebuild with the same currentStep.
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Scaffold(
+              body: StepProgress(
+                totalSteps: 4,
+                currentStep: 1,
+                onStepChanged: (_) {
+                  onStepChangedCalls++;
+                },
+              ),
             ),
           ),
-        ),
-      );
-      await tester.pump();
+        );
+        await tester.pump();
 
-      expect(onStepChangedCalls, equals(0));
-    });
+        expect(onStepChangedCalls, equals(0));
+      },
+    );
 
-    testWidgets(
-        'Should not update when an out-of-range step is provided via'
+    testWidgets('Should not update when an out-of-range step is provided via'
         ' controller', (tester) async {
       final controller = StepProgressController(initialStep: 0, totalSteps: 3);
       int? changedStep;
@@ -189,69 +194,64 @@ void main() {
       expect(changedStep, isNull);
 
       // Also try a number lower -1.
-      expect(
-        () => controller.setCurrentStep(-2),
-        throwsAssertionError,
-      );
+      expect(() => controller.setCurrentStep(-2), throwsAssertionError);
       await tester.pump();
 
       expect(changedStep, isNull);
     });
 
     testWidgets(
-        'Should throw an assertion error when totalSteps is less than or'
-        ' equal to 0', (tester) async {
-      // Since an assert is in place for totalSteps > 0,
-      // we expect testing in debug mode to throw an AssertionError.
-      expect(
-        () => StepProgress(
-          totalSteps: 0,
-        ),
-        throwsAssertionError,
-      );
-    });
+      'Should throw an assertion error when totalSteps is less than or'
+      ' equal to 0',
+      (tester) async {
+        // Since an assert is in place for totalSteps > 0,
+        // we expect testing in debug mode to throw an AssertionError.
+        expect(() => StepProgress(totalSteps: 0), throwsAssertionError);
+      },
+    );
 
     testWidgets(
-        'Should throw an assertion error when currentStep is not lower than'
-        ' totalSteps', (tester) async {
-      // currentStep must be lower than totalSteps.
-      expect(
-        () => StepProgress(
-          totalSteps: 3,
-          currentStep: 3,
-        ),
-        throwsAssertionError,
-      );
-    });
+      'Should throw an assertion error when currentStep is not lower than'
+      ' totalSteps',
+      (tester) async {
+        // currentStep must be lower than totalSteps.
+        expect(
+          () => StepProgress(totalSteps: 3, currentStep: 3),
+          throwsAssertionError,
+        );
+      },
+    );
 
     testWidgets(
-        'Should throw assertion error when provided titles list length is'
-        ' greater than totalSteps', (tester) async {
-      expect(
-        () => StepProgress(
-          totalSteps: 2,
-          titles: const ['Step 1', 'Step 2', 'Step 3'],
-        ),
-        throwsAssertionError,
-      );
-    });
+      'Should throw assertion error when provided titles list length is'
+      ' greater than totalSteps',
+      (tester) async {
+        expect(
+          () => StepProgress(
+            totalSteps: 2,
+            titles: const ['Step 1', 'Step 2', 'Step 3'],
+          ),
+          throwsAssertionError,
+        );
+      },
+    );
 
     testWidgets(
-        'Should throw assertion error when provided subTitles list length is'
-        ' greater than totalSteps', (tester) async {
-      expect(
-        () => StepProgress(
-          totalSteps: 2,
-          subTitles: const ['A', 'B', 'C'],
-        ),
-        throwsAssertionError,
-      );
-    });
+      'Should throw assertion error when provided subTitles list length is'
+      ' greater than totalSteps',
+      (tester) async {
+        expect(
+          () => StepProgress(totalSteps: 2, subTitles: const ['A', 'B', 'C']),
+          throwsAssertionError,
+        );
+      },
+    );
   });
 
   group('StepProgress Widget - Scalability and Performance', () {
-    testWidgets('Should render correctly with a large number of steps',
-        (tester) async {
+    testWidgets('Should render correctly with a large number of steps', (
+      tester,
+    ) async {
       const int largeStepCount = 50;
       await tester.pumpWidget(
         MaterialApp(
@@ -279,8 +279,9 @@ void main() {
   });
 
   group('StepProgress Widget - Cross-platform/Compatibility', () {
-    testWidgets('Should build without issues on different screen sizes',
-        (tester) async {
+    testWidgets('Should build without issues on different screen sizes', (
+      tester,
+    ) async {
       await tester.pumpWidget(
         const MaterialApp(
           home: Scaffold(
@@ -288,10 +289,7 @@ void main() {
               child: SizedBox(
                 width: 300,
                 height: 600,
-                child: StepProgress(
-                  totalSteps: 5,
-                  currentStep: 2,
-                ),
+                child: StepProgress(totalSteps: 5, currentStep: 2),
               ),
             ),
           ),

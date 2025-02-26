@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:step_progress/src/step_label_alignment.dart';
 import 'package:step_progress/src/step_line/step_line.dart';
 import 'package:step_progress/src/step_line/step_line_style.dart';
 import 'package:step_progress/src/step_progress_widgets/step_generator.dart';
@@ -84,34 +85,33 @@ class VerticalStepProgress extends StepProgressWidget {
   @override
   Widget buildStepNodes({
     required bool highlightCompletedSteps,
+    required StepLabelAlignment labelAlignment,
   }) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.end,
-      children: List.generate(
-        totalStep,
-        (index) {
-          final title = titles?.elementAtOrNull(index);
-          final subTitle = subTitles?.elementAtOrNull(index);
-          final isActive = highlightCompletedSteps
-              ? index <= currentStep
-              : index == currentStep;
+      children: List.generate(totalStep, (index) {
+        final title = titles?.elementAtOrNull(index);
+        final subTitle = subTitles?.elementAtOrNull(index);
+        final isActive =
+            highlightCompletedSteps
+                ? index <= currentStep
+                : index == currentStep;
 
-          return StepGenerator(
-            axis: Axis.vertical,
-            width: stepSize,
-            height: stepSize,
-            anyLabelExist: titles != null || subTitles != null,
-            stepIndex: index,
-            title: title,
-            subTitle: subTitle,
-            isActive: isActive,
-            stepNodeIcon: nodeIconBuilder?.call(index),
-            stepNodeActiveIcon: nodeActiveIconBuilder?.call(index),
-            onTap: () => onStepNodeTapped?.call(index),
-          );
-        },
-      ),
+        return StepGenerator(
+          axis: Axis.vertical,
+          width: stepSize,
+          height: stepSize,
+          anyLabelExist: titles != null || subTitles != null,
+          stepIndex: index,
+          title: title,
+          subTitle: subTitle,
+          isActive: isActive,
+          stepNodeIcon: nodeIconBuilder?.call(index),
+          stepNodeActiveIcon: nodeActiveIconBuilder?.call(index),
+          onTap: () => onStepNodeTapped?.call(index),
+        );
+      }),
     );
   }
 
@@ -140,19 +140,17 @@ class VerticalStepProgress extends StepProgressWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: List.generate(
-          totalStep - 1,
-          (index) {
-            return StepLine(
-              axis: Axis.vertical,
-              isActive: highlightCompletedSteps
-                  ? index < currentStep
-                  : index == currentStep - 1,
-              style: style,
-              onTap: () => onStepLineTapped?.call(index),
-            );
-          },
-        ),
+        children: List.generate(totalStep - 1, (index) {
+          return StepLine(
+            axis: Axis.vertical,
+            isActive:
+                highlightCompletedSteps
+                    ? index < currentStep
+                    : index == currentStep - 1,
+            style: style,
+            onTap: () => onStepLineTapped?.call(index),
+          );
+        }),
       ),
     );
   }

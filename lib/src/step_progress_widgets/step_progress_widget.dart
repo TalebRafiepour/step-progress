@@ -44,14 +44,14 @@ abstract class StepProgressWidget extends StatelessWidget {
     this.nodeIconBuilder,
     this.nodeActiveIconBuilder,
     super.key,
-  })  : assert(
-          titles == null || titles.length <= totalStep,
-          'titles lenght must be equals to or less than total steps',
-        ),
-        assert(
-          subTitles == null || subTitles.length <= totalStep,
-          'subTitles lenght must be equals to less than total steps',
-        );
+  }) : assert(
+         titles == null || titles.length <= totalStep,
+         'titles lenght must be equals to or less than total steps',
+       ),
+       assert(
+         subTitles == null || subTitles.length <= totalStep,
+         'subTitles lenght must be equals to less than total steps',
+       );
 
   /// The total number of steps in the progress indicator.
   final int totalStep;
@@ -93,7 +93,11 @@ abstract class StepProgressWidget extends StatelessWidget {
   ///
   /// The [highlightCompletedSteps] parameter indicates whether the completed
   /// steps should be visually highlighted.
-  Widget buildStepNodes({required bool highlightCompletedSteps});
+  /// The [labelAlignment] parameters indicates the alignment of labels.
+  Widget buildStepNodes({
+    required bool highlightCompletedSteps,
+    required StepLabelAlignment labelAlignment,
+  });
 
   /// Builds the step lines widget with the given style.
   ///
@@ -143,31 +147,36 @@ abstract class StepProgressWidget extends StatelessWidget {
     final theme = StepProgressTheme.of(context)!.data;
     final stepLineStyle = theme.stepLineStyle;
     final highlightCompletedSteps = theme.highlightCompletedSteps;
-    final labelAlignment = theme.stepLabelAlignment ??
+    final labelAlignment =
+        theme.stepLabelAlignment ??
         (axis == Axis.horizontal
             ? StepLabelAlignment.top
             : StepLabelAlignment.right);
 
-    final labelMaxWidth = (theme.labelStyle.maxWidth) +
+    final labelMaxWidth =
+        (theme.labelStyle.maxWidth) +
         theme.labelStyle.padding.left +
         theme.labelStyle.padding.right +
         theme.labelStyle.margin.left +
         theme.labelStyle.margin.right;
     // The maximum size of a step node.
-    final maxStepSize = ((titles != null || subTitles != null) &&
-            labelMaxWidth.isFinite &&
-            labelMaxWidth > stepSize)
-        ? labelMaxWidth
-        : stepSize;
+    final maxStepSize =
+        ((titles != null || subTitles != null) &&
+                labelMaxWidth.isFinite &&
+                labelMaxWidth > stepSize)
+            ? labelMaxWidth
+            : stepSize;
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final width = axis == Axis.horizontal && !constraints.hasBoundedWidth
-            ? totalStep * 1.45 * stepSize
-            : null;
-        final height = axis == Axis.vertical && !constraints.hasBoundedHeight
-            ? totalStep * 1.45 * stepSize
-            : null;
+        final width =
+            axis == Axis.horizontal && !constraints.hasBoundedWidth
+                ? totalStep * 1.45 * stepSize
+                : null;
+        final height =
+            axis == Axis.vertical && !constraints.hasBoundedHeight
+                ? totalStep * 1.45 * stepSize
+                : null;
 
         Alignment alignment() {
           if (axis == Axis.horizontal) {
@@ -202,10 +211,7 @@ abstract class StepProgressWidget extends StatelessWidget {
         }
 
         return ConstrainedBox(
-          constraints: BoxConstraints.tightFor(
-            width: width,
-            height: height,
-          ),
+          constraints: BoxConstraints.tightFor(width: width, height: height),
           child: Stack(
             alignment: alignment(),
             children: [
@@ -218,6 +224,7 @@ abstract class StepProgressWidget extends StatelessWidget {
               if (visibilityOptions != StepProgressVisibilityOptions.lineOnly)
                 buildStepNodes(
                   highlightCompletedSteps: highlightCompletedSteps,
+                  labelAlignment: labelAlignment,
                 ),
             ],
           ),

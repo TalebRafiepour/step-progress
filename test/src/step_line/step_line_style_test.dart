@@ -57,8 +57,7 @@ void main() {
       expect(style.borderRadius, equals(border));
     });
 
-    test(
-        'copyWith returns a new instance with same values if no arguments'
+    test('copyWith returns a new instance with same values if no arguments'
         ' provided', () {
       final style = StepLineStyle(
         foregroundColor: Colors.blue,

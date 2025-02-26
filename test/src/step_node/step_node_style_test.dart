@@ -22,9 +22,7 @@ void main() {
       // the constructor
       expect(
         style.decoration.color,
-        equals(
-          const Color.fromARGB(50, 255, 255, 255),
-        ),
+        equals(const Color.fromARGB(50, 255, 255, 255)),
       );
 
       // By default, no icon is set(and activeIcon is defined with a check icon)
@@ -32,12 +30,7 @@ void main() {
       expect(style.activeIcon, isA<Icon>());
 
       // Default icon color
-      expect(
-        style.iconColor,
-        equals(
-          const Color.fromARGB(253, 6, 138, 129),
-        ),
-      );
+      expect(style.iconColor, equals(const Color.fromARGB(253, 6, 138, 129)));
 
       // Ripple effect is enabled by default
       expect(style.enableRippleEffect, isTrue);
@@ -50,12 +43,8 @@ void main() {
         animationDuration: Duration(seconds: 1),
         iconColor: Colors.blue,
         shape: StepNodeShape.circle,
-        activeDecoration: BoxDecoration(
-          color: Colors.orange,
-        ),
-        decoration: BoxDecoration(
-          color: Colors.yellow,
-        ),
+        activeDecoration: BoxDecoration(color: Colors.orange),
+        decoration: BoxDecoration(color: Colors.yellow),
         icon: Icon(Icons.star),
         activeIcon: Icon(Icons.check),
         enableRippleEffect: false,
@@ -88,13 +77,9 @@ void main() {
         animationDuration: Duration(seconds: 1),
         iconColor: Colors.blue,
         shape: StepNodeShape.circle,
-        decoration: BoxDecoration(
-          color: Colors.yellow,
-        ),
+        decoration: BoxDecoration(color: Colors.yellow),
         icon: Icon(Icons.star),
-        activeDecoration: BoxDecoration(
-          color: Colors.orange,
-        ),
+        activeDecoration: BoxDecoration(color: Colors.orange),
         activeIcon: Icon(Icons.check),
         enableRippleEffect: false,
       );
@@ -134,8 +119,7 @@ void main() {
       expect(copy.enableRippleEffect, isTrue);
     });
 
-    test(
-        'copyWith with explicit null values does not override existing '
+    test('copyWith with explicit null values does not override existing '
         'non-null properties', () {
       // Create a style with non-null values.
       const style = StepNodeStyle(
@@ -144,12 +128,8 @@ void main() {
         animationDuration: Duration(seconds: 1),
         iconColor: Colors.blue,
         shape: StepNodeShape.circle,
-        decoration: BoxDecoration(
-          color: Colors.yellow,
-        ),
-        activeDecoration: BoxDecoration(
-          color: Colors.orange,
-        ),
+        decoration: BoxDecoration(color: Colors.yellow),
+        activeDecoration: BoxDecoration(color: Colors.orange),
         icon: Icon(Icons.star),
         activeIcon: Icon(Icons.check),
         enableRippleEffect: false,

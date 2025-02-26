@@ -62,9 +62,10 @@ class StepNode extends StatelessWidget {
       if (borderWidth > 0 && decoration.border == null) {
         return decoration.copyWith(
           border: Border.all(
-            color: (isActive && activeBorderColor != null)
-                ? activeBorderColor
-                : borderColor,
+            color:
+                (isActive && activeBorderColor != null)
+                    ? activeBorderColor
+                    : borderColor,
             width: borderWidth,
             strokeAlign: BorderSide.strokeAlignOutside,
           ),
@@ -98,13 +99,16 @@ class StepNode extends StatelessWidget {
             isVisible: isActive,
             animationDuration:
                 style.animationDuration ?? theme.stepAnimationDuration,
-            decoration: style.activeDecoration?.copyWith(
-                  color: style.activeDecoration?.color ??
+            decoration:
+                style.activeDecoration?.copyWith(
+                  color:
+                      style.activeDecoration?.color ??
                       style.activeForegroundColor ??
                       theme.activeForegroundColor,
                 ) ??
                 style.decoration.copyWith(
-                  color: style.activeForegroundColor ??
+                  color:
+                      style.activeForegroundColor ??
                       theme.activeForegroundColor,
                 ),
             stepNodeShape: style.shape ?? theme.shape,

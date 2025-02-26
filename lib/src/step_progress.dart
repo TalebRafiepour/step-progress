@@ -100,22 +100,19 @@ class StepProgress extends StatefulWidget {
     this.onStepChanged,
     this.nodeIconBuilder,
     this.nodeActiveIconBuilder,
-  })  : assert(
-          totalSteps > 0,
-          'totalSteps must be greater than 0',
-        ),
-        assert(
-          currentStep < totalSteps,
-          'currentStep must be  lower than totalSteps',
-        ),
-        assert(
-          titles == null || titles.length <= totalSteps,
-          'titles must be equals to or less than total steps',
-        ),
-        assert(
-          subTitles == null || subTitles.length <= totalSteps,
-          'subTitles must be equals to or less than total steps',
-        );
+  }) : assert(totalSteps > 0, 'totalSteps must be greater than 0'),
+       assert(
+         currentStep < totalSteps,
+         'currentStep must be  lower than totalSteps',
+       ),
+       assert(
+         titles == null || titles.length <= totalSteps,
+         'titles must be equals to or less than total steps',
+       ),
+       assert(
+         subTitles == null || subTitles.length <= totalSteps,
+         'subTitles must be equals to or less than total steps',
+       );
 
   /// Titles for each step in the progress
   final List<String>? titles;
@@ -251,35 +248,34 @@ class _StepProgressState extends State<StepProgress>
         width: widget.width,
         height: widget.height,
         color: Colors.transparent,
-        margin: widget.margin.add(
-          EdgeInsets.all(widget.theme.borderWidth),
-        ),
+        margin: widget.margin.add(EdgeInsets.all(widget.theme.borderWidth)),
         padding: widget.padding,
-        child: widget.axis == Axis.horizontal
-            ? HorizontalStepProgress(
-                totalStep: widget.totalSteps,
-                currentStep: _currentStep,
-                titles: widget.titles,
-                subTitles: widget.subTitles,
-                stepSize: widget.stepSize,
-                onStepNodeTapped: widget.onStepNodeTapped,
-                onStepLineTapped: widget.onStepLineTapped,
-                visibilityOptions: widget.visibilityOptions,
-                nodeIconBuilder: widget.nodeIconBuilder,
-                nodeActiveIconBuilder: widget.nodeActiveIconBuilder,
-              )
-            : VerticalStepProgress(
-                totalStep: widget.totalSteps,
-                currentStep: _currentStep,
-                titles: widget.titles,
-                subTitles: widget.subTitles,
-                stepSize: widget.stepSize,
-                onStepNodeTapped: widget.onStepNodeTapped,
-                onStepLineTapped: widget.onStepLineTapped,
-                visibilityOptions: widget.visibilityOptions,
-                nodeIconBuilder: widget.nodeIconBuilder,
-                nodeActiveIconBuilder: widget.nodeActiveIconBuilder,
-              ),
+        child:
+            widget.axis == Axis.horizontal
+                ? HorizontalStepProgress(
+                  totalStep: widget.totalSteps,
+                  currentStep: _currentStep,
+                  titles: widget.titles,
+                  subTitles: widget.subTitles,
+                  stepSize: widget.stepSize,
+                  onStepNodeTapped: widget.onStepNodeTapped,
+                  onStepLineTapped: widget.onStepLineTapped,
+                  visibilityOptions: widget.visibilityOptions,
+                  nodeIconBuilder: widget.nodeIconBuilder,
+                  nodeActiveIconBuilder: widget.nodeActiveIconBuilder,
+                )
+                : VerticalStepProgress(
+                  totalStep: widget.totalSteps,
+                  currentStep: _currentStep,
+                  titles: widget.titles,
+                  subTitles: widget.subTitles,
+                  stepSize: widget.stepSize,
+                  onStepNodeTapped: widget.onStepNodeTapped,
+                  onStepLineTapped: widget.onStepLineTapped,
+                  visibilityOptions: widget.visibilityOptions,
+                  nodeIconBuilder: widget.nodeIconBuilder,
+                  nodeActiveIconBuilder: widget.nodeActiveIconBuilder,
+                ),
       ),
     );
   }

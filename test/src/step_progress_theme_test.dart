@@ -16,20 +16,28 @@ void main() {
   group('StepProgressTheme updateShouldNotify', () {
     test('returns false if data is the same instance', () {
       // Create two widgets with the same data instance.
-      final oldWidget =
-          StepProgressTheme(data: dummyThemeData1, child: Container());
-      final newWidget =
-          StepProgressTheme(data: dummyThemeData1, child: Container());
+      final oldWidget = StepProgressTheme(
+        data: dummyThemeData1,
+        child: Container(),
+      );
+      final newWidget = StepProgressTheme(
+        data: dummyThemeData1,
+        child: Container(),
+      );
       // Expect updateShouldNotify to be false since they share same data.
       expect(newWidget.updateShouldNotify(oldWidget), isFalse);
     });
 
     test('returns true if data are different', () {
       // Create two widgets with different data instances.
-      final oldWidget =
-          StepProgressTheme(data: dummyThemeData1, child: Container());
-      final newWidget =
-          StepProgressTheme(data: dummyThemeData2, child: Container());
+      final oldWidget = StepProgressTheme(
+        data: dummyThemeData1,
+        child: Container(),
+      );
+      final newWidget = StepProgressTheme(
+        data: dummyThemeData2,
+        child: Container(),
+      );
       // Expect updateShouldNotify to be true since the data has changed.
       expect(newWidget.updateShouldNotify(oldWidget), isTrue);
     });
@@ -50,11 +58,7 @@ void main() {
         ),
       );
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: testWidget,
-        ),
-      );
+      await tester.pumpWidget(MaterialApp(home: testWidget));
       // The retrieved theme should match the dummyThemeData1 we provided.
       expect(retrievedTheme, equals(dummyThemeData1));
     });
@@ -69,11 +73,7 @@ void main() {
         },
       );
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: testWidget,
-        ),
-      );
+      await tester.pumpWidget(MaterialApp(home: testWidget));
       // Since no StepProgressTheme is provided higher in the tree,
       // retrievedTheme should be null.
       expect(retrievedTheme, isNull);
@@ -82,8 +82,9 @@ void main() {
 
   // Additional tests for edge cases:
   group('Additional tests', () {
-    testWidgets('supports nested themes, retrieving the nearest ancestor',
-        (tester) async {
+    testWidgets('supports nested themes, retrieving the nearest ancestor', (
+      tester,
+    ) async {
       // Create two themes; the inner one should override the outer one.
       StepProgressThemeData? retrievedTheme;
       final outerTheme = StepProgressTheme(
@@ -99,17 +100,14 @@ void main() {
         ),
       );
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: outerTheme,
-        ),
-      );
+      await tester.pumpWidget(MaterialApp(home: outerTheme));
       // The retrieved theme should be the inner one (dummyThemeData2).
       expect(retrievedTheme, equals(dummyThemeData2));
     });
 
-    testWidgets('widget tree performance under repeated rebuilds',
-        (tester) async {
+    testWidgets('widget tree performance under repeated rebuilds', (
+      tester,
+    ) async {
       // Test scenario: rebuilds multiple times and ensures the theme remains
       // consistent.
       const statefulWidget = _ThemeTestWidget(
@@ -117,11 +115,7 @@ void main() {
         newTheme: dummyThemeData2,
       );
 
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: statefulWidget,
-        ),
-      );
+      await tester.pumpWidget(const MaterialApp(home: statefulWidget));
 
       // Retrieve initial theme value.
       final stateFinder = find.byType(_ThemeTestWidget);
@@ -138,10 +132,7 @@ void main() {
 
 // A helper widget to test dynamic theme change.
 class _ThemeTestWidget extends StatefulWidget {
-  const _ThemeTestWidget({
-    required this.initialData,
-    required this.newTheme,
-  });
+  const _ThemeTestWidget({required this.initialData, required this.newTheme});
   final StepProgressThemeData initialData;
   final StepProgressThemeData newTheme;
 
@@ -168,9 +159,6 @@ class _ThemeTestWidgetState extends State<_ThemeTestWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return StepProgressTheme(
-      data: currentTheme,
-      child: Container(),
-    );
+    return StepProgressTheme(data: currentTheme, child: Container());
   }
 }

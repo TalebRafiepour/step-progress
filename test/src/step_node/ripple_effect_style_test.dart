@@ -31,31 +31,32 @@ void main() {
       expect(copy.animationDuration, original.animationDuration);
     });
 
-    test('copyWith updates selected properties while leaving others unchanged',
-        () {
-      const original = RippleEffectStyle(
-        foregroundColor: Colors.red,
-        borderColor: Colors.blue,
-        borderWidth: 4,
-        animationDuration: Duration(milliseconds: 300),
-      );
-
-      // Update borderColor and borderWidth.
-      final updated = original.copyWith(
-        borderColor: Colors.green,
-        borderWidth: 5,
-      );
-
-      // Verify updated properties.
-      expect(updated.borderColor, Colors.green);
-      expect(updated.borderWidth, 5);
-      // Verify unchanged properties.
-      expect(updated.foregroundColor, original.foregroundColor);
-      expect(updated.animationDuration, original.animationDuration);
-    });
-
     test(
-        'copyWith does not override existing non-null values when passing '
+      'copyWith updates selected properties while leaving others unchanged',
+      () {
+        const original = RippleEffectStyle(
+          foregroundColor: Colors.red,
+          borderColor: Colors.blue,
+          borderWidth: 4,
+          animationDuration: Duration(milliseconds: 300),
+        );
+
+        // Update borderColor and borderWidth.
+        final updated = original.copyWith(
+          borderColor: Colors.green,
+          borderWidth: 5,
+        );
+
+        // Verify updated properties.
+        expect(updated.borderColor, Colors.green);
+        expect(updated.borderWidth, 5);
+        // Verify unchanged properties.
+        expect(updated.foregroundColor, original.foregroundColor);
+        expect(updated.animationDuration, original.animationDuration);
+      },
+    );
+
+    test('copyWith does not override existing non-null values when passing '
         'null explicitly', () {
       const original = RippleEffectStyle(
         foregroundColor: Colors.red,
@@ -82,10 +83,7 @@ void main() {
 
     test('copyWith not accepts a negative borderWidth', () {
       const original = RippleEffectStyle(borderWidth: 4);
-      expect(
-        () => original.copyWith(borderWidth: -1),
-        throwsAssertionError,
-      );
+      expect(() => original.copyWith(borderWidth: -1), throwsAssertionError);
     });
   });
 }

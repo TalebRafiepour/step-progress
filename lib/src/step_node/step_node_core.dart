@@ -12,11 +12,7 @@ class StepNodeCore extends StatelessWidget {
   const StepNodeCore({
     required this.stepNodeShape,
     this.decoration,
-    this.icon = const Icon(
-      Icons.check,
-      size: 18,
-      color: Colors.white,
-    ),
+    this.icon = const Icon(Icons.check, size: 18, color: Colors.white),
     this.animationDuration = const Duration(milliseconds: 150),
     this.isVisible = true,
     this.width,
@@ -55,15 +51,16 @@ class StepNodeCore extends StatelessWidget {
       child: AnimatedScale(
         duration: animationDuration,
         scale: isVisible ? 1 : 0,
-        child: !isVisible
-            ? null
-            : StepNodeShapedContainer(
-                width: width,
-                height: height,
-                stepNodeShape: stepNodeShape,
-                decoration: decoration,
-                child: icon,
-              ),
+        child:
+            !isVisible
+                ? null
+                : StepNodeShapedContainer(
+                  width: width,
+                  height: height,
+                  stepNodeShape: stepNodeShape,
+                  decoration: decoration,
+                  child: icon,
+                ),
       ),
     );
   }

@@ -10,78 +10,81 @@ import '../helper/test_theme_wrapper.dart';
 void main() {
   group('VerticalStepProgress Widget Tests', () {
     testWidgets(
-        'Positive test: renders correct number of step nodes and step lines',
-        (tester) async {
-      // A simple callback trackers.
-      int tappedNodeIndex = -1;
-      int tappedLineIndex = -1;
+      'Positive test: renders correct number of step nodes and step lines',
+      (tester) async {
+        // A simple callback trackers.
+        int tappedNodeIndex = -1;
+        int tappedLineIndex = -1;
 
-      // Instantiate the widget with totalStep = 5 and currentStep = 2.
-      final widget = TestThemeWrapper(
-        child: Scaffold(
-          body: VerticalStepProgress(
-            totalStep: 5,
-            currentStep: 1,
-            stepSize: 30,
-            visibilityOptions: StepProgressVisibilityOptions.both,
-            titles: const ['Step 1', 'Step 2', 'Step 3', 'Step 4', 'Step 5'],
-            subTitles: const [
-              'Description 1',
-              'Description 2',
-              'Description 3',
-              'Description 4',
-              'Description 5',
-            ],
-            onStepNodeTapped: (step) {
-              tappedNodeIndex = step;
-            },
-            onStepLineTapped: (step) {
-              tappedLineIndex = step;
-            },
-            nodeIconBuilder: (step) {
-              return Icon(Icons.circle, key: Key('node_$step'));
-            },
-            nodeActiveIconBuilder: (step) {
-              return Icon(Icons.check_circle, key: Key('active_node_$step'));
-            },
+        // Instantiate the widget with totalStep = 5 and currentStep = 2.
+        final widget = TestThemeWrapper(
+          child: Scaffold(
+            body: VerticalStepProgress(
+              totalStep: 5,
+              currentStep: 1,
+              stepSize: 30,
+              visibilityOptions: StepProgressVisibilityOptions.both,
+              titles: const ['Step 1', 'Step 2', 'Step 3', 'Step 4', 'Step 5'],
+              subTitles: const [
+                'Description 1',
+                'Description 2',
+                'Description 3',
+                'Description 4',
+                'Description 5',
+              ],
+              onStepNodeTapped: (step) {
+                tappedNodeIndex = step;
+              },
+              onStepLineTapped: (step) {
+                tappedLineIndex = step;
+              },
+              nodeIconBuilder: (step) {
+                return Icon(Icons.circle, key: Key('node_$step'));
+              },
+              nodeActiveIconBuilder: (step) {
+                return Icon(Icons.check_circle, key: Key('active_node_$step'));
+              },
+            ),
           ),
-        ),
-      );
+        );
 
-      await tester.pumpWidget(widget);
+        await tester.pumpWidget(widget);
 
-      // Verify that there are exactly 5 StepGenerators rendered as step nodes.
-      final stepNodes = find.byType(StepGenerator);
-      expect(stepNodes, findsNWidgets(5));
+        // Verify that there are exactly 5 StepGenerators rendered as
+        // step nodes.
+        final stepNodes = find.byType(StepGenerator);
+        expect(stepNodes, findsNWidgets(5));
 
-      // Verify that there are exactly 4 step lines rendered.
-      final stepLines = find.byType(StepLine);
-      expect(stepLines, findsNWidgets(4));
+        // Verify that there are exactly 4 step lines rendered.
+        final stepLines = find.byType(StepLine);
+        expect(stepLines, findsNWidgets(4));
 
-      // Simulate tapping on the third step node.
-      // Note: Since the node icons are built via the builder, we locate one
-      // by its key.
-      // make sure tapped node is not active, because key is provided from
-      // inactive nodes
-      await tester.tap(find.byKey(const Key('node_2')));
-      await tester.pumpAndSettle();
+        // Simulate tapping on the third step node.
+        // Note: Since the node icons are built via the builder, we locate one
+        // by its key.
+        // make sure tapped node is not active, because key is provided from
+        // inactive nodes
+        await tester.tap(find.byKey(const Key('node_2')));
+        await tester.pumpAndSettle();
 
-      expect(tappedNodeIndex, 2);
+        expect(tappedNodeIndex, 2);
 
-      // Simulate tapping on the second step line.
-      // Keys/identifiers are not added to the step lines, so we use find.byType with an index.
-      // To simulate a tap on the second line, we use tester.widgetList.
-      final stepLineWidgets = tester.widgetList<StepLine>(stepLines).toList();
-      expect(stepLineWidgets.length, equals(4));
-      // We assume the onTap callback is attached. Tap the second one.
-      await tester.tap(find.byWidget(stepLineWidgets[1]));
-      await tester.pumpAndSettle();
+        // Simulate tapping on the second step line.
+        // Keys/identifiers are not added to the step lines, so we use find.byType with an index.
+        // To simulate a tap on the second line, we use tester.widgetList.
+        final stepLineWidgets = tester.widgetList<StepLine>(stepLines).toList();
+        expect(stepLineWidgets.length, equals(4));
+        // We assume the onTap callback is attached. Tap the second one.
+        await tester.tap(find.byWidget(stepLineWidgets[1]));
+        await tester.pumpAndSettle();
 
-      expect(tappedLineIndex, 1);
-    });
+        expect(tappedLineIndex, 1);
+      },
+    );
 
-    testWidgets('Negative test: Handles currentStep out of bounds gracefully',
-        (tester) async {
+    testWidgets('Negative test: Handles currentStep out of bounds gracefully', (
+      tester,
+    ) async {
       // When currentStep is out of the expected bound (negative), the widget
       // may still build but all nodes should be inactive.
       final widget = TestThemeWrapper(
@@ -134,8 +137,10 @@ void main() {
             stepSize: 30,
             visibilityOptions: StepProgressVisibilityOptions.both,
             titles: List.generate(totalSteps, (index) => 'Step ${index + 1}'),
-            subTitles:
-                List.generate(totalSteps, (index) => 'Desc ${index + 1}'),
+            subTitles: List.generate(
+              totalSteps,
+              (index) => 'Desc ${index + 1}',
+            ),
             onStepNodeTapped: (_) {},
             onStepLineTapped: (_) {},
             nodeIconBuilder: (step) {
@@ -166,8 +171,9 @@ void main() {
       }
     });
 
-    testWidgets('Test buildStepLines with highlightCompletedSteps false',
-        (tester) async {
+    testWidgets('Test buildStepLines with highlightCompletedSteps false', (
+      tester,
+    ) async {
       // In this scenario, only the step line immediately preceding the current
       // step should be active.
       // currentStep = 3 => only the step line for index 2 should be active.
@@ -189,10 +195,7 @@ void main() {
               return Icon(Icons.circle, key: Key('node_$step'));
             },
             nodeActiveIconBuilder: (step) {
-              return Icon(
-                Icons.check_circle,
-                key: Key('active_node_$step'),
-              );
+              return Icon(Icons.check_circle, key: Key('active_node_$step'));
             },
           ),
         ),
@@ -214,8 +217,9 @@ void main() {
       expect(tappedLineIndex, 2);
     });
 
-    testWidgets('Negative test: titles and subTitles length mismatch',
-        (tester) async {
+    testWidgets('Negative test: titles and subTitles length mismatch', (
+      tester,
+    ) async {
       // In this case, we supply fewer titles than total steps.
       // The widget should not crash and should treat unavailable title/subtitle as null.
       final widget = TestThemeWrapper(
@@ -236,10 +240,7 @@ void main() {
               return Icon(Icons.circle, key: Key('node_$step'));
             },
             nodeActiveIconBuilder: (step) {
-              return Icon(
-                Icons.check_circle,
-                key: Key('active_node_$step'),
-              );
+              return Icon(Icons.check_circle, key: Key('active_node_$step'));
             },
           ),
         ),

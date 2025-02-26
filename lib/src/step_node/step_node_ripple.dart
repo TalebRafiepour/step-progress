@@ -45,14 +45,8 @@ class StepNodeRipple extends StatelessWidget {
     this.count = 6,
     this.isVisible = true,
     super.key,
-  })  : assert(
-          width >= 0,
-          'Width must be equal or greater than 0',
-        ),
-        assert(
-          height >= 0,
-          'Height must be equal or greater than 0',
-        );
+  }) : assert(width >= 0, 'Width must be equal or greater than 0'),
+       assert(height >= 0, 'Height must be equal or greater than 0');
 
   /// The shape of the step node.
   final StepNodeShape stepNodeShape;
@@ -86,13 +80,12 @@ class StepNodeRipple extends StatelessWidget {
       child: AnimatedScale(
         duration: animationDuration(),
         scale: isVisible ? 1 : 0,
-        child: !isVisible
-            ? null
-            : Stack(
-                alignment: Alignment.center,
-                children: List.generate(
-                  count,
-                  (index) {
+        child:
+            !isVisible
+                ? null
+                : Stack(
+                  alignment: Alignment.center,
+                  children: List.generate(count, (index) {
                     return StepNodeShapedContainer(
                       stepNodeShape: stepNodeShape,
                       width: width - index * (width / count),
@@ -104,14 +97,16 @@ class StepNodeRipple extends StatelessWidget {
                               style.borderColor ?? theme.activeForegroundColor,
                           width: style.borderWidth,
                         ),
-                        borderRadius: theme
-                                .stepNodeStyle.activeDecoration?.borderRadius ??
+                        borderRadius:
+                            theme
+                                .stepNodeStyle
+                                .activeDecoration
+                                ?.borderRadius ??
                             theme.stepNodeStyle.decoration.borderRadius,
                       ),
                     );
-                  },
+                  }),
                 ),
-              ),
       ),
     );
   }

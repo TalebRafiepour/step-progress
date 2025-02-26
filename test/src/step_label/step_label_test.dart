@@ -29,10 +29,7 @@ void main() {
   Widget buildTestableWidget(Widget child) {
     return MaterialApp(
       home: Scaffold(
-        body: StepProgressTheme(
-          data: dummyThemeData,
-          child: child,
-        ),
+        body: StepProgressTheme(data: dummyThemeData, child: child),
       ),
     );
   }
@@ -54,11 +51,7 @@ void main() {
 
     testWidgets('Displays only title when subTitle is null', (tester) async {
       await tester.pumpWidget(
-        buildTestableWidget(
-          const StepLabel(
-            title: 'Only Title',
-          ),
-        ),
+        buildTestableWidget(const StepLabel(title: 'Only Title')),
       );
       expect(find.text('Only Title'), findsOneWidget);
       // There should be no widget with an empty subtitle.
@@ -72,11 +65,7 @@ void main() {
 
     testWidgets('Displays only subtitle when title is null', (tester) async {
       await tester.pumpWidget(
-        buildTestableWidget(
-          const StepLabel(
-            subTitle: 'Only Subtitle',
-          ),
-        ),
+        buildTestableWidget(const StepLabel(subTitle: 'Only Subtitle')),
       );
       expect(find.text('Only Subtitle'), findsOneWidget);
       expect(
@@ -90,10 +79,7 @@ void main() {
     testWidgets('Uses active color when isActive is true', (tester) async {
       await tester.pumpWidget(
         buildTestableWidget(
-          const StepLabel(
-            title: 'Active Step',
-            isActive: true,
-          ),
+          const StepLabel(title: 'Active Step', isActive: true),
         ),
       );
 
@@ -113,11 +99,7 @@ void main() {
 
     testWidgets('Uses default color when isActive is false', (tester) async {
       await tester.pumpWidget(
-        buildTestableWidget(
-          const StepLabel(
-            title: 'Inactive Step',
-          ),
-        ),
+        buildTestableWidget(const StepLabel(title: 'Inactive Step')),
       );
 
       final defaultTextWidget = tester.widget<AnimatedDefaultTextStyle>(
@@ -133,146 +115,152 @@ void main() {
     });
 
     testWidgets(
-        'Falls back to Material Theme text style when no custom titleStyle is'
-        ' provided', (tester) async {
-      const customThemeData = StepProgressThemeData(
-        stepAnimationDuration: Duration(milliseconds: 350),
-        activeForegroundColor: Colors.blue,
-        defaultForegroundColor: Colors.red,
-      );
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
-            body: StepProgressTheme(
-              data: customThemeData,
-              child: StepLabel(
-                title: 'Test Title',
+      'Falls back to Material Theme text style when no custom titleStyle is'
+      ' provided',
+      (tester) async {
+        const customThemeData = StepProgressThemeData(
+          stepAnimationDuration: Duration(milliseconds: 350),
+          activeForegroundColor: Colors.blue,
+          defaultForegroundColor: Colors.red,
+        );
+        await tester.pumpWidget(
+          const MaterialApp(
+            home: Scaffold(
+              body: StepProgressTheme(
+                data: customThemeData,
+                child: StepLabel(title: 'Test Title'),
               ),
             ),
           ),
-        ),
-      );
-      // Grab the AnimatedDefaultTextStyle for title.
-      final animatedText = tester.widget<AnimatedDefaultTextStyle>(
-        find
-            .descendant(
-              of: find.byType(StepLabel),
-              matching: find.byType(AnimatedDefaultTextStyle),
-            )
-            .first,
-      );
-      // The fallback should be Theme.of(context).textTheme.labelMedium.
-      final expectedStyle = Theme.of(tester.element(find.byType(StepLabel)))
-          .textTheme
-          .labelMedium;
-      expect(animatedText.style.fontSize, expectedStyle?.fontSize);
-    });
+        );
+        // Grab the AnimatedDefaultTextStyle for title.
+        final animatedText = tester.widget<AnimatedDefaultTextStyle>(
+          find
+              .descendant(
+                of: find.byType(StepLabel),
+                matching: find.byType(AnimatedDefaultTextStyle),
+              )
+              .first,
+        );
+        // The fallback should be Theme.of(context).textTheme.labelMedium.
+        final expectedStyle =
+            Theme.of(
+              tester.element(find.byType(StepLabel)),
+            ).textTheme.labelMedium;
+        expect(animatedText.style.fontSize, expectedStyle?.fontSize);
+      },
+    );
 
     testWidgets(
-        'Falls back to Material Theme text style when no custom subTitleStyle'
-        ' is provided', (tester) async {
-      const customThemeData = StepProgressThemeData(
-        stepAnimationDuration: Duration(milliseconds: 350),
-        activeForegroundColor: Colors.blue,
-        defaultForegroundColor: Colors.red,
-      );
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
-            body: StepProgressTheme(
-              data: customThemeData,
-              child: StepLabel(
-                subTitle: 'Test Subtitle',
+      'Falls back to Material Theme text style when no custom subTitleStyle'
+      ' is provided',
+      (tester) async {
+        const customThemeData = StepProgressThemeData(
+          stepAnimationDuration: Duration(milliseconds: 350),
+          activeForegroundColor: Colors.blue,
+          defaultForegroundColor: Colors.red,
+        );
+        await tester.pumpWidget(
+          const MaterialApp(
+            home: Scaffold(
+              body: StepProgressTheme(
+                data: customThemeData,
+                child: StepLabel(subTitle: 'Test Subtitle'),
               ),
             ),
           ),
-        ),
-      );
-      // Grab the AnimatedDefaultTextStyle for subtitle.
-      final animatedText = tester.widget<AnimatedDefaultTextStyle>(
-        find
-            .descendant(
-              of: find.byType(StepLabel),
-              matching: find.byType(AnimatedDefaultTextStyle),
-            )
-            .first,
-      );
-      final expectedStyle =
-          Theme.of(tester.element(find.byType(StepLabel))).textTheme.labelSmall;
-      expect(animatedText.style.fontSize, expectedStyle?.fontSize);
-    });
+        );
+        // Grab the AnimatedDefaultTextStyle for subtitle.
+        final animatedText = tester.widget<AnimatedDefaultTextStyle>(
+          find
+              .descendant(
+                of: find.byType(StepLabel),
+                matching: find.byType(AnimatedDefaultTextStyle),
+              )
+              .first,
+        );
+        final expectedStyle =
+            Theme.of(
+              tester.element(find.byType(StepLabel)),
+            ).textTheme.labelSmall;
+        expect(animatedText.style.fontSize, expectedStyle?.fontSize);
+      },
+    );
   });
 
   group('StepLabel Private Methods (Indirect Testing)', () {
     testWidgets(
-        'The _titleStyle method falls back to Theme.textTheme.labelMedium '
-        'when null', (tester) async {
-      // We indirectly test _titleStyle by not providing a custom titleStyle.
-      const customThemeData = StepProgressThemeData(
-        stepAnimationDuration: Duration(milliseconds: 350),
-        activeForegroundColor: Colors.blue,
-        defaultForegroundColor: Colors.red,
-      );
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
-            body: StepProgressTheme(
-              data: customThemeData,
-              child: StepLabel(
-                title: 'Fallback TitleStyle',
+      'The _titleStyle method falls back to Theme.textTheme.labelMedium '
+      'when null',
+      (tester) async {
+        // We indirectly test _titleStyle by not providing a custom titleStyle.
+        const customThemeData = StepProgressThemeData(
+          stepAnimationDuration: Duration(milliseconds: 350),
+          activeForegroundColor: Colors.blue,
+          defaultForegroundColor: Colors.red,
+        );
+        await tester.pumpWidget(
+          const MaterialApp(
+            home: Scaffold(
+              body: StepProgressTheme(
+                data: customThemeData,
+                child: StepLabel(title: 'Fallback TitleStyle'),
               ),
             ),
           ),
-        ),
-      );
-      // The AnimatedDefaultTextStyle widget used should have style similar
-      // to Theme.of(context).textTheme.labelMedium.
-      final widgetTitle = tester.widget<AnimatedDefaultTextStyle>(
-        find
-            .descendant(
-              of: find.byType(StepLabel),
-              matching: find.byType(AnimatedDefaultTextStyle),
-            )
-            .first,
-      );
-      final expectedStyle = Theme.of(tester.element(find.byType(StepLabel)))
-          .textTheme
-          .labelMedium;
-      expect(widgetTitle.style.fontSize, expectedStyle?.fontSize);
-    });
+        );
+        // The AnimatedDefaultTextStyle widget used should have style similar
+        // to Theme.of(context).textTheme.labelMedium.
+        final widgetTitle = tester.widget<AnimatedDefaultTextStyle>(
+          find
+              .descendant(
+                of: find.byType(StepLabel),
+                matching: find.byType(AnimatedDefaultTextStyle),
+              )
+              .first,
+        );
+        final expectedStyle =
+            Theme.of(
+              tester.element(find.byType(StepLabel)),
+            ).textTheme.labelMedium;
+        expect(widgetTitle.style.fontSize, expectedStyle?.fontSize);
+      },
+    );
 
     testWidgets(
-        'The _subTitleStyle method falls back to Theme.textTheme.labelSmall '
-        'when null', (tester) async {
-      // Similar test for subTitleStyle fallback.
-      const customThemeData = StepProgressThemeData(
-        stepAnimationDuration: Duration(milliseconds: 350),
-        activeForegroundColor: Colors.blue,
-        defaultForegroundColor: Colors.red,
-      );
-      await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
-            body: StepProgressTheme(
-              data: customThemeData,
-              child: StepLabel(
-                subTitle: 'Fallback SubTitleStyle',
+      'The _subTitleStyle method falls back to Theme.textTheme.labelSmall '
+      'when null',
+      (tester) async {
+        // Similar test for subTitleStyle fallback.
+        const customThemeData = StepProgressThemeData(
+          stepAnimationDuration: Duration(milliseconds: 350),
+          activeForegroundColor: Colors.blue,
+          defaultForegroundColor: Colors.red,
+        );
+        await tester.pumpWidget(
+          const MaterialApp(
+            home: Scaffold(
+              body: StepProgressTheme(
+                data: customThemeData,
+                child: StepLabel(subTitle: 'Fallback SubTitleStyle'),
               ),
             ),
           ),
-        ),
-      );
-      final widgetSubTitle = tester.widget<AnimatedDefaultTextStyle>(
-        find
-            .descendant(
-              of: find.byType(StepLabel),
-              matching: find.byType(AnimatedDefaultTextStyle),
-            )
-            .first,
-      );
-      final expectedStyle =
-          Theme.of(tester.element(find.byType(StepLabel))).textTheme.labelSmall;
-      expect(widgetSubTitle.style.fontSize, expectedStyle?.fontSize);
-    });
+        );
+        final widgetSubTitle = tester.widget<AnimatedDefaultTextStyle>(
+          find
+              .descendant(
+                of: find.byType(StepLabel),
+                matching: find.byType(AnimatedDefaultTextStyle),
+              )
+              .first,
+        );
+        final expectedStyle =
+            Theme.of(
+              tester.element(find.byType(StepLabel)),
+            ).textTheme.labelSmall;
+        expect(widgetSubTitle.style.fontSize, expectedStyle?.fontSize);
+      },
+    );
   });
 }

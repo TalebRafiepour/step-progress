@@ -46,50 +46,59 @@ class StepLabel extends StatelessWidget {
       padding: style.padding,
       margin: style.margin,
       alignment: Alignment.center,
-      constraints: BoxConstraints(
-        maxWidth: style.maxWidth,
-      ),
-      child: (title == null && subTitle == null)
-          ? null
-          : Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: style.labelAxisAlignment,
-              children: [
-                if (title != null)
-                  AnimatedDefaultTextStyle(
-                    duration:
-                        style.animationDuration ?? theme.stepAnimationDuration,
-                    style: _titleStyle(style.titleStyle, context).copyWith(
-                      color: isActive
-                          ? style.activeColor ?? theme.activeForegroundColor
-                          : style.defualtColor ?? theme.defaultForegroundColor,
+      constraints: BoxConstraints(maxWidth: style.maxWidth),
+      child:
+          (title == null && subTitle == null)
+              ? null
+              : Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: style.labelAxisAlignment,
+                children: [
+                  if (title != null)
+                    AnimatedDefaultTextStyle(
+                      duration:
+                          style.animationDuration ??
+                          theme.stepAnimationDuration,
+                      style: _titleStyle(style.titleStyle, context).copyWith(
+                        color:
+                            isActive
+                                ? style.activeColor ??
+                                    theme.activeForegroundColor
+                                : style.defualtColor ??
+                                    theme.defaultForegroundColor,
+                      ),
+                      child: Text(
+                        title!,
+                        textAlign: style.textAlign,
+                        overflow: style.overflow,
+                        maxLines: style.titleMaxLines,
+                      ),
                     ),
-                    child: Text(
-                      title!,
-                      textAlign: style.textAlign,
-                      overflow: style.overflow,
-                      maxLines: style.titleMaxLines,
+                  if (subTitle != null)
+                    AnimatedDefaultTextStyle(
+                      duration:
+                          style.animationDuration ??
+                          theme.stepAnimationDuration,
+                      style: _subTitleStyle(
+                        style.subTitleStyle,
+                        context,
+                      ).copyWith(
+                        color:
+                            isActive
+                                ? style.activeColor ??
+                                    theme.activeForegroundColor
+                                : style.defualtColor ??
+                                    theme.defaultForegroundColor,
+                      ),
+                      child: Text(
+                        subTitle!,
+                        textAlign: style.textAlign,
+                        overflow: style.overflow,
+                        maxLines: style.subTitleMaxLines,
+                      ),
                     ),
-                  ),
-                if (subTitle != null)
-                  AnimatedDefaultTextStyle(
-                    duration:
-                        style.animationDuration ?? theme.stepAnimationDuration,
-                    style:
-                        _subTitleStyle(style.subTitleStyle, context).copyWith(
-                      color: isActive
-                          ? style.activeColor ?? theme.activeForegroundColor
-                          : style.defualtColor ?? theme.defaultForegroundColor,
-                    ),
-                    child: Text(
-                      subTitle!,
-                      textAlign: style.textAlign,
-                      overflow: style.overflow,
-                      maxLines: style.subTitleMaxLines,
-                    ),
-                  ),
-              ],
-            ),
+                ],
+              ),
     );
   }
 

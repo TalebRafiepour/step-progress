@@ -136,12 +136,14 @@ void main() {
     });
 
     test('Toggle ripple effect functionality', () {
-      const themeWithoutRipple =
-          StepProgressThemeData(enableRippleEffect: false);
+      const themeWithoutRipple = StepProgressThemeData(
+        enableRippleEffect: false,
+      );
       expect(themeWithoutRipple.enableRippleEffect, isFalse);
 
-      final themeWithRipple =
-          themeWithoutRipple.copyWith(enableRippleEffect: true);
+      final themeWithRipple = themeWithoutRipple.copyWith(
+        enableRippleEffect: true,
+      );
       expect(themeWithRipple.enableRippleEffect, isTrue);
     });
   });
