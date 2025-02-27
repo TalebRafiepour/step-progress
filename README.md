@@ -5,6 +5,8 @@
 [![GitHub Open Issues](https://img.shields.io/github/issues/TalebRafiepour/step_progress?color=red)](https://github.com/TalebRafiepour/step_progress/issues)
 [![GitHub Closed Issues](https://img.shields.io/github/issues-closed/TalebRafiepour/step_progress)](https://github.com/TalebRafiepour/step_progress/issues?q=is%3Aissue+is%3Aclosed)
 ![GitHub License](https://img.shields.io/github/license/TalebRafiepour/step_progress)
+[![codecov](https://codecov.io/gh/TalebRafiepour/step_progress/graph/badge.svg)](https://codecov.io/gh/TalebRafiepour/step_progress)
+
 
 **StepProgress** is a lightweight and highly flexible package designed to display step progress indicators for completing multi-step tasks in a user interface. This package supports both **vertical and horizontal** orientations, allowing developers to customize the display according to their application's needs. It provides a variety of customizable widgets that visually represent the progress of a task, making it easier for users to understand their current position and the steps remaining. With this flexibility, **StepProgress** can seamlessly integrate into various UI designs, enhancing user experience across different platforms.
 
