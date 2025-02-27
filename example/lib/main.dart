@@ -2,6 +2,7 @@ import 'package:example/example_eight.dart';
 import 'package:example/example_eleven.dart';
 import 'package:example/example_five.dart';
 import 'package:example/example_four.dart';
+import 'package:example/example_fourteen.dart';
 import 'package:example/example_nine.dart';
 import 'package:example/example_one.dart';
 import 'package:example/example_reproduce_issues.dart';
@@ -188,6 +189,17 @@ class HomePage extends StatelessWidget {
                   );
                 },
                 child: const Text('Example Thirteen'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const ExampleFourteen(),
+                    ),
+                  );
+                },
+                child: const Text('Example Fourteen'),
               ),
               ElevatedButton(
                 onPressed: () {
