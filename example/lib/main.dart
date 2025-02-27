@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
                     ),
                   );
                 },
-                child: const Text('Example One'),
+                child: const Text('Example One (Vertical)'),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -67,7 +67,7 @@ class HomePage extends StatelessWidget {
                     ),
                   );
                 },
-                child: const Text('Example Two'),
+                child: const Text('Example Two (Horizontal - without labels)'),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -78,7 +78,7 @@ class HomePage extends StatelessWidget {
                     ),
                   );
                 },
-                child: const Text('Example Three'),
+                child: const Text('Example Three (LineOnly-Custom)'),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -89,7 +89,7 @@ class HomePage extends StatelessWidget {
                     ),
                   );
                 },
-                child: const Text('Example Four'),
+                child: const Text('Example Four (LineOnly Custom)'),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -100,7 +100,7 @@ class HomePage extends StatelessWidget {
                     ),
                   );
                 },
-                child: const Text('Example Five'),
+                child: const Text('Example Five (Border)'),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -111,7 +111,7 @@ class HomePage extends StatelessWidget {
                     ),
                   );
                 },
-                child: const Text('Example Six'),
+                child: const Text('Example Six (Positioned Labels)'),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -122,7 +122,7 @@ class HomePage extends StatelessWidget {
                     ),
                   );
                 },
-                child: const Text('Example Seven'),
+                child: const Text('Example Seven (NodeOnly)'),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -133,7 +133,7 @@ class HomePage extends StatelessWidget {
                     ),
                   );
                 },
-                child: const Text('Example Eight'),
+                child: const Text('Example Eight (LineSpacing)'),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -144,7 +144,7 @@ class HomePage extends StatelessWidget {
                     ),
                   );
                 },
-                child: const Text('Example Nine'),
+                child: const Text('Example Nine (SquareShape)'),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -155,7 +155,7 @@ class HomePage extends StatelessWidget {
                     ),
                   );
                 },
-                child: const Text('Example Ten'),
+                child: const Text('Example Ten (TriangleShape)'),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -166,7 +166,7 @@ class HomePage extends StatelessWidget {
                     ),
                   );
                 },
-                child: const Text('Example Elevn'),
+                child: const Text('Example Elevn (DiamondShape)'),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -177,7 +177,7 @@ class HomePage extends StatelessWidget {
                     ),
                   );
                 },
-                child: const Text('Example Twelve'),
+                child: const Text('Example Twelve (HexagonShape)'),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -188,7 +188,7 @@ class HomePage extends StatelessWidget {
                     ),
                   );
                 },
-                child: const Text('Example Thirteen'),
+                child: const Text('Example Thirteen (StarShape)'),
               ),
               ElevatedButton(
                 onPressed: () {
@@ -199,7 +199,7 @@ class HomePage extends StatelessWidget {
                     ),
                   );
                 },
-                child: const Text('Example Fourteen'),
+                child: const Text('Example Fourteen (LargeLabel)'),
               ),
               ElevatedButton(
                 onPressed: () {
